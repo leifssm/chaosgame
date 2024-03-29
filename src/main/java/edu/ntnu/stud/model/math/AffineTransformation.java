@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.0
  * @author Leif Mørstad
  */
-public class AffineTransformation {
+public class AffineTransformation implements Transform2D {
   private final SimpleMatrix matrix;
   private final Vector translation;
 
