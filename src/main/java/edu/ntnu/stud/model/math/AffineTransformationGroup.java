@@ -2,14 +2,16 @@ package edu.ntnu.stud.model.math;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Random;
+
 /**
  * Represents a group of affine transformations. The group is a collection of transformations which
  * are randomly picked every time the transform method is called.
  *
- * @version 1.0
+ * @version 1.1
  * @author Leif Mørstad
  */
-public class AffineTransformationGroup {
+public class AffineTransformationGroup implements Transform2D {
   /**
    * A group of affine transformations which creates a Sierpinski triangle.
    */
@@ -50,6 +52,7 @@ public class AffineTransformationGroup {
       )
   );
 
+  private final Random random = new Random();
   private final AffineTransformation[] transformations;
 
   /**
@@ -68,7 +71,7 @@ public class AffineTransformationGroup {
    * @return the randomly transformed vector
    */
   public @NotNull Vector transform(@NotNull Vector vector) {
-    int index = (int) (Math.random() * transformations.length);
+    int index = random.nextInt(transformations.length);
     return transformations[index].transform(vector);
   }
 }
