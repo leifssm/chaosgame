@@ -53,7 +53,7 @@ public class JuliaTransformation implements Transform2D {
    * @param point the vector to transform
    * @return the transformed vector
    */
-  public Vector transform(Vector point) {
+  public @NotNull Vector transform(@NotNull Vector point) {
     return transform(new ComplexNumber(point));
   }
 }

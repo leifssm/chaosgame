@@ -26,18 +26,16 @@ public class ChaosGameCanvas {
     this.canvas = new int[height][width];
     clear();
 
-    int x0Bounds = width - 1;
-    int x1Bounds = height - 1;
+    double x0Scalar = (width - 1) / (maxCoords.getX0() - minCoords.getX0());
+    double x1Scalar = (height - 1) / (maxCoords.getX1() - minCoords.getX1());
     this.coordsToIndicesTransformation = new AffineTransformation(
         new SimpleMatrix(
-            x1Bounds / (minCoords.getX1() - maxCoords.getX1()),
-            0,
-            0,
-            x0Bounds / (maxCoords.getX0() - minCoords.getX0())
+            x0Scalar, 0,
+            0, x1Scalar
         ),
         new Vector(
-            x1Bounds * maxCoords.getX1() / (maxCoords.getX1() - minCoords.getX1()),
-            x0Bounds * minCoords.getX0() / (minCoords.getX0() - maxCoords.getX0())
+            - minCoords.getX0() * x0Scalar,
+            - minCoords.getX1() * x1Scalar
         )
     );
   }
@@ -51,7 +49,7 @@ public class ChaosGameCanvas {
   }
 
   public int getPixel(int x, int y) {
-    return canvas[y][x];
+    return canvas[height - y - 1][x];
   }
 
   public void setPixel(int x, int y, int value) {
@@ -70,9 +68,14 @@ public class ChaosGameCanvas {
     setPixel(x, y, 1);
   }
 
+  public void setPixel(double x, double y) {
+    if (x < 0 || y < 0) return;
+    setPixel((int) x, (int) y);
+  }
+
   public void drawAtCoords(Vector coords) {
-    Vector indices = coordsToIndicesTransformation.transform(coords);
-    setPixel((int) indices.getX0(), (int) indices.getX1());
+    Vector scaled = coordsToIndicesTransformation.transform(coords);
+    setPixel(scaled.getX0(), scaled.getX1());
   }
 
   public int[][] getCanvas() {

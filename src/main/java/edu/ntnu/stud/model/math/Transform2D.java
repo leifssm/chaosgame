@@ -1,5 +1,7 @@
 package edu.ntnu.stud.model.math;
 
+import org.jetbrains.annotations.NotNull;
+
 public interface Transform2D {
-  Vector transform(Vector point);
+  @NotNull Vector transform(@NotNull Vector point);
 }

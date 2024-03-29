@@ -13,7 +13,7 @@ public class Main {
         AffineTransformationGroup.sierpinski
     );
     ChaosGame chaosGame = new ChaosGame(60, 20, description);
-    chaosGame.iterate(10000);
+    chaosGame.iterate(500);
     System.out.println(chaosGame.getCanvas().asString());
   }
 }
