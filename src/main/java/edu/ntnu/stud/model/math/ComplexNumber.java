@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
  * An immutable complex number with relevant methods.
  *
  * @author Leif Mørstad
- * @version 1.0
+ * @version 1.1
  */
 public class ComplexNumber extends Vector {
   /**
@@ -49,5 +49,45 @@ public class ComplexNumber extends Vector {
    */
   public @NotNull ComplexNumber sqrt() {
     return ComplexNumber.sqrt(this);
+  }
+
+  /**
+   * @see Vector#add(Vector)
+   */
+  @Override
+  public @NotNull ComplexNumber add(@NotNull Vector other) {
+    return new ComplexNumber(
+        super.add(other)
+    );
+  }
+
+  /**
+   * @see Vector#subtract(Vector)
+   */
+  @Override
+  public @NotNull ComplexNumber subtract(@NotNull Vector other) {
+    return new ComplexNumber(
+        super.subtract(other)
+    );
+  }
+
+  /**
+   * @see Vector#multiply(double)
+   */
+  @Override
+  public @NotNull ComplexNumber multiply(double scalar) {
+    return new ComplexNumber(
+        super.multiply(scalar)
+    );
+  }
+
+  /**
+   * @see Vector#divide(double)
+   */
+  @Override
+  public @NotNull ComplexNumber divide(double scalar) {
+    return new ComplexNumber(
+        super.divide(scalar)
+    );
   }
 }
