@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.0
  */
 public class JuliaTransformation {
-  private final ComplexNumber c;
+  private final ComplexNumber complexNumber;
 
   /**
    * Creates a new instance with the given complex number.
@@ -17,7 +17,7 @@ public class JuliaTransformation {
    * @param c the complex number to use in the transformation
    */
   public JuliaTransformation(ComplexNumber c) {
-    this.c = c;
+    this.complexNumber = c;
   }
 
   /**
@@ -28,7 +28,9 @@ public class JuliaTransformation {
    * @return the transformed complex number
    */
   public ComplexNumber transform(@NotNull ComplexNumber z) {
-    ComplexNumber transformed = z.subtract(c).sqrt();
+    ComplexNumber transformed = z
+        .subtract(complexNumber)
+        .sqrt();
     if (Math.random() < 0.5) {
       return transformed;
     }

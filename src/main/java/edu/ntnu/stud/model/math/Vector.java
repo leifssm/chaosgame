@@ -10,18 +10,18 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.0
  */
 public class Vector {
-  private final double x;
-  private final double y;
+  private final double x0;
+  private final double x1;
 
   /**
    * Creates a new instance with the given x and y values.
    *
-   * @param x the x value of the vector
-   * @param y the y value of the vector
+   * @param x0 the x value of the vector
+   * @param x1 the y value of the vector
    */
-  public Vector(double x, double y) {
-    this.x = x;
-    this.y = y;
+  public Vector(double x0, double x1) {
+    this.x0 = x0;
+    this.x1 = x1;
   }
 
   /**
@@ -30,15 +30,15 @@ public class Vector {
    * @return the hypotenuse of the x and the y of the vector
    */
   public double length() {
-    return Math.sqrt(x * x + y * y);
+    return Math.sqrt(x0 * x0 + x1 * x1);
   }
 
-  public double getX() {
-    return x;
+  public double getX0() {
+    return x0;
   }
 
-  public double getY() {
-    return y;
+  public double getX1() {
+    return x1;
   }
 
   /**
@@ -48,38 +48,41 @@ public class Vector {
    * @return a new vector which is the sum of this vector and the given vector
    */
   public @NotNull Vector add(@NotNull Vector vector) {
-    return new Vector(x + vector.getX(), y + vector.getY());
+    return new Vector(x0 + vector.getX0(), x1 + vector.getX1());
   }
 
   /**
    * Adds two vectors together and returns the result.
+   *
    * @param a the first vector
    * @param b the second vector
    * @return a new vector which is the sum of the two vectors
    */
   @Contract("_, _ -> new")
   public static @NotNull Vector add(@NotNull Vector a, @NotNull Vector b) {
-    return new Vector(a.getX() + b.getX(), a.getY() + b.getY());
+    return new Vector(a.getX0() + b.getX0(), a.getX1() + b.getX1());
   }
 
   /**
    * Creates a new vector which represents the difference between this vector and the given vector.
+   *
    * @param vector the vector to subtract from this vector
    * @return a new vector which is the difference between this vector and the given vector
    */
   public @NotNull Vector subtract(@NotNull Vector vector) {
-    return new Vector(x - vector.getX(), y - vector.getY());
+    return new Vector(x0 - vector.getX0(), x1 - vector.getX1());
   }
 
   /**
    * Subtracts two vectors and returns the result.
+   *
    * @param a the first vector
    * @param b the second vector
    * @return a new vector which is the difference between the two vectors
    */
   @Contract("_, _ -> new")
   public static @NotNull Vector subtract(@NotNull Vector a, @NotNull Vector b) {
-    return new Vector(a.getX() - b.getX(), a.getY() - b.getY());
+    return new Vector(a.getX0() - b.getX0(), a.getX1() - b.getX1());
   }
 
   /**
@@ -89,7 +92,7 @@ public class Vector {
    * @return a new vector which is the vector scaled by the scalar
    */
   public @NotNull Vector multiply(double scalar) {
-    return new Vector(x * scalar, y * scalar);
+    return new Vector(x0 * scalar, x1 * scalar);
   }
 
   /**
@@ -99,7 +102,7 @@ public class Vector {
    * @return a new vector which is the vector divided by the scalar
    */
   public @NotNull Vector divide(double scalar) {
-    return new Vector(x / scalar, y / scalar);
+    return new Vector(x0 / scalar, x1 / scalar);
   }
 
   /**
@@ -110,7 +113,7 @@ public class Vector {
    * @return the dot product of the two vectors
    */
   public static double dot(@NotNull Vector a, @NotNull Vector b) {
-    return a.getX() * b.getX() + a.getY() * b.getY();
+    return a.getX0() * b.getX0() + a.getX1() * b.getX1();
   }
 
   /**
@@ -125,6 +128,7 @@ public class Vector {
 
   /**
    * Calculates the angle between two vectors and returns the result.
+   *
    * @param a the first vector
    * @param b the second vector
    * @return the angle between the two vectors

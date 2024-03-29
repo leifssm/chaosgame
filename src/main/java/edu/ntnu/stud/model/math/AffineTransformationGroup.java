@@ -63,6 +63,7 @@ public class AffineTransformationGroup {
 
   /**
    * Transforms the given vector using a randomly picked transformation from the group.
+   *
    * @param vector the vector to transform
    * @return the randomly transformed vector
    */

@@ -25,7 +25,7 @@ public class ComplexNumber extends Vector {
    * @param vector the vector to copy as a complex number
    */
   public ComplexNumber(@NotNull Vector vector) {
-    super(vector.getX(), vector.getY());
+    super(vector.getX0(), vector.getX1());
   }
 
   /**
@@ -34,11 +34,11 @@ public class ComplexNumber extends Vector {
    * @param z the complex number to find the square root of
    * @return the square root of the complex number
    */
-  static public @NotNull ComplexNumber sqrt(@NotNull ComplexNumber z) {
+  public static @NotNull ComplexNumber sqrt(@NotNull ComplexNumber z) {
     double length = z.length();
-    double real = Math.sqrt((length + z.getX()) / 2);
-    double sign = Math.signum(z.getY());
-    double imaginary = sign * Math.sqrt((length - z.getX()) / 2);
+    double real = Math.sqrt((length + z.getX0()) / 2);
+    double sign = Math.signum(z.getX1());
+    double imaginary = sign * Math.sqrt((length - z.getX0()) / 2);
     return new ComplexNumber(real, imaginary);
   }
 

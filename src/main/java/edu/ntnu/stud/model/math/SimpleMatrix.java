@@ -13,6 +13,7 @@ public class SimpleMatrix {
 
   /**
    * Creates a new two-by-two matrix with the given values.
+   *
    * @param a00 the value at position (0, 0)
    * @param a01 the value at position (0, 1)
    * @param a10 the value at position (1, 0)
@@ -24,6 +25,7 @@ public class SimpleMatrix {
 
   /**
    * Returns the value at the given position in the matrix.
+   *
    * @param x the x-coordinate of the value, should be either 0 or 1
    * @param y the y-coordinate of the value, should be either 0 or 1
    * @return the value at the given position in the matrix
@@ -34,13 +36,14 @@ public class SimpleMatrix {
 
   /**
    * Multiplies this matrix with the given vector, and returns the resulting vector.
+   *
    * @param vector the vector to multiply this matrix with
    * @return the resulting vector after the multiplication
    */
   public Vector multiply(@NotNull Vector vector) {
     return new Vector(
-        get(0, 0) * vector.getX() + get(0, 1) * vector.getY(),
-        get(1, 0) * vector.getX() + get(1, 1) * vector.getY()
+        get(0, 0) * vector.getX0() + get(0, 1) * vector.getX1(),
+        get(1, 0) * vector.getX0() + get(1, 1) * vector.getX1()
     );
   }
 }
