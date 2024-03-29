@@ -9,7 +9,7 @@ import java.util.Objects;
  * An immutable two-dimensional vector with relevant methods.
  *
  * @author Leif Mørstad
- * @version 1.1
+ * @version 1.2
  */
 public class Vector {
   private final double x0;
@@ -57,7 +57,7 @@ public class Vector {
    * @return a new vector which is the sum of this vector and the given vector
    */
   public @NotNull Vector add(@NotNull Vector vector) {
-    return new Vector(x0 + vector.getX0(), x1 + vector.getX1());
+    return Vector.add(this, vector);
   }
 
   /**
@@ -79,7 +79,7 @@ public class Vector {
    * @return a new vector which is the difference between this vector and the given vector
    */
   public @NotNull Vector subtract(@NotNull Vector vector) {
-    return new Vector(x0 - vector.getX0(), x1 - vector.getX1());
+    return Vector.subtract(this, vector);
   }
 
   /**
@@ -111,6 +111,9 @@ public class Vector {
    * @return a new vector which is the vector divided by the scalar
    */
   public @NotNull Vector divide(double scalar) {
+    if (scalar == 0) {
+      throw new IllegalArgumentException("Cannot divide by zero");
+    }
     return new Vector(x0 / scalar, x1 / scalar);
   }
 
