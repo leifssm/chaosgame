@@ -15,7 +15,7 @@ public class AffineTransformationGroup implements Transform2D {
   /**
    * A group of affine transformations which creates a Sierpinski triangle.
    */
-  static final AffineTransformationGroup sierpinski = new AffineTransformationGroup(
+  public static final AffineTransformationGroup sierpinski = new AffineTransformationGroup(
       new AffineTransformation(
           new SimpleMatrix(0.5, 0, 0, 0.5),
           new Vector(0, 0)
@@ -33,7 +33,7 @@ public class AffineTransformationGroup implements Transform2D {
   /**
    * A group of affine transformations which creates a Barnsley fern.
    */
-  static final AffineTransformationGroup barnsley = new AffineTransformationGroup(
+  public static final AffineTransformationGroup barnsley = new AffineTransformationGroup(
       new AffineTransformation(
           new SimpleMatrix(0, 0, 0, 0.16),
           new Vector(0, 0)

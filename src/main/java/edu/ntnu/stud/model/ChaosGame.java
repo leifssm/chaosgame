@@ -1,6 +1,7 @@
 package edu.ntnu.stud.model;
 
 import edu.ntnu.stud.model.math.Vector;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -13,10 +14,9 @@ import java.util.Random;
 public class ChaosGame {
   private final ChaosGameCanvas canvas;
   private final ChaosGameDescription description;
-  private final Vector currentPoint = new Vector(0, 0);
-  private final Random random = new Random();
+  private Vector currentPoint = new Vector(0, 0);
 
-  public ChaosGame(ChaosGameDescription description, int width, int height) {
+  public ChaosGame(int width, int height, @NotNull ChaosGameDescription description) {
     this.description = description;
     this.canvas = new ChaosGameCanvas(
         width,
@@ -24,6 +24,7 @@ public class ChaosGame {
         description.getMinCoords(),
         description.getMaxCoords()
     );
+    canvas.drawAtCoords(currentPoint);
   }
 
   public ChaosGameDescription getDescription() {
@@ -41,6 +42,7 @@ public class ChaosGame {
   }
 
   public void iterate() {
-
+    currentPoint = description.getTransformations().transform(currentPoint);
+    canvas.drawAtCoords(currentPoint);
   }
 }
