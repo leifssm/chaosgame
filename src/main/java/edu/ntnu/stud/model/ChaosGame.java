@@ -1,9 +1,9 @@
 package edu.ntnu.stud.model;
 
+import edu.ntnu.stud.model.math.Transform2D;
+import edu.ntnu.stud.model.math.TransformationGroup;
 import edu.ntnu.stud.model.math.Vector;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Random;
 
 /**
  * A class containing all needed information concerning the running and displaying of a fractal display
@@ -13,22 +13,22 @@ import java.util.Random;
  */
 public class ChaosGame {
   private final ChaosGameCanvas canvas;
-  private final ChaosGameDescription description;
+  private final TransformationGroup transformations;
   private Vector currentPoint = new Vector(0, 0);
 
   public ChaosGame(int width, int height, @NotNull ChaosGameDescription description) {
-    this.description = description;
+    this.transformations = description.transformations();
     this.canvas = new ChaosGameCanvas(
         width,
         height,
-        description.getMinCoords(),
-        description.getMaxCoords()
+        description.minCoords(),
+        description.maxCoords()
     );
     canvas.drawAtCoords(currentPoint);
   }
 
-  public ChaosGameDescription getDescription() {
-    return description;
+  public TransformationGroup getTransformations() {
+    return transformations;
   }
 
   public ChaosGameCanvas getCanvas() {
@@ -42,7 +42,7 @@ public class ChaosGame {
   }
 
   public void iterate() {
-    currentPoint = description.getTransformations().transform(currentPoint);
+    currentPoint = transformations.transform(currentPoint);
     canvas.drawAtCoords(currentPoint);
   }
 }

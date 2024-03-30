@@ -2,20 +2,21 @@ package edu.ntnu.stud.model.math;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Random;
 
 /**
  * Represents a group of affine transformations. The group is a collection of transformations which
  * are randomly picked every time the transform method is called.
  *
- * @version 1.1
+ * @version 1.3
  * @author Leif Mørstad
  */
-public class AffineTransformationGroup implements Transform2D {
+public class TransformationGroup implements Transform2D {
   /**
    * A group of affine transformations which creates a Sierpinski triangle.
    */
-  public static final AffineTransformationGroup sierpinski = new AffineTransformationGroup(
+  public static final TransformationGroup sierpinski = new TransformationGroup(
       new AffineTransformation(
           new SimpleMatrix(0.5, 0, 0, 0.5),
           new Vector(0, 0)
@@ -33,7 +34,7 @@ public class AffineTransformationGroup implements Transform2D {
   /**
    * A group of affine transformations which creates a Barnsley fern.
    */
-  public static final AffineTransformationGroup barnsley = new AffineTransformationGroup(
+  public static final TransformationGroup barnsley = new TransformationGroup(
       new AffineTransformation(
           new SimpleMatrix(0, 0, 0, 0.16),
           new Vector(0, 0)
@@ -53,15 +54,32 @@ public class AffineTransformationGroup implements Transform2D {
   );
 
   private final Random random = new Random();
-  private final AffineTransformation[] transformations;
+  private final Transform2D[] transformations;
 
   /**
    * Creates a new instance with the given transformations.
    *
    * @param transformations the transformations in the group
+   * @throws IllegalArgumentException if the array of transformations is empty
    */
-  public AffineTransformationGroup(AffineTransformation... transformations) {
+  public TransformationGroup(Transform2D... transformations) throws IllegalArgumentException {
+    if (transformations.length == 0) {
+      throw new IllegalArgumentException("A transformation group must contain at least one transformation");
+    }
     this.transformations = transformations;
+  }
+
+  /**
+   * Creates a new instance with the given transformations.
+   *
+   * @param transformations the transformations in the group
+   * @throws IllegalArgumentException if the array of transformations is empty
+   */
+  public TransformationGroup(List<Transform2D> transformations) throws IllegalArgumentException {
+    if (transformations.isEmpty()) {
+      throw new IllegalArgumentException("A transformation group must contain at least one transformation");
+    }
+    this.transformations = transformations.toArray(new Transform2D[0]);
   }
 
   /**

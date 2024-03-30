@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
  * An immutable complex number with relevant methods.
  *
  * @author Leif Mørstad
- * @version 1.1
+ * @version 1.2
  */
 public class ComplexNumber extends Vector {
   /**
@@ -17,6 +17,16 @@ public class ComplexNumber extends Vector {
    */
   public ComplexNumber(double real, double imaginary) {
     super(real, imaginary);
+  }
+
+  /**
+   * Creates a new instance with the given real and imaginary values.
+   *
+   * @param values an array with exactly two numerical values, one real and one imaginary.
+   * @throws IllegalArgumentException if the array does not have exactly two values
+   */
+  public ComplexNumber(double[] values) throws IllegalArgumentException {
+    super(values);
   }
 
   /**

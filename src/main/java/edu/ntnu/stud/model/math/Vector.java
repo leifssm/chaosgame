@@ -10,7 +10,7 @@ import java.util.Objects;
  * An immutable two-dimensional vector with relevant methods.
  *
  * @author Leif Mørstad
- * @version 1.3
+ * @version 1.4
  */
 public class Vector {
   private final double x0;
@@ -25,6 +25,21 @@ public class Vector {
   public Vector(double x0, double x1) {
     this.x0 = x0;
     this.x1 = x1;
+    checkNaN();
+  }
+
+  /**
+   * Creates a new instance from the given array of values.
+   *
+   * @param values an array with exactly two numerical values;
+   * @throws IllegalArgumentException if the array does not have exactly two values
+   */
+  public Vector(double[] values) throws IllegalArgumentException {
+    if (values.length != 2) {
+      throw new IllegalArgumentException("Given array must have exactly two values");
+    }
+    this.x0 = values[0];
+    this.x1 = values[1];
     checkNaN();
   }
 

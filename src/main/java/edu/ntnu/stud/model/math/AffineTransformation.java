@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
  * Represents an affine transformation in two dimensions. The transformation is a multiplication
  * followed by a translation.
  *
- * @version 1.1
+ * @version 1.2
  * @author Leif Mørstad
  */
 public class AffineTransformation implements Transform2D {
@@ -22,6 +22,21 @@ public class AffineTransformation implements Transform2D {
   public AffineTransformation(@NotNull SimpleMatrix matrix, @NotNull Vector translation) {
     this.matrix = matrix;
     this.translation = translation;
+  }
+
+  /**
+   * Creates a new instance with the given matrix and translation.
+   *
+   * @param values an array with exactly six numerical values representing in order: a00, a01, a10,
+   *               a11, vx, and vy
+   * @throws IllegalArgumentException if the array does not have exactly six values
+   */
+  public AffineTransformation(double @NotNull [] values) throws IllegalArgumentException {
+    if (values.length != 6) {
+      throw new IllegalArgumentException("Given array must have exactly six values");
+    }
+    this.matrix = new SimpleMatrix(values[0], values[1], values[2], values[3]);
+    this.translation = new Vector(values[4], values[5]);
   }
 
   /**
