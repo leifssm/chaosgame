@@ -1,11 +1,13 @@
 package edu.ntnu.stud.model;
 
 import edu.ntnu.stud.model.math.*;
+import org.intellij.lang.annotations.RegExp;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -13,11 +15,21 @@ import java.util.Scanner;
  * This class is responsible for reading and writing chaos game descriptions to and from files.
  *
  * @author Leif Mørstad
- * @version 0.1
+ * @version 1.0
  * @see ChaosGameDescription
  */
 public class ChaosGameFileHandler {
-  public static ChaosGameDescription readFromFile(@NotNull String filename) {
+  /**
+   * Reads a chaos game description from a file.
+   *
+   * @param filename the name of the file to read from
+   * @return the chaos game description read from the file
+   * @throws IllegalArgumentException if the file could not be read or the file contains invalid
+   *                                  data
+   */
+  public static ChaosGameDescription readFromFile(
+      @NotNull String filename
+  ) throws IllegalArgumentException {
     Scanner scanner;
     try {
       File file = new File("src/main/resources/fractals/" + filename);
@@ -31,7 +43,7 @@ public class ChaosGameFileHandler {
 
     scanner
         .useLocale(Locale.ENGLISH)
-        .useDelimiter("\\s*(#[^\\n]*)?\\n");
+        .useDelimiter("\\s*#[^\\n]*\\n|\\n");
 
     String type = scanner.next();
     double[] minCoords = readNumberLine(scanner.next(), 2);
@@ -56,7 +68,7 @@ public class ChaosGameFileHandler {
     }
     Scanner scanner = new Scanner(line)
         .useLocale(Locale.ENGLISH)
-        .useDelimiter("\\s*,\\s*|\\s*(?!\\d)");
+        .useDelimiter("\\s*,\\s*");
 
     double[] numbers = new double[expectedLength];
 
@@ -65,18 +77,21 @@ public class ChaosGameFileHandler {
         throw new IllegalArgumentException(
             "Expected "
                 + expectedLength
-                + " numbers, but only found "
+                + " numbers, but found "
                 + i
                 + " number"
                 + (i != 1 ? "s": "")
                 + " in line: \""
                 + line
-                + '"'
+                + "\" at \""
+                + scanner.next()
+                + "\". Could be missing a newline at end of file"
         );
       }
       numbers[i] = scanner.nextDouble();
     }
-
+    Arrays.stream(numbers).forEach(d -> System.out.print(d + " "));
+    System.out.println();
     return numbers;
   }
 
