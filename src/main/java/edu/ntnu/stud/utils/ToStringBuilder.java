@@ -1,4 +1,4 @@
-package edu.ntnu.stud.model.math.utils;
+package edu.ntnu.stud.utils;
 
 import java.util.ArrayList;
 
@@ -8,9 +8,10 @@ import java.util.ArrayList;
  * <p>
  *   Example usage:
  *   <pre>
- *     return new ToStringBuilder(new Vector(1, 2))
- *       .field("x", x)
- *       .field("y", y)
+ *     Vector v = new Vector(1, 2);
+ *     return new ToStringBuilder(v)
+ *       .field("x", v.getX0())
+ *       .field("y", v.getX1())
  *       .build();
  *     // returns "Vector[x=1.0, y=2.0]"
  *   </pre>

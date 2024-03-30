@@ -1,13 +1,11 @@
 package edu.ntnu.stud.model;
 
 import edu.ntnu.stud.model.math.*;
-import org.intellij.lang.annotations.RegExp;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -90,8 +88,6 @@ public class ChaosGameFileHandler {
       }
       numbers[i] = scanner.nextDouble();
     }
-    Arrays.stream(numbers).forEach(d -> System.out.print(d + " "));
-    System.out.println();
     return numbers;
   }
 

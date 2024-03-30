@@ -1,6 +1,6 @@
 package edu.ntnu.stud.model.math;
 
-import edu.ntnu.stud.model.math.utils.ToStringBuilder;
+import edu.ntnu.stud.utils.ToStringBuilder;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
