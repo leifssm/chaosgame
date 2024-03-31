@@ -13,46 +13,6 @@ import java.util.Random;
  * @author Leif Mørstad
  */
 public class TransformationGroup implements Transform2D {
-  /**
-   * A group of affine transformations which creates a Sierpinski triangle.
-   */
-  public static final TransformationGroup sierpinski = new TransformationGroup(
-      new AffineTransformation(
-          new SimpleMatrix(0.5, 0, 0, 0.5),
-          new Vector(0, 0)
-      ),
-      new AffineTransformation(
-          new SimpleMatrix(0.5, 0, 0, 0.5),
-          new Vector(0.5, 0)
-      ),
-      new AffineTransformation(
-          new SimpleMatrix(0.5, 0, 0, 0.5),
-          new Vector(0.25, 0.5)
-      )
-  );
-
-  /**
-   * A group of affine transformations which creates a Barnsley fern.
-   */
-  public static final TransformationGroup barnsley = new TransformationGroup(
-      new AffineTransformation(
-          new SimpleMatrix(0, 0, 0, 0.16),
-          new Vector(0, 0)
-      ),
-      new AffineTransformation(
-          new SimpleMatrix(0.85, 0.04, -0.04, 0.85),
-          new Vector(0, 1.6)
-      ),
-      new AffineTransformation(
-          new SimpleMatrix(0.2, -0.26, 0.23, 0.22),
-          new Vector(0, 1.6)
-      ),
-      new AffineTransformation(
-          new SimpleMatrix(-0.15, 0.28, 0.26, 0.24),
-          new Vector(0, 0.44)
-      )
-  );
-
   private final Random random = new Random();
   private final Transform2D[] transformations;
 
