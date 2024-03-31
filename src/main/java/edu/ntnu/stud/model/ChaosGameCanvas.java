@@ -3,6 +3,7 @@ package edu.ntnu.stud.model;
 import edu.ntnu.stud.model.math.AffineTransformation;
 import edu.ntnu.stud.model.math.SimpleMatrix;
 import edu.ntnu.stud.model.math.Vector;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A canvas for drawing and getting the output of a chaos game.
@@ -14,15 +15,11 @@ public class ChaosGameCanvas {
   private final int[][] canvas;
   private final int width;
   private final int height;
-  private final Vector minCoords;
-  private final Vector maxCoords;
   private final AffineTransformation coordsToIndicesTransformation;
 
-  public ChaosGameCanvas(int width, int height, Vector minCoords, Vector maxCoords) {
+  public ChaosGameCanvas(int width, int height, @NotNull Vector minCoords, @NotNull Vector maxCoords) {
     this.width = width;
     this.height = height;
-    this.minCoords = minCoords;
-    this.maxCoords = maxCoords;
     this.canvas = new int[height][width];
     clear();
 
