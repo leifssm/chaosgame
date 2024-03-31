@@ -17,7 +17,7 @@ public class JuliaTransformation implements Transform2D {
    *
    * @param c the complex number to use in the transformation
    */
-  public JuliaTransformation(ComplexNumber c, int sign) {
+  public JuliaTransformation(@NotNull ComplexNumber c, int sign) {
     this.complexNumber = c;
     this.sign = sign >= 0 ? 1 : -1;
   }
@@ -28,7 +28,7 @@ public class JuliaTransformation implements Transform2D {
    * @param c the complex number to use in the transformation
    * @param positive whether the sign should be positive
    */
-  public JuliaTransformation(ComplexNumber c, boolean positive) {
+  public JuliaTransformation(@NotNull ComplexNumber c, boolean positive) {
     this(c, positive ? 1 : -1);
   }
 
@@ -39,7 +39,7 @@ public class JuliaTransformation implements Transform2D {
    * @param z the complex number to transform
    * @return the transformed complex number
    */
-  public Vector transform(@NotNull ComplexNumber z) {
+  public @NotNull Vector transform(@NotNull ComplexNumber z) {
     return z
         .subtract(complexNumber)
         .sqrt()
