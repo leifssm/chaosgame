@@ -215,7 +215,7 @@ public class VectorTest {
       Vector vector = new Vector(1, 2);
       assertEquals(
           "(1.0, 2.0)",
-          vector.asString(),
+          vector.asSimpleString(),
           "The string representation should be (1.0, 2.0)"
       );
     }

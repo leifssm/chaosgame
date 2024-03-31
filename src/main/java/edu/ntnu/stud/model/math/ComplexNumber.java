@@ -14,8 +14,9 @@ public class ComplexNumber extends Vector {
    *
    * @param real the real value of the complex number
    * @param imaginary the imaginary value of the complex number
+   * @throws IllegalArgumentException if any of the doubles are {@link Double#NaN}
    */
-  public ComplexNumber(double real, double imaginary) {
+  public ComplexNumber(double real, double imaginary) throws IllegalArgumentException {
     super(real, imaginary);
   }
 
@@ -23,7 +24,8 @@ public class ComplexNumber extends Vector {
    * Creates a new instance with the given real and imaginary values.
    *
    * @param values an array with exactly two numerical values, one real and one imaginary.
-   * @throws IllegalArgumentException if the array does not have exactly two values
+   * @throws IllegalArgumentException if the array does not have exactly two values, or if any of
+   *                                  the doubles are {@link Double#NaN}
    */
   public ComplexNumber(double[] values) throws IllegalArgumentException {
     super(values);
@@ -33,6 +35,7 @@ public class ComplexNumber extends Vector {
    * Creates a new instance with the given vector.
    *
    * @param vector the vector to copy as a complex number
+   * @throws IllegalArgumentException if given a null vector
    */
   public ComplexNumber(@NotNull Vector vector) {
     super(vector.getX0(), vector.getX1());
@@ -43,6 +46,7 @@ public class ComplexNumber extends Vector {
    *
    * @param z the complex number to find the square root of
    * @return the square root of the complex number
+   * @throws IllegalArgumentException if the given complex number is null
    */
   public static @NotNull ComplexNumber sqrt(@NotNull ComplexNumber z) {
     double length = z.length();
@@ -61,41 +65,49 @@ public class ComplexNumber extends Vector {
     return ComplexNumber.sqrt(this);
   }
 
+  // +-------------------------------------------------------------------------------------+
+  // | The following methods are overridden to return a ComplexNumber instead of a Vector. |
+  // +-------------------------------------------------------------------------------------+
+
   /**
+   * @throws IllegalArgumentException if the given vector is null
    * @see Vector#add(Vector)
    */
   @Override
-  public @NotNull ComplexNumber add(@NotNull Vector other) {
+  public @NotNull ComplexNumber add(@NotNull Vector other) throws IllegalArgumentException {
     return new ComplexNumber(
         super.add(other)
     );
   }
 
   /**
+   * @throws IllegalArgumentException if the given vector is null
    * @see Vector#subtract(Vector)
    */
   @Override
-  public @NotNull ComplexNumber subtract(@NotNull Vector other) {
+  public @NotNull ComplexNumber subtract(@NotNull Vector other) throws IllegalArgumentException {
     return new ComplexNumber(
         super.subtract(other)
     );
   }
 
   /**
+   * @throws IllegalArgumentException if the scalar is {@link Double#NaN}
    * @see Vector#multiply(double)
    */
   @Override
-  public @NotNull ComplexNumber multiply(double scalar) {
+  public @NotNull ComplexNumber multiply(double scalar) throws IllegalArgumentException {
     return new ComplexNumber(
         super.multiply(scalar)
     );
   }
 
   /**
+   * @throws IllegalArgumentException if the scalar is 0 or {@link Double#NaN}
    * @see Vector#divide(double)
    */
   @Override
-  public @NotNull ComplexNumber divide(double scalar) {
+  public @NotNull ComplexNumber divide(double scalar) throws IllegalArgumentException {
     return new ComplexNumber(
         super.divide(scalar)
     );

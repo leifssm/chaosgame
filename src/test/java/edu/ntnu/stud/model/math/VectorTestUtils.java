@@ -22,7 +22,7 @@ public class VectorTestUtils {
       @NotNull String errorMessage
   ) {
     String message = errorMessage
-        + " (got " + actual.asString()
+        + " (got " + actual.asSimpleString()
         + " but expected (" + x0 + ", " + x1 + "))";
     assertEquals(x0, actual.getX0(), message);
     assertEquals(x1, actual.getX1(), message);
@@ -68,8 +68,8 @@ public class VectorTestUtils {
         expected,
         actual,
         errorMessage
-            + " (got " + actual.asString()
-            + " and expected " + expected.asString() + ")"
+            + " (got " + actual.asSimpleString()
+            + " and expected " + expected.asSimpleString() + ")"
     );
   }
 }

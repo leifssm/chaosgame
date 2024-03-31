@@ -1,10 +1,9 @@
 package edu.ntnu.stud.controller.menu;
 
 import edu.ntnu.stud.controller.InputParser;
+import edu.ntnu.stud.utils.ToStringBuilder;
 import java.util.ArrayList;
 import java.util.List;
-
-import edu.ntnu.stud.utils.ToStringBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

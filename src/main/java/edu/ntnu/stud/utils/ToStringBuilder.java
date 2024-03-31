@@ -1,6 +1,8 @@
 package edu.ntnu.stud.utils;
 
 import java.util.ArrayList;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A builder class for creating a string representation of an object.
@@ -21,18 +23,44 @@ import java.util.ArrayList;
  * @author Leif Mørstad
  */
 public class ToStringBuilder {
-  private final String objectName;
-  private final ArrayList<String> result = new ArrayList<>();
-  public ToStringBuilder(Object o) {
+  /**
+   * The name of the object to be stringified.
+   */
+  private final @NotNull String objectName;
+
+  /**
+   * The fields of the object to be stringified.
+   */
+  private final @NotNull ArrayList<String> result = new ArrayList<>();
+
+  /**
+   * Creates a new instance with the given object to stringify.
+   *
+   * @param o the object to stringify
+   * @throws IllegalArgumentException if the object is null
+   */
+  public ToStringBuilder(@NotNull Object o) throws IllegalArgumentException {
     objectName = o.getClass().getSimpleName() + "[";
   }
 
-  public ToStringBuilder field(String name, Object value) {
+  /**
+   * Adds a field to the builder which will be displayed.
+   *
+   * @param name the name of the field
+   * @param value the value of the field
+   * @return this builder
+   */
+  public @NotNull ToStringBuilder field(@NotNull String name, @Nullable Object value) {
     result.add(name + "=" + value);
     return this;
   }
 
-  public String build() {
+  /**
+   * Builds the string and returns it.
+   *
+   * @return the string representation of the object
+   */
+  public @NotNull String build() {
     return objectName + String.join(", ", result) + "]";
   }
 }

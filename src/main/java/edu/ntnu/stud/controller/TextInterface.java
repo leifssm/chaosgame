@@ -4,19 +4,33 @@ import edu.ntnu.stud.controller.menu.Menu;
 import edu.ntnu.stud.model.ChaosGame;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
+import java.io.File;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-
+/**
+ * A simple CLI for the chaos game.
+ *
+ * @author Leif Mørstad
+ * @version 1.0
+ */
 public class TextInterface {
+  /**
+   * Starts the CLI.
+   *
+   * @param args the command line arguments, unused
+   */
   public static void main(String[] args) {
     new Menu("Chaos Game")
-        .addOption("Run from file", TextInterface::runFile)
+        .addOption("Run from file", TextInterface::runFilePrompt)
         .addOption("Exit", () -> System.exit(0))
         .start();
   }
 
-  public static void runFile() {
+  /**
+   * Prompts the user to choose a file to run. Gives the option to pick any files from the
+   * "src/main/resources/fractals" folder.
+   */
+  public static void runFilePrompt() {
     File fractalFolder = new File("src/main/resources/fractals/");
     try {
       fractalFolder.createNewFile();
@@ -40,18 +54,24 @@ public class TextInterface {
     fileMenu.runOnce();
   }
 
-  private static void runFile(@NotNull String file) {
+  /**
+   * Asks how many iterations the user wants, before it runs a chaos game from a given file and
+   * displays the fractal.
+   *
+   * @param fileName the name of the file to run, expects the file to exist
+   */
+  private static void runFile(@NotNull String fileName) {
     int iterations = InputParser.getInt(
         "How many iterations do you want?",
         i -> i > 0,
         "Please enter a number greater than or equal to 1"
     );
-    System.out.println("Running file: " + file);
+    System.out.println("Running file: " + fileName);
 
-    ChaosGameDescription description = ChaosGameFileHandler.readFromFile(file);
+    ChaosGameDescription description = ChaosGameFileHandler.readFromFile(fileName);
     ChaosGame chaosGame = new ChaosGame(60, 20, description);
     chaosGame.iterate(iterations);
 
-    System.out.println(chaosGame.getCanvas().asString());
+    System.out.println(chaosGame.getCanvas().asSimpleString());
   }
 }

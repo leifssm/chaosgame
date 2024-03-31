@@ -110,7 +110,7 @@ public class ChaosGameCanvasTest {
 
       assertEquals(
           " x\nx \n",
-          chaosGameCanvas.asString(),
+          chaosGameCanvas.asSimpleString(),
           "asString() should return an ascii representation of the canvas"
       );
     }

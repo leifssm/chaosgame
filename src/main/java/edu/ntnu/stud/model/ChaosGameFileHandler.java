@@ -24,7 +24,7 @@ public class ChaosGameFileHandler {
    * @throws IllegalArgumentException if the file could not be read or the file contains invalid
    *                                  data
    */
-  public static ChaosGameDescription readFromFile(
+  public static @NotNull ChaosGameDescription readFromFile(
       @NotNull String filename
   ) throws IllegalArgumentException {
     Scanner scanner;
@@ -77,7 +77,7 @@ public class ChaosGameFileHandler {
                 + " numbers, but found "
                 + i
                 + " number"
-                + (i != 1 ? "s": "")
+                + (i != 1 ? "s" : "")
                 + " in line: \""
                 + line
                 + "\" at \""

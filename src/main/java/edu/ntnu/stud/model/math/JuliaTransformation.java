@@ -9,15 +9,25 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.1
  */
 public class JuliaTransformation implements Transform2D {
-  private final ComplexNumber complexNumber;
+  /**
+   * The complex number used in the transformation.
+   */
+  private final @NotNull ComplexNumber complexNumber;
+
+  /**
+   * The sign of the transformation. Is either 1 or -1.
+   */
   private final int sign;
 
   /**
    * Creates a new instance with the given complex number and given sign.
    *
    * @param c the complex number to use in the transformation
+   * @param sign the sign of the transformation, either a positive or negative integer. 0 is
+   *             positive
+   * @throws IllegalArgumentException if the given complex number is null
    */
-  public JuliaTransformation(@NotNull ComplexNumber c, int sign) {
+  public JuliaTransformation(@NotNull ComplexNumber c, int sign) throws IllegalArgumentException {
     this.complexNumber = c;
     this.sign = sign >= 0 ? 1 : -1;
   }
@@ -26,9 +36,13 @@ public class JuliaTransformation implements Transform2D {
    * Creates a new instance with the given complex number and a positive sign if given true.
    *
    * @param c the complex number to use in the transformation
-   * @param positive whether the sign should be positive
+   * @param positive whether the sign should be positive, false if negative
+   * @throws IllegalArgumentException if the given complex number is null
    */
-  public JuliaTransformation(@NotNull ComplexNumber c, boolean positive) {
+  public JuliaTransformation(
+      @NotNull ComplexNumber c,
+      boolean positive
+  ) throws IllegalArgumentException {
     this(c, positive ? 1 : -1);
   }
 
@@ -38,8 +52,9 @@ public class JuliaTransformation implements Transform2D {
    *
    * @param z the complex number to transform
    * @return the transformed complex number
+   * @throws IllegalArgumentException if the given complex number is null
    */
-  public @NotNull Vector transform(@NotNull ComplexNumber z) {
+  public @NotNull Vector transform(@NotNull ComplexNumber z) throws IllegalArgumentException {
     return z
         .subtract(complexNumber)
         .sqrt()
@@ -52,8 +67,9 @@ public class JuliaTransformation implements Transform2D {
    *
    * @param point the vector to transform
    * @return the transformed vector
+   * @throws IllegalArgumentException if the given vector is null
    */
-  public @NotNull Vector transform(@NotNull Vector point) {
+  public @NotNull Vector transform(@NotNull Vector point) throws IllegalArgumentException {
     return transform(new ComplexNumber(point));
   }
 }

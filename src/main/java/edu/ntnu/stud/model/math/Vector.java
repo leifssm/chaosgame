@@ -1,10 +1,9 @@
 package edu.ntnu.stud.model.math;
 
 import edu.ntnu.stud.utils.ToStringBuilder;
+import java.util.Objects;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 /**
  * An immutable two-dimensional vector with relevant methods.
@@ -13,16 +12,24 @@ import java.util.Objects;
  * @version 1.4
  */
 public class Vector {
+  /**
+   * The first value of the vector. Cannot be {@link Double#NaN}
+   */
   private final double x0;
+  
+  /**
+   * The second value of the vector. Cannot be {@link Double#NaN}
+   */
   private final double x1;
 
   /**
-   * Creates a new instance with the given x and y values.
+   * Creates a new instance with the given x0 and x1 values.
    *
-   * @param x0 the x value of the vector
-   * @param x1 the y value of the vector
+   * @param x0 the first value of the vector
+   * @param x1 the second value of the vector
+   * @throws IllegalArgumentException if any of the values are {@link Double#NaN}
    */
-  public Vector(double x0, double x1) {
+  public Vector(double x0, double x1) throws IllegalArgumentException {
     this.x0 = x0;
     this.x1 = x1;
     checkNaN();
@@ -31,8 +38,9 @@ public class Vector {
   /**
    * Creates a new instance from the given array of values.
    *
-   * @param values an array with exactly two numerical values;
-   * @throws IllegalArgumentException if the array does not have exactly two values
+   * @param values an array with exactly two numerical values
+   * @throws IllegalArgumentException if the array does not have exactly two values or if any of the
+   *                                  values are {@link Double#NaN}
    */
   public Vector(double[] values) throws IllegalArgumentException {
     if (values.length != 2) {
@@ -43,7 +51,12 @@ public class Vector {
     checkNaN();
   }
 
-  private void checkNaN() {
+  /**
+   * Checks if the vector contains any NaN values, and throws if it does.
+   *
+   * @throws IllegalArgumentException if the vector contains any NaN values
+   */
+  private void checkNaN() throws IllegalArgumentException {
     if (Double.isNaN(x0) || Double.isNaN(x1)) {
       throw new IllegalArgumentException("Vector contains NaN values");
     }
@@ -52,16 +65,28 @@ public class Vector {
   /**
    * Returns the length of the vector.
    *
-   * @return the hypotenuse of the x and the y of the vector
+   * @return the hypotenuse of the x0 and the x1 of the vector
    */
   public double length() {
     return Math.sqrt(x0 * x0 + x1 * x1);
   }
 
+  /**
+   * Returns the first value of the vector.
+   *
+   * @return the first value of the vector
+   * @see Vector#x0
+   */
   public double getX0() {
     return x0;
   }
 
+  /**
+   * Returns the second value of the vector.
+   *
+   * @return the second value of the vector
+   * @see Vector#x1
+   */
   public double getX1() {
     return x1;
   }
@@ -71,8 +96,9 @@ public class Vector {
    *
    * @param vector the vector to add to this vector
    * @return a new vector which is the sum of this vector and the given vector
+   * @throws IllegalArgumentException if the given vector is null
    */
-  public @NotNull Vector add(@NotNull Vector vector) {
+  public @NotNull Vector add(@NotNull Vector vector) throws IllegalArgumentException {
     return Vector.add(this, vector);
   }
 
@@ -82,9 +108,13 @@ public class Vector {
    * @param a the first vector
    * @param b the second vector
    * @return a new vector which is the sum of the two vectors
+   * @throws IllegalArgumentException if either of the given vectors are null
    */
   @Contract("_, _ -> new")
-  public static @NotNull Vector add(@NotNull Vector a, @NotNull Vector b) {
+  public static @NotNull Vector add(
+      @NotNull Vector a,
+      @NotNull Vector b
+  ) throws IllegalArgumentException {
     return new Vector(a.getX0() + b.getX0(), a.getX1() + b.getX1());
   }
 
@@ -93,8 +123,9 @@ public class Vector {
    *
    * @param vector the vector to subtract from this vector
    * @return a new vector which is the difference between this vector and the given vector
+   * @throws IllegalArgumentException if the given vector is null
    */
-  public @NotNull Vector subtract(@NotNull Vector vector) {
+  public @NotNull Vector subtract(@NotNull Vector vector) throws IllegalArgumentException {
     return Vector.subtract(this, vector);
   }
 
@@ -104,9 +135,13 @@ public class Vector {
    * @param a the first vector
    * @param b the second vector
    * @return a new vector which is the difference between the two vectors
+   * @throws IllegalArgumentException if either of the given vectors are null
    */
   @Contract("_, _ -> new")
-  public static @NotNull Vector subtract(@NotNull Vector a, @NotNull Vector b) {
+  public static @NotNull Vector subtract(
+      @NotNull Vector a,
+      @NotNull Vector b
+  ) throws IllegalArgumentException {
     return new Vector(a.getX0() - b.getX0(), a.getX1() - b.getX1());
   }
 
@@ -115,8 +150,9 @@ public class Vector {
    *
    * @param scalar the scalar to multiply the vector with
    * @return a new vector which is the vector scaled by the scalar
+   * @throws IllegalArgumentException if the scalar is {@link Double#NaN}
    */
-  public @NotNull Vector multiply(double scalar) {
+  public @NotNull Vector multiply(double scalar) throws IllegalArgumentException {
     return new Vector(x0 * scalar, x1 * scalar);
   }
 
@@ -125,8 +161,9 @@ public class Vector {
    *
    * @param scalar the scalar to divide the vector by
    * @return a new vector which is the vector divided by the scalar
+   * @throws IllegalArgumentException if the scalar is zero or {@link Double#NaN}
    */
-  public @NotNull Vector divide(double scalar) {
+  public @NotNull Vector divide(double scalar) throws IllegalArgumentException {
     if (scalar == 0) {
       throw new IllegalArgumentException("Cannot divide by zero");
     }
@@ -139,8 +176,9 @@ public class Vector {
    * @param a the first vector
    * @param b the second vector
    * @return the dot product of the two vectors
+   * @throws IllegalArgumentException if either of the given vectors are null
    */
-  public static double dot(@NotNull Vector a, @NotNull Vector b) {
+  public static double dot(@NotNull Vector a, @NotNull Vector b) throws IllegalArgumentException {
     return a.getX0() * b.getX0() + a.getX1() * b.getX1();
   }
 
@@ -149,8 +187,9 @@ public class Vector {
    *
    * @param vector the vector to calculate the dot product with
    * @return the dot product of this vector and the given vector
+   * @throws IllegalArgumentException if the given vector is null
    */
-  public double dot(@NotNull Vector vector) {
+  public double dot(@NotNull Vector vector) throws IllegalArgumentException {
     return Vector.dot(this, vector);
   }
 
@@ -160,8 +199,9 @@ public class Vector {
    * @param a the first vector
    * @param b the second vector
    * @return the angle between the two vectors
+   * @throws IllegalArgumentException if either of the given vectors are null
    */
-  public static double angle(@NotNull Vector a, @NotNull Vector b) {
+  public static double angle(@NotNull Vector a, @NotNull Vector b) throws IllegalArgumentException {
     return Math.acos(
         Vector.dot(a, b) / (a.length() * b.length())
     );
@@ -172,8 +212,9 @@ public class Vector {
    *
    * @param vector the vector to calculate the angle with
    * @return the angle between this vector and the given vector
+   * @throws IllegalArgumentException if the given vector is null
    */
-  public double angle(@NotNull Vector vector) {
+  public double angle(@NotNull Vector vector) throws IllegalArgumentException {
     return Vector.angle(this, vector);
   }
 
@@ -196,6 +237,11 @@ public class Vector {
     return Double.compare(x0, vector.x0) == 0 && Double.compare(x1, vector.x1) == 0;
   }
 
+  /**
+   * Returns the hash code of the vector based on its x0 and x1 components.
+   *
+   * @return the hash code of the vector
+   */
   @Override
   public int hashCode() {
     // Generated by IntelliJ IDEA
@@ -203,11 +249,11 @@ public class Vector {
   }
 
   /**
-   * Returns a string representation of the vector.
+   * Returns a simple string representation of the vector.
    *
-   * @return a string representation of the vector
+   * @return a simple string representation of the vector
    */
-  public @NotNull String asString() {
+  public @NotNull String asSimpleString() {
     return "(" + x0 + ", " + x1 + ")";
   }
 
@@ -216,7 +262,7 @@ public class Vector {
    *
    * @return a string representation of the vector
    */
-  public String toString() {
+  public @NotNull String toString() {
     return new ToStringBuilder(this)
         .field("x0", x0)
         .field("x1", x1)

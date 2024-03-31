@@ -27,7 +27,7 @@ public class SimpleMatrixTest {
     public void testMultiply() {
       SimpleMatrix matrix = new SimpleMatrix(1, 2, 3, 4);
       Vector vector = new Vector(5, 6);
-      Vector result = matrix.multiply(vector);
+      Vector result = matrix.transform(vector);
 
       assertVectorEquals(
           1 * 5 + 2 * 6,
@@ -42,38 +42,23 @@ public class SimpleMatrixTest {
     public void testGet() {
       SimpleMatrix matrix = new SimpleMatrix(1, 2, 3, 4);
 
-      assertEquals(1, matrix.get(0, 0));
-      assertEquals(2, matrix.get(1, 0));
-      assertEquals(3, matrix.get(0, 1));
-      assertEquals(4, matrix.get(1, 1));
+      assertEquals(1, matrix.getA00());
+      assertEquals(2, matrix.getA10());
+      assertEquals(3, matrix.getA01());
+      assertEquals(4, matrix.getA11());
     }
   }
 
   @Nested
   class NegativeTests {
     @Test
-    @DisplayName("Accessing out of bound values throws")
+    @DisplayName("Multiplying matrix with null vector throws an exception")
     public void getTest() {
       SimpleMatrix matrix = new SimpleMatrix(1, 2, 3, 4);
       assertThrows(
           ArrayIndexOutOfBoundsException.class,
-          () -> matrix.get(-1, 0),
-          "Getting a value at an index that is not 0 or 1 should throw an exception"
-      );
-      assertThrows(
-          ArrayIndexOutOfBoundsException.class,
-          () -> matrix.get(0, -1),
-          "Getting a value at an index that is not 0 or 1 should throw an exception"
-      );
-      assertThrows(
-          ArrayIndexOutOfBoundsException.class,
-          () -> matrix.get(2, 0),
-          "Getting a value at an index that is not 0 or 1 should throw an exception"
-      );
-      assertThrows(
-          ArrayIndexOutOfBoundsException.class,
-          () -> matrix.get(0, 2),
-          "Getting a value at an index that is not 0 or 1 should throw an exception"
+          () -> matrix.transform(null),
+          "Multiplying the matrix with a null vector should throw an exception"
       );
     }
   }
