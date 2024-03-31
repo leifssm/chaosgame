@@ -6,7 +6,8 @@ import edu.ntnu.stud.model.math.Vector;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * A class containing all needed information concerning the running and displaying of a fractal display
+ * A class containing all needed information concerning the running and displaying of a fractal
+ * display.
  *
  * @author Leif Mørstad
  * @version 0.1
@@ -16,6 +17,13 @@ public class ChaosGame {
   private final TransformationGroup transformations;
   private Vector currentPoint = new Vector(0, 0);
 
+  /**
+   * Creates a new instance with the given width, height and description.
+   *
+   * @param width the width of the canvas
+   * @param height the height of the canvas
+   * @param description the description of the chaos game
+   */
   public ChaosGame(int width, int height, @NotNull ChaosGameDescription description) {
     this.transformations = description.transformations();
     this.canvas = new ChaosGameCanvas(

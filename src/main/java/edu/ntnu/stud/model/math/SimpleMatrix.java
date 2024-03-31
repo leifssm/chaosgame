@@ -42,8 +42,8 @@ public class SimpleMatrix {
    */
   public Vector multiply(@NotNull Vector vector) {
     return new Vector(
-        get(0, 0) * vector.getX0() + get(0, 1) * vector.getX1(),
-        get(1, 0) * vector.getX0() + get(1, 1) * vector.getX1()
+        get(0, 0) * vector.getX0() + get(1, 0) * vector.getX1(),
+        get(0, 1) * vector.getX0() + get(1, 1) * vector.getX1()
     );
   }
 }

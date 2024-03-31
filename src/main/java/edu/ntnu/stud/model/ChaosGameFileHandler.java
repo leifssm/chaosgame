@@ -1,13 +1,12 @@
 package edu.ntnu.stud.model;
 
 import edu.ntnu.stud.model.math.*;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This class is responsible for reading and writing chaos game descriptions to and from files.
