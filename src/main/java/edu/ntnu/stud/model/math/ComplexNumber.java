@@ -27,7 +27,7 @@ public class ComplexNumber extends Vector {
    * @throws IllegalArgumentException if the array does not have exactly two values, or if any of
    *                                  the doubles are {@link Double#NaN}
    */
-  public ComplexNumber(double[] values) throws IllegalArgumentException {
+  public ComplexNumber(double @NotNull [] values) throws IllegalArgumentException {
     super(values);
   }
 
@@ -37,8 +37,14 @@ public class ComplexNumber extends Vector {
    * @param vector the vector to copy as a complex number
    * @throws IllegalArgumentException if given a null vector
    */
-  public ComplexNumber(@NotNull Vector vector) {
-    super(vector.getX0(), vector.getX1());
+  public static @NotNull ComplexNumber fromVector(
+      @NotNull Vector vector
+  ) throws IllegalArgumentException {
+    // Annotations are ignored when running mvn package
+    if (vector == null) {
+      throw new IllegalArgumentException("The vector cannot be null");
+    }
+    return new ComplexNumber(vector.getX0(), vector.getX1());
   }
 
   /**
@@ -75,7 +81,7 @@ public class ComplexNumber extends Vector {
    */
   @Override
   public @NotNull ComplexNumber add(@NotNull Vector other) throws IllegalArgumentException {
-    return new ComplexNumber(
+    return ComplexNumber.fromVector(
         super.add(other)
     );
   }
@@ -86,7 +92,7 @@ public class ComplexNumber extends Vector {
    */
   @Override
   public @NotNull ComplexNumber subtract(@NotNull Vector other) throws IllegalArgumentException {
-    return new ComplexNumber(
+    return ComplexNumber.fromVector(
         super.subtract(other)
     );
   }
@@ -97,7 +103,7 @@ public class ComplexNumber extends Vector {
    */
   @Override
   public @NotNull ComplexNumber multiply(double scalar) throws IllegalArgumentException {
-    return new ComplexNumber(
+    return ComplexNumber.fromVector(
         super.multiply(scalar)
     );
   }
@@ -108,7 +114,7 @@ public class ComplexNumber extends Vector {
    */
   @Override
   public @NotNull ComplexNumber divide(double scalar) throws IllegalArgumentException {
-    return new ComplexNumber(
+    return ComplexNumber.fromVector(
         super.divide(scalar)
     );
   }

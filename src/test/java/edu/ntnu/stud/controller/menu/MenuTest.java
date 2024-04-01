@@ -181,8 +181,7 @@ class MenuTest {
       TestHelper.assertThrowsWithMessage(
           IllegalArgumentException.class,
           () -> new Menu(name),
-          "Argument for @NotNull parameter 'name' of "
-              + "edu/ntnu/stud/controller/menu/Menu.<init> must not be null",
+          "The name cannot be null",
           "Expected thrown exception when name is null"
       );
     }
@@ -198,8 +197,7 @@ class MenuTest {
       TestHelper.assertThrowsWithMessage(
           IllegalArgumentException.class,
           () -> menu.addOption(name, action),
-          "Argument for @NotNull parameter 'name' of "
-              + "edu/ntnu/stud/controller/menu/Menu.addOption must not be null",
+          "The name and action cannot be null",
           "Expected thrown exception when name is null"
       );
     }
@@ -215,8 +213,7 @@ class MenuTest {
       TestHelper.assertThrowsWithMessage(
           IllegalArgumentException.class,
           () -> menu.addOption(name, action),
-          "Argument for @NotNull parameter 'action' of "
-              + "edu/ntnu/stud/controller/menu/Menu.addOption must not be null",
+          "The name and action cannot be null",
           "Expected thrown exception when name is null"
       );
     }

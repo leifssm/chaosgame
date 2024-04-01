@@ -42,6 +42,10 @@ class MenuItem {
    * @throws IllegalArgumentException If the name or the action is null.
    */
   public MenuItem(@NotNull String name, @NotNull Runnable action) {
+    // Annotations are ignored when running mvn package
+    if (name == null || action == null) {
+      throw new IllegalArgumentException("The name and action cannot be null");
+    }
     // Set the name and action of the menu item.
     this.name = name;
     this.action = action;

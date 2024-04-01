@@ -260,8 +260,7 @@ class InputParserTest {
       TestHelper.assertThrowsWithMessage(
           IllegalArgumentException.class,
           () -> InputParser.initialize(stream),
-          "Argument for @NotNull parameter 'stream' of "
-              + "edu/ntnu/stud/controller/InputParser.initialize must not be null",
+          "The input stream cannot be null",
           "InputParser should not be able to be initialized with a null stream"
       );
     }

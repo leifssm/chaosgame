@@ -197,7 +197,7 @@ public class ComplexNumberTest {
     public void constructorThrowsOnANull() {
       assertThrows(
           IllegalArgumentException.class,
-          () -> new ComplexNumber((Vector) null),
+          () -> ComplexNumber.fromVector((Vector) null),
           "Instantiating ComplexNumber with null should throw an exception"
       );
     }

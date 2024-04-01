@@ -28,6 +28,10 @@ public class JuliaTransformation implements Transform2D {
    * @throws IllegalArgumentException if the given complex number is null
    */
   public JuliaTransformation(@NotNull ComplexNumber c, int sign) throws IllegalArgumentException {
+    // Annotations are ignored when running mvn package
+    if (c == null) {
+      throw new IllegalArgumentException("The complex number cannot be null");
+    }
     this.complexNumber = c;
     this.sign = sign >= 0 ? 1 : -1;
   }
@@ -55,6 +59,10 @@ public class JuliaTransformation implements Transform2D {
    * @throws IllegalArgumentException if the given complex number is null
    */
   public @NotNull Vector transform(@NotNull ComplexNumber z) throws IllegalArgumentException {
+    // Annotations are ignored when running mvn package
+    if (z == null) {
+      throw new IllegalArgumentException("The complex number cannot be null");
+    }
     return z
         .subtract(complexNumber)
         .sqrt()
@@ -70,6 +78,9 @@ public class JuliaTransformation implements Transform2D {
    * @throws IllegalArgumentException if the given vector is null
    */
   public @NotNull Vector transform(@NotNull Vector point) throws IllegalArgumentException {
-    return transform(new ComplexNumber(point));
+    if (point == null) {
+      throw new IllegalArgumentException("The vector cannot be null");
+    }
+    return transform(ComplexNumber.fromVector(point));
   }
 }

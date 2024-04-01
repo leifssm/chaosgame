@@ -64,6 +64,11 @@ public class Menu {
    * @param name The name of the menu.
    */
   public Menu(@NotNull String name) {
+    // Annotations are ignored when running mvn package
+    if (name == null) {
+      throw new IllegalArgumentException("The name cannot be null");
+    }
+
     this.name = name;
   }
 
