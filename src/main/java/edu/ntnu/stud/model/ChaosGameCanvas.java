@@ -16,7 +16,7 @@ public class ChaosGameCanvas {
    * The canvas on which the fractal is drawn, starts filled with 0. The origin is in the bottom
    * left, with the y-axis pointing upwards and the x-axis pointing to the right, so that the
    * coordinates (0, 0) are in the bottom left corner. This only happens when the canvas is accessed
-   * through any the {@link #setPixel(int, int)} method, so don't access directly unless you know
+   * through any the {@link #touchPixel(int, int)} method, so don't access directly unless you know
    * what you are doing.
    */
   private final int[][] canvas;
@@ -35,6 +35,8 @@ public class ChaosGameCanvas {
    * The transformation used to convert coordinates to indices in the canvas.
    */
   private final @NotNull AffineTransformation coordsToIndicesTransformation;
+
+  private final SubscriptionHandler<int[][]> subscriptionHandler;
 
   /**
    * Creates a new instance with the given width, height, and the coordinate bounds of the fractal.
@@ -58,6 +60,7 @@ public class ChaosGameCanvas {
     this.width = width;
     this.height = height;
     this.canvas = new int[height][width];
+    subscriptionHandler = new SubscriptionHandler<>(canvas);
 
     // Fills the array with 0s
     clear();
@@ -88,6 +91,7 @@ public class ChaosGameCanvas {
         canvas[y][x] = 0;
       }
     }
+    subscriptionHandler.notifySubscribers();
   }
 
   /**
@@ -122,6 +126,7 @@ public class ChaosGameCanvas {
       return;
     }
     canvas[height - y - 1][x] = value;
+    subscriptionHandler.notifySubscribers();
   }
 
   /**
@@ -132,23 +137,32 @@ public class ChaosGameCanvas {
    * @param x the x-coordinate of the pixel from left to right
    * @param y the y-coordinate of the pixel from bottom to top
    */
-  public void setPixel(int x, int y) {
-    setPixel(x, y, 1);
+  public void touchPixel(int x, int y) {
+    if (
+        x < 0
+            || x >= width
+            || y < 0
+            || y >= height
+    ) {
+      return;
+    }
+    canvas[height - y - 1][x]++;
+    subscriptionHandler.notifySubscribers();
   }
 
   /**
    * Rounds the double down to the nearest integer to prevent -0.4 from being rounded to 0, then
-   * calls {@link #setPixel(int, int)} with the new values
+   * calls {@link #touchPixel(int, int)} with the new values
    *
    * @param x the x-coordinate of the pixel from left to right
    * @param y the y-coordinate of the pixel from bottom to top
-   * @see #setPixel(int, int)
+   * @see #touchPixel(int, int)
    */
-  public void setPixel(double x, double y) {
+  public void touchPixel(double x, double y) {
     if (x < 0 || y < 0) {
       return;
     }
-    setPixel((int) x, (int) y);
+    this.touchPixel((int) x, (int) y);
   }
 
   /**
@@ -158,7 +172,7 @@ public class ChaosGameCanvas {
    */
   public void drawAtCoords(Vector coords) {
     Vector scaled = coordsToIndicesTransformation.transform(coords);
-    setPixel(scaled.getX0(), scaled.getX1());
+    touchPixel(scaled.getX0(), scaled.getX1());
   }
 
   /**
@@ -169,6 +183,10 @@ public class ChaosGameCanvas {
    */
   public int[][] getCanvas() {
     return canvas;
+  }
+
+  public SubscriptionHandler<int[][]> getSubscriptionHandler() {
+    return subscriptionHandler;
   }
 
   /**

@@ -1,0 +1,9 @@
+.root {
+  -fx-base: transparent;
+  -fx-background-color: transparent;
+  -fx-text-fill: white;
+}
+
+.root * {
+  -fx-border-width: 0;
+}
