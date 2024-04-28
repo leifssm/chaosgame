@@ -45,8 +45,8 @@ public class ChaosGameCanvasTest {
     @Test
     @DisplayName("clear() should set all pixels to 0")
     void clear() {
-      chaosGameCanvas.setPixel(0, 0);
-      chaosGameCanvas.setPixel(1, 1);
+      chaosGameCanvas.touchPixel(0, 0);
+      chaosGameCanvas.touchPixel(1, 1);
       chaosGameCanvas.clear();
       assertTrue(isEmpty());
     }
