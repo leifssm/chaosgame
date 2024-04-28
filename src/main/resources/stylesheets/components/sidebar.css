@@ -1,0 +1,6 @@
+.sidebar {
+  -fx-background-color: #1e1f22;
+  -fx-pref-height: 100px;
+  -fx-pref-width: 10%;
+  -fx-max-width: 150px;
+}

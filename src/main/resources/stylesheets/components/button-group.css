@@ -1,0 +1,15 @@
+.button-group {
+  -fx-spacing: 10px;
+  -fx-alignment: bottom-right;
+}
+
+.button-group VBox {
+  -fx-padding: 5px;
+  -fx-spacing: 5px;
+  -fx-alignment: bottom-center;
+}
+
+.button-group .action-button {
+  -fx-background-color: #1e1f22;
+  -fx-background-radius: 100px;
+}
