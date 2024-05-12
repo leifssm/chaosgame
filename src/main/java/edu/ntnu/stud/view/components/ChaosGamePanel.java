@@ -3,6 +3,7 @@ package edu.ntnu.stud.view.components;
 import edu.ntnu.stud.model.ChaosGame;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
+import edu.ntnu.stud.model.ReverseChaosGame;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
@@ -12,30 +13,26 @@ import org.jetbrains.annotations.Nullable;
 public class ChaosGamePanel extends ImageView {
   private @Nullable ChaosGame chaosGame;
   private final WritableImage image;
-  private static final String DEFAULT_FILE_PATH = "sierpinski.txt";
+  private static final String DEFAULT_FILE_PATH = "julia.txt";
 
   public ChaosGamePanel(int width, int height) {
     super(new WritableImage(width, height));
+
     image = (WritableImage) getImage();
     replaceCurrentGame(DEFAULT_FILE_PATH);
   }
 
   public void replaceCurrentGame(@NotNull String filePath) {
     ChaosGameDescription file = ChaosGameFileHandler.readFromFile(filePath);
-    if (chaosGame != null) {
-      chaosGame.getCanvas().getSubscriptionHandler().disconnectAll();
-    }
-    chaosGame = new ChaosGame((int) image.getWidth(), (int) image.getHeight(), file);
-    chaosGame.iterate(getIterations());
+    disconnect();
+
+    chaosGame = new ReverseChaosGame((int) image.getWidth(), (int) image.getHeight(), file);
+
+    chaosGame.render();
     chaosGame.getCanvas().getSubscriptionHandler().subscribe(this::redraw);
   }
 
-  private int getIterations() {
-    final int ITERATION_SCALAR = 1;
-    return (int) Math.min(1000000, image.getWidth() * image.getHeight() * ITERATION_SCALAR);
-  }
-
-  private void redraw(int[][] canvas) {
+  private void redraw(int @NotNull [] @NotNull [] canvas) {
     for (int y = 0; y < canvas.length; y++) {
       for (int x = 0; x < canvas[y].length; x++) {
         drawPixel(x, y, canvas[y][x]);
@@ -45,7 +42,6 @@ public class ChaosGamePanel extends ImageView {
 
   private final Color[] colors = new Color[]{
     Color.rgb(0, 0, 0),
-    Color.rgb(66, 30, 15),
     Color.rgb(25, 7, 26),
     Color.rgb(9, 1, 47),
     Color.rgb(4, 4, 73),
@@ -60,7 +56,7 @@ public class ChaosGamePanel extends ImageView {
     Color.rgb(255, 170, 0),
     Color.rgb(204, 128, 0),
     Color.rgb(153, 87, 0),
-    Color.rgb(106, 52, 3),
+    Color.rgb(106, 52, 3)
   };
   private Color getColor(int color) {
     if (color < 0) {
@@ -71,6 +67,7 @@ public class ChaosGamePanel extends ImageView {
     }
     return colors[color];
   }
+
   private void drawPixel(int x, int y, int color) {
     image.getPixelWriter().setColor(x, y, getColor(color));
   }

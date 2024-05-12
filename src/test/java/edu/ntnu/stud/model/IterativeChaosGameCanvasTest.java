@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(Enclosed.class)
-public class ChaosGameCanvasTest {
+public class IterativeChaosGameCanvasTest {
   private ChaosGameCanvas chaosGameCanvas;
   private final int width = 2;
   private final int height = 2;
