@@ -1,15 +1,18 @@
 package edu.ntnu.stud.model;
 
-import edu.ntnu.stud.model.math.AffineTransformation;
-import edu.ntnu.stud.model.math.SimpleMatrix;
+import edu.ntnu.stud.model.math.PixelCoordinateTranslator;
+import edu.ntnu.stud.model.math.PixelCoordinateTranslator.IndexPair;
 import edu.ntnu.stud.model.math.Vector;
+import edu.ntnu.stud.utils.DebouncingSubscriptionHandler;
+import edu.ntnu.stud.utils.SubscriptionHandler;
+import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * A canvas for drawing and getting the output of a chaos game.
  *
  * @author Leif Mørstad
- * @version 1.0
+ * @version 1.1
  */
 public class ChaosGameCanvas {
   /**
@@ -34,7 +37,7 @@ public class ChaosGameCanvas {
   /**
    * The transformation used to convert coordinates to indices in the canvas.
    */
-  private final @NotNull AffineTransformation coordsToIndicesTransformation;
+  private final @NotNull PixelCoordinateTranslator coordinateTranslator;
 
   private final DebouncingSubscriptionHandler<int[][]> subscriptionHandler;
 
@@ -65,21 +68,7 @@ public class ChaosGameCanvas {
     // Fills the array with 0s
     clear();
 
-    // Only translates and scales the coordinates to indices without rotating or flipping, as this
-    // is handled by the setPixel() and getPixel() methods
-    double x0Scalar = (width - 1) / (maxCoords.getX0() - minCoords.getX0());
-    double x1Scalar = (height - 1) / (maxCoords.getX1() - minCoords.getX1());
-
-    this.coordsToIndicesTransformation = new AffineTransformation(
-        new SimpleMatrix(
-            x0Scalar, 0,
-            0, x1Scalar
-        ),
-        new Vector(
-            - minCoords.getX0() * x0Scalar,
-            - minCoords.getX1() * x1Scalar
-        )
-    );
+    coordinateTranslator = new PixelCoordinateTranslator(width, height, minCoords, maxCoords);
   }
 
   /**
@@ -130,6 +119,13 @@ public class ChaosGameCanvas {
   }
 
   /**
+   * @see #setPixel(int, int, int)
+   */
+  public void setPixel(double x, double y, int value) {
+    this.setPixel((int) Math.floor(x), (int) Math.floor(y), value);
+  }
+
+  /**
    * Sets the pixel value at the given coordinates to 1. The origin is in the bottom left, with the
    * coordinates (0, 0) being in the bottom left corner. Does nothing if the given coordinates are
    * outside the canvas. Defaults the value to 1.
@@ -171,8 +167,8 @@ public class ChaosGameCanvas {
    * @param coords the coordinates to draw the pixel at
    */
   public void drawAtCoords(Vector coords) {
-    Vector scaled = coordsToIndicesTransformation.transform(coords);
-    touchPixel(scaled.getX0(), scaled.getX1());
+    IndexPair indexes = coordinateTranslator.coordsToIndices(coords);
+    touchPixel(indexes.x0(), indexes.x1());
   }
 
   /**
@@ -189,19 +185,46 @@ public class ChaosGameCanvas {
     return subscriptionHandler;
   }
 
+  public @NotNull PixelCoordinateTranslator getCoordinateTranslator() {
+    return coordinateTranslator;
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
   /**
-   * Returns a simple ascii art representation of the canvas.
+   * Returns a simple ascii art representation of the canvas, and skips a number of lines defined by
+   * the skip param.
    *
+   * @param skip the number of lines to skip
    * @return a simple ascii art representation of the canvas
    */
-  public @NotNull String asSimpleString() {
+  public @NotNull String asSimpleString(int skip) {
+    if (skip <= 0) {
+      throw new IllegalArgumentException("Skip cannot be less than 1");
+    }
+    skip++;
     StringBuilder sb = new StringBuilder();
-    for (int y = 0; y < height; y++) {
-      for (int x = 0; x < width; x++) {
+    for (int y = 0; y < height; y += skip) {
+      for (int x = 0; x < width; x += skip) {
         sb.append(canvas[y][x] == 0 ? " " : "x");
       }
       sb.append("\n");
     }
     return sb.toString();
+  }
+
+  /**
+   * Runs {@link #asSimpleString(int)} with a skip value of 0
+   *
+   * @see #asSimpleString(int)
+   */
+  public @NotNull String asSimpleString() {
+    return asSimpleString(0);
   }
 }

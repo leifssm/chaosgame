@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * display.
  *
  * @author Leif Mørstad
- * @version 1.0
+ * @version 1.1
  */
 public class ChaosGame {
   /**
@@ -47,7 +47,6 @@ public class ChaosGame {
         description.minCoords(),
         description.maxCoords()
     );
-    canvas.drawAtCoords(currentPoint);
   }
 
   public @NotNull TransformationGroup getTransformations() {
