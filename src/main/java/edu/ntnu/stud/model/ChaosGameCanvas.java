@@ -36,7 +36,7 @@ public class ChaosGameCanvas {
    */
   private final @NotNull AffineTransformation coordsToIndicesTransformation;
 
-  private final SubscriptionHandler<int[][]> subscriptionHandler;
+  private final DebouncingSubscriptionHandler<int[][]> subscriptionHandler;
 
   /**
    * Creates a new instance with the given width, height, and the coordinate bounds of the fractal.
@@ -60,7 +60,7 @@ public class ChaosGameCanvas {
     this.width = width;
     this.height = height;
     this.canvas = new int[height][width];
-    subscriptionHandler = new SubscriptionHandler<>(canvas);
+    subscriptionHandler = new DebouncingSubscriptionHandler<>(canvas, Duration.millis(200));
 
     // Fills the array with 0s
     clear();
@@ -185,7 +185,7 @@ public class ChaosGameCanvas {
     return canvas;
   }
 
-  public SubscriptionHandler<int[][]> getSubscriptionHandler() {
+  public @NotNull SubscriptionHandler<int[][]> getSubscriptionHandler() {
     return subscriptionHandler;
   }
 

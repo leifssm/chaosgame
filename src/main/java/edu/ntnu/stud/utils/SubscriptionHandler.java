@@ -1,4 +1,4 @@
-package edu.ntnu.stud.model;
+package edu.ntnu.stud.utils;
 
 import java.lang.reflect.Array;
 import java.util.function.Consumer;
@@ -9,20 +9,20 @@ import org.jetbrains.annotations.NotNull;
  *
  * @param <ObservedType> the type of the observed value
  * @author Leif Mørstad
- * @version 1.0
+ * @version 1.1
  */
 public class SubscriptionHandler<ObservedType> {
   private int subscriptionLength = 0;
-  private Consumer<ObservedType>[] subscriptions = createArray(0);
+  protected Consumer<ObservedType>[] subscriptions = createArray(0);
   private ObservedType observed;
 
   /**
    * Creates a new instance with the given observed value.
    *
-   * @param observed the value to observe
+   * @param observedValue the value to observe
    */
-  public SubscriptionHandler(ObservedType observed) {
-    this.observed = observed;
+  public SubscriptionHandler(ObservedType observedValue) {
+    this.observed = observedValue;
   }
 
   /**
@@ -59,11 +59,12 @@ public class SubscriptionHandler<ObservedType> {
    *
    * @param subscription the consumer to subscribe
    */
-  public void subscribe(@NotNull Consumer<ObservedType> subscription) {
+  public @NotNull Runnable subscribe(@NotNull Consumer<ObservedType> subscription) {
     subscriptionLength++;
     ensureLength(subscriptionLength);
     subscriptions[subscriptionLength - 1] = subscription;
     subscription.accept(observed);
+    return () -> unsubscribe(subscription);
   }
 
   /**
@@ -76,11 +77,41 @@ public class SubscriptionHandler<ObservedType> {
   }
 
   /**
-   * Sets the observed value to the given value and notifies all subscribers.
+   * Checks if the given observed value is different from the current observed value.
+   *
+   * @param observed the value to compare with the current observed value
+   * @return whether the given value is different from the current observed value
+   */
+  private boolean isDifferent(ObservedType observed) {
+    if (this.observed == null) {
+      return observed != null;
+    }
+    if (observed == null) {
+      return true;
+    }
+    return this.observed.equals(observed);
+  }
+
+  /**
+   * Sets the observed value to the given value and notifies all subscribers if.
    *
    * @param observed the new value to observe
    */
   public void set(ObservedType observed) {
+    boolean shouldNotify = isDifferent(observed);
+    this.observed = observed;
+    if (shouldNotify) {
+      notifySubscribers();
+    }
+  }
+
+  /**
+   * Sets the observed value to the given value and notifies all subscribers, whether the
+   * value is different or not.
+   *
+   * @param observed the new value to observe
+   */
+  public void setAndForceNotify(ObservedType observed) {
     this.observed = observed;
     notifySubscribers();
   }
@@ -108,7 +139,7 @@ public class SubscriptionHandler<ObservedType> {
    * @param subscription the subscription to disconnect
    * @return whether the subscription was disconnected
    */
-  public boolean disconnect(Consumer<ObservedType> subscription) {
+  public boolean unsubscribe(Consumer<ObservedType> subscription) {
     for (int i = 0; i < subscriptionLength; i++) {
       if (subscriptions[i] == subscription) {
         System.arraycopy(subscriptions, i + 1, subscriptions, i, subscriptionLength - i - 1);
