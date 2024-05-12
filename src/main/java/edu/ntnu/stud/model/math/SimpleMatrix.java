@@ -1,11 +1,12 @@
 package edu.ntnu.stud.model.math;
 
+import edu.ntnu.stud.utils.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * A simple two-by-two matrix.
  *
- * @version 2.0
+ * @version 2.1
  * @author Leif Mørstad
  */
 public class SimpleMatrix implements Transform2D {
@@ -97,6 +98,17 @@ public class SimpleMatrix implements Transform2D {
     return new Vector(
         a00 * vector.getX0() + a01 * vector.getX1(),
         a10 * vector.getX0() + a11 * vector.getX1()
+    );
+  }
+
+  public @NotNull String asSimpleString() {
+    int firstSegmentLength = Math.max(String.valueOf(a00).length(), String.valueOf(a01).length());
+    int secondSegmentLength = Math.max(String.valueOf(a10).length(), String.valueOf(a11).length());
+    return "|%s, %s|\n|%s, %s|".formatted(
+        StringUtils.padLeft(a00 + "", firstSegmentLength),
+        StringUtils.padLeft(a01 + "", secondSegmentLength),
+        StringUtils.padLeft(a10 + "", firstSegmentLength),
+        StringUtils.padLeft(a11 + "", secondSegmentLength)
     );
   }
 }
