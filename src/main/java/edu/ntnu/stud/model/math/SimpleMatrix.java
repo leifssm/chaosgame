@@ -101,6 +101,11 @@ public class SimpleMatrix implements Transform2D {
     );
   }
 
+  /**
+   * Returns the matrix of this transformation as an easily loggable string.
+   *
+   * @return the matrix as a string
+   */
   public @NotNull String asSimpleString() {
     int firstSegmentLength = Math.max(String.valueOf(a00).length(), String.valueOf(a01).length());
     int secondSegmentLength = Math.max(String.valueOf(a10).length(), String.valueOf(a11).length());

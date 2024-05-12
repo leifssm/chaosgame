@@ -1,4 +1,4 @@
-package edu.ntnu.stud.view.components.SidebarOverlay;
+package edu.ntnu.stud.view.components.sidebaroverlay;
 
 import edu.ntnu.stud.view.utils.AnimationHandler;
 import javafx.animation.Transition;
@@ -13,6 +13,7 @@ public class SidebarOverlay extends StackPane {
   private final @NotNull Sidebar sidebar = new Sidebar();
   private final @NotNull DoubleProperty sidebarOffset = new SimpleDoubleProperty(0);
   private boolean sidebarOpen = false;
+
   public SidebarOverlay() {
     super();
 

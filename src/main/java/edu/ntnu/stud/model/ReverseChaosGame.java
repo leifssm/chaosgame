@@ -28,8 +28,17 @@ public class ReverseChaosGame extends ChaosGame {
     super(width, height, description);
   }
 
+  /**
+   * The maximum number of iterations to perform per pixel when rendering the fractal.
+   */
   static final int MAX_ITERATION = 100;
 
+  /**
+   * Renders a pixel at the given indices and modifies the {@link #getCanvas() canvas}.
+   *
+   * @param x0Index the x0 index of the pixel
+   * @param x1Index the x1 index of the pixel
+   */
   public void renderPixel(int x0Index, int x1Index) {
     Vector plotLoc = getCanvas().getCoordinateTranslator().indicesToCoords(x0Index, x1Index);
 
@@ -52,6 +61,9 @@ public class ReverseChaosGame extends ChaosGame {
     getCanvas().setPixel(x0Index, x1Index, iterations);
   }
 
+  /**
+   * Renders the fractal on the canvas.
+   */
   public void render() {
     System.out.println("Rendering");
     for (int x0Index = 0; x0Index < getCanvas().getWidth(); x0Index++) {

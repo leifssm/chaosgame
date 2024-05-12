@@ -220,7 +220,7 @@ public class ChaosGameCanvas {
   }
 
   /**
-   * Runs {@link #asSimpleString(int)} with a skip value of 0
+   * Runs {@link #asSimpleString(int)} with a skip value of 0.
    *
    * @see #asSimpleString(int)
    */

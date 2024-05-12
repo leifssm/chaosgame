@@ -2,10 +2,9 @@ package edu.ntnu.stud.view.views;
 
 import edu.ntnu.stud.utils.Debouncer;
 import edu.ntnu.stud.view.components.ChaosGamePanel;
-import edu.ntnu.stud.view.components.SidebarOverlay.SidebarOverlay;
+import edu.ntnu.stud.view.components.sidebaroverlay.SidebarOverlay;
 import javafx.scene.layout.StackPane;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import javafx.util.Duration;
 
 public class Home extends StackPane {

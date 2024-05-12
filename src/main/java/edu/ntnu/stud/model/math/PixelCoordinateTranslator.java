@@ -2,27 +2,25 @@ package edu.ntnu.stud.model.math;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * A class for translating between pixel coordinates and indices in a canvas.
+ *
+ * @version 1.0
+ * @author Leif Mørstad
+ */
 public class PixelCoordinateTranslator {
   /**
    * The transformation used to convert coordinates to indices in the canvas.
    */
-  AffineTransformation coordsToIndicesTransformation;
+  private final AffineTransformation coordsToIndicesTransformation;
   /**
    * The transformation in part used to convert indices to coordinates in the canvas.
    */
-  SimpleMatrix indicesToCoordsScalar;
+  private final SimpleMatrix indicesToCoordsScalar;
   /**
    * The translation in part used to convert indices to coordinates in the canvas.
    */
-  Vector indicesToCoordsTranslation;
-  /**
-   * The width of the canvas.
-   */
-  int canvasWidth;
-  /**
-   * The height of the canvas.
-   */
-  int canvasHeight;
+  private final Vector indicesToCoordsTranslation;
 
   /**
    * Creates a new instance with the given width, height, and the coordinate bounds of the fractal.
@@ -38,9 +36,6 @@ public class PixelCoordinateTranslator {
       @NotNull Vector minCoords,
       @NotNull Vector maxCoords
   ) {
-    canvasHeight = height;
-    canvasWidth = width;
-
     // Does not rotate or flip the output, as this is expected to be handled elsewhere
     double x0Scalar = (width - 1) / (maxCoords.getX0() - minCoords.getX0());
     double x1Scalar = (height - 1) / (maxCoords.getX1() - minCoords.getX1());

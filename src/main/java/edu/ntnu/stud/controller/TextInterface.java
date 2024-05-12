@@ -1,10 +1,10 @@
 package edu.ntnu.stud.controller;
 
+import java.io.File;
 import edu.ntnu.stud.controller.menu.Menu;
 import edu.ntnu.stud.model.IterativeChaosGame;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
-import java.io.File;
 import org.jetbrains.annotations.NotNull;
 
 /**

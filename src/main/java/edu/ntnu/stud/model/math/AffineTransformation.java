@@ -81,6 +81,11 @@ public class AffineTransformation implements Transform2D {
         .add(translation);
   }
 
+  /**
+   * Returns the affine transformation of this transformation as an easily loggable string.
+   *
+   * @return the affine transformation as a string
+   */
   public @NotNull String asSimpleString() {
     int firstSegmentLength = Math.max(
         String.valueOf(matrix.getA00()).length(),

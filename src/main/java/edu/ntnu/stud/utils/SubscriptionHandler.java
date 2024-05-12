@@ -7,35 +7,35 @@ import org.jetbrains.annotations.NotNull;
 /**
  * A class for handling subscriptions to a value.
  *
- * @param <ObservedType> the type of the observed value
+ * @param <ObservedT> the type of the observed value
  * @author Leif Mørstad
  * @version 1.1
  */
-public class SubscriptionHandler<ObservedType> {
+public class SubscriptionHandler<ObservedT> {
   private int subscriptionLength = 0;
-  protected Consumer<ObservedType>[] subscriptions = createArray(0);
-  private ObservedType observed;
+  protected Consumer<ObservedT>[] subscriptions = createArray(0);
+  private ObservedT observed;
 
   /**
    * Creates a new instance with the given observed value.
    *
    * @param observedValue the value to observe
    */
-  public SubscriptionHandler(ObservedType observedValue) {
+  public SubscriptionHandler(ObservedT observedValue) {
     this.observed = observedValue;
   }
 
   /**
-   * Creates an empty array of the ObservedType type with the given length.
+   * Creates an empty array of the ObservedT type with the given length.
    *
    * @param length the length of the array
-   * @return an array of the ObservedType type with the given length
+   * @return an array of the ObservedT type with the given length
    */
-  private Consumer<ObservedType>[] createArray(int length) {
+  private Consumer<ObservedT>[] createArray(int length) {
     // https://stackoverflow.com/questions/529085/how-can-i-create-a-generic-array-in-java
 
     @SuppressWarnings("unchecked")
-    Consumer<ObservedType>[] array = (Consumer<ObservedType>[]) Array.newInstance(Consumer.class, length);
+    Consumer<ObservedT>[] array = (Consumer<ObservedT>[]) Array.newInstance(Consumer.class, length);
     return array;
   }
 
@@ -46,7 +46,7 @@ public class SubscriptionHandler<ObservedType> {
    */
   private void ensureLength(int newLength) {
     if (subscriptions.length < newLength) {
-      Consumer<ObservedType>[] newSubscriptions = createArray(newLength);
+      Consumer<ObservedT>[] newSubscriptions = createArray(newLength);
       if (subscriptions != null) {
         System.arraycopy(subscriptions, 0, newSubscriptions, 0, subscriptions.length);
       }
@@ -59,7 +59,7 @@ public class SubscriptionHandler<ObservedType> {
    *
    * @param subscription the consumer to subscribe
    */
-  public @NotNull Runnable subscribe(@NotNull Consumer<ObservedType> subscription) {
+  public @NotNull Runnable subscribe(@NotNull Consumer<ObservedT> subscription) {
     subscriptionLength++;
     ensureLength(subscriptionLength);
     subscriptions[subscriptionLength - 1] = subscription;
@@ -71,7 +71,7 @@ public class SubscriptionHandler<ObservedType> {
    * Gives all subscriptions the current value.
    */
   public void notifySubscribers() {
-    for (Consumer<ObservedType> subscription : subscriptions) {
+    for (Consumer<ObservedT> subscription : subscriptions) {
       subscription.accept(observed);
     }
   }
@@ -82,7 +82,7 @@ public class SubscriptionHandler<ObservedType> {
    * @param observed the value to compare with the current observed value
    * @return whether the given value is different from the current observed value
    */
-  private boolean isDifferent(ObservedType observed) {
+  private boolean isDifferent(ObservedT observed) {
     if (this.observed == null) {
       return observed != null;
     }
@@ -97,7 +97,7 @@ public class SubscriptionHandler<ObservedType> {
    *
    * @param observed the new value to observe
    */
-  public void set(ObservedType observed) {
+  public void set(ObservedT observed) {
     boolean shouldNotify = isDifferent(observed);
     this.observed = observed;
     if (shouldNotify) {
@@ -111,7 +111,7 @@ public class SubscriptionHandler<ObservedType> {
    *
    * @param observed the new value to observe
    */
-  public void setAndForceNotify(ObservedType observed) {
+  public void setAndForceNotify(ObservedT observed) {
     this.observed = observed;
     notifySubscribers();
   }
@@ -121,7 +121,7 @@ public class SubscriptionHandler<ObservedType> {
    *
    * @return the observed value
    */
-  public ObservedType get() {
+  public ObservedT get() {
     return observed;
   }
 
@@ -139,7 +139,7 @@ public class SubscriptionHandler<ObservedType> {
    * @param subscription the subscription to disconnect
    * @return whether the subscription was disconnected
    */
-  public boolean unsubscribe(Consumer<ObservedType> subscription) {
+  public boolean unsubscribe(Consumer<ObservedT> subscription) {
     for (int i = 0; i < subscriptionLength; i++) {
       if (subscriptions[i] == subscription) {
         System.arraycopy(subscriptions, i + 1, subscriptions, i, subscriptionLength - i - 1);

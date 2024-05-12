@@ -1,8 +1,6 @@
-package edu.ntnu.stud.view.components.SidebarOverlay;
+package edu.ntnu.stud.view.components.sidebaroverlay;
 
 import edu.ntnu.stud.view.components.ComponentUtils;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +11,7 @@ public class ButtonGroup extends HBox implements ComponentUtils {
   public ButtonGroup(@NotNull ActionButton @NotNull ... buttons) {
     super();
     useStylesheet("components/button-group");
-    addCSSClasses(buttonWrapper, "button-wrapper");
+    addCssClasses(buttonWrapper, "button-wrapper");
 
     for (ActionButton button : buttons) {
       addButton(button);

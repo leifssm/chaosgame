@@ -23,6 +23,7 @@ public class Debouncer {
    */
   private final @Nullable Runnable function;
   private final @NotNull PauseTransition delay;
+
   /**
    * Creates a new instance with the given function.
    *
@@ -37,6 +38,7 @@ public class Debouncer {
   /**
    * Creates a new instance with the given delay and no initial function. If this constructor is
    * used, any future use of the {@link #run()} method will throw an error.
+   *
    * @param delay the delay in milliseconds
    */
   public Debouncer(@NotNull Duration delay) {

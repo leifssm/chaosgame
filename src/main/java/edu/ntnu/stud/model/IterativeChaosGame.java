@@ -52,6 +52,11 @@ public class IterativeChaosGame extends ChaosGame {
     getCanvas().drawAtCoords(currentPoint);
   }
 
+  /**
+   * Returns the number of iterations the chaos game should perform.
+   *
+   * @return the number of iterations
+   */
   private int getIterations() {
     return Math.min(
         1000000,
