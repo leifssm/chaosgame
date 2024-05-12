@@ -1,6 +1,5 @@
 package edu.ntnu.stud.model;
 
-import edu.ntnu.stud.model.math.TransformationGroup;
 import edu.ntnu.stud.model.math.Vector;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +19,7 @@ public class IterativeChaosGame extends ChaosGame {
   /**
    * The scalar for the number of iterations to perform.
    */
-  private static int ITERATION_SCALAR = 1;
+  private static final int ITERATION_SCALAR = 1;
 
   /**
    * @see ChaosGame#ChaosGame(int, int, ChaosGameDescription)

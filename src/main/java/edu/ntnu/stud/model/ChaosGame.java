@@ -1,7 +1,6 @@
 package edu.ntnu.stud.model;
 
 import edu.ntnu.stud.model.math.TransformationGroup;
-import edu.ntnu.stud.model.math.Vector;
 import org.jetbrains.annotations.NotNull;
 
 /**

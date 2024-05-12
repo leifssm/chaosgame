@@ -1,20 +1,16 @@
 package edu.ntnu.stud.utils;
 
-import edu.ntnu.stud.controller.InputParser;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.PauseTransition;
-import javafx.concurrent.Task;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * A class that debounces a function call. Waits far a given delay before calling the function. If
- * the function is called again before the delay is over, the delay is reset.
+ * the function is called again before the delay is over, the delay is reset. Should not be used
+ * outside the JavaFX thread.
  *
- * @version 1.1
+ * @version 1.2
  * @author Leif Mørstad
  */
 public class Debouncer {
@@ -22,6 +18,10 @@ public class Debouncer {
    * The function to debounce, null if no initial function was set.
    */
   private final @Nullable Runnable function;
+
+  /**
+   * A transition class used to sync the debouncing with javafx
+   */
   private final @NotNull PauseTransition delay;
 
   /**
@@ -75,7 +75,7 @@ public class Debouncer {
    */
   public Runnable run() {
     if (function == null) {
-      throw new IllegalStateException("No function was set");
+      throw new IllegalStateException("No initial or temporary function was set");
     }
     return run(function);
   }

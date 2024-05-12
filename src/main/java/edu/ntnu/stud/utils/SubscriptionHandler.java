@@ -5,15 +5,16 @@ import java.util.function.Consumer;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * A class for handling subscriptions to a value.
+ * A class for handling subscriptions to a value. Used instead of SimpleObjectProperty (or similar)
+ * because of the need for more control over the subscription notifying.
  *
  * @param <ObservedT> the type of the observed value
  * @author Leif Mørstad
- * @version 1.1
+ * @version 1.2
  */
 public class SubscriptionHandler<ObservedT> {
   private int subscriptionLength = 0;
-  protected Consumer<ObservedT>[] subscriptions = createArray(0);
+  private Consumer<ObservedT>[] subscriptions = createArray(0);
   private ObservedT observed;
 
   /**
@@ -45,13 +46,12 @@ public class SubscriptionHandler<ObservedT> {
    * @param newLength the length to ensure
    */
   private void ensureLength(int newLength) {
-    if (subscriptions.length < newLength) {
-      Consumer<ObservedT>[] newSubscriptions = createArray(newLength);
-      if (subscriptions != null) {
-        System.arraycopy(subscriptions, 0, newSubscriptions, 0, subscriptions.length);
-      }
-      subscriptions = newSubscriptions;
+    if (subscriptions.length >= newLength) {
+      return;
     }
+    Consumer<ObservedT>[] newSubscriptions = createArray(newLength);
+    System.arraycopy(subscriptions, 0, newSubscriptions, 0, subscriptions.length);
+    subscriptions = newSubscriptions;
   }
 
   /**
@@ -89,7 +89,7 @@ public class SubscriptionHandler<ObservedT> {
     if (observed == null) {
       return true;
     }
-    return this.observed.equals(observed);
+    return !this.observed.equals(observed);
   }
 
   /**
@@ -117,6 +117,15 @@ public class SubscriptionHandler<ObservedT> {
   }
 
   /**
+   * Sets the observed value to the given value without notifying subscribers.
+   *
+   * @param observed the new value to observe
+   */
+  public void setAndDontNotify(ObservedT observed) {
+    this.observed = observed;
+  }
+
+  /**
    * Returns the observed value.
    *
    * @return the observed value
@@ -128,7 +137,7 @@ public class SubscriptionHandler<ObservedT> {
   /**
    * Disconnects all subscriptions.
    */
-  public void disconnectAll() {
+  public void unsubscribeAll() {
     subscriptionLength = 0;
     subscriptions = createArray(0);
   }
@@ -141,9 +150,14 @@ public class SubscriptionHandler<ObservedT> {
    */
   public boolean unsubscribe(Consumer<ObservedT> subscription) {
     for (int i = 0; i < subscriptionLength; i++) {
-      if (subscriptions[i] == subscription) {
+      if (subscriptions[i].equals(subscription)) {
         System.arraycopy(subscriptions, i + 1, subscriptions, i, subscriptionLength - i - 1);
         subscriptionLength--;
+
+        Consumer<ObservedT>[] a = createArray(subscriptionLength);
+        System.arraycopy(subscriptions, 0, a, 0, subscriptionLength);
+        subscriptions = a;
+
         return true;
       }
     }

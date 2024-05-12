@@ -1,4 +1,4 @@
-package edu.ntnu.stud.model;
+package edu.ntnu.stud;
 
 import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.DisplayName;

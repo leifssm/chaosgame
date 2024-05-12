@@ -74,7 +74,7 @@ public class ChaosGamePanel extends ImageView {
 
   public void disconnect() {
     if (chaosGame != null) {
-      chaosGame.getCanvas().getSubscriptionHandler().disconnectAll();
+      chaosGame.getCanvas().getSubscriptionHandler().unsubscribeAll();
     }
   }
 }
