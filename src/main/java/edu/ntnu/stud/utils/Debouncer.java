@@ -4,6 +4,9 @@ import edu.ntnu.stud.controller.InputParser;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
+import javafx.animation.PauseTransition;
+import javafx.concurrent.Task;
+import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
  * A class that debounces a function call. Waits far a given delay before calling the function. If
  * the function is called again before the delay is over, the delay is reset.
  *
- * @version 1.0
+ * @version 1.1
  * @author Leif Mørstad
  */
 public class Debouncer {
@@ -19,25 +22,25 @@ public class Debouncer {
    * The function to debounce, null if no initial function was set.
    */
   private final @Nullable Runnable function;
-  /**
-   * The task that is scheduled to run the function.
-   */
-  private TimerTask task;
-
-  /**
-   * The timer that schedules the tasks.
-   *
-   * @see <a href="https://stackoverflow.com/questions/68572061/how-to-prevent-a-timer-from-running-in-the-background">Used Stack Overflow</a>
-   */
-  private final Timer timer = new Timer(true);
-
+  private final @NotNull PauseTransition delay;
   /**
    * Creates a new instance with the given function.
    *
    * @param function the function to debounce
+   * @param delay the delay in milliseconds
    */
-  public Debouncer(@NotNull Runnable function) {
+  public Debouncer(@Nullable Runnable function, Duration delay) {
     this.function = function;
+    this.delay = new PauseTransition(delay);
+  }
+
+  /**
+   * Creates a new instance with the given delay and no initial function. If this constructor is
+   * used, any future use of the {@link #run()} method will throw an error.
+   * @param delay the delay in milliseconds
+   */
+  public Debouncer(@NotNull Duration delay) {
+    this(null, delay);
   }
 
   /**
@@ -45,7 +48,7 @@ public class Debouncer {
    * the {@link #run()} method will throw an error.
    */
   public Debouncer() {
-    this.function = null;
+    this(null, Duration.seconds(1));
   }
 
   /**
@@ -55,19 +58,10 @@ public class Debouncer {
    * @param function the function to debounce
    * @return a runnable that can be used to cancel the debounced function
    */
-  public Runnable run(Runnable function) {
-    if (task != null) {
-      task.cancel();
-    }
-
-    task = new TimerTask() {
-      @Override
-      public void run() {
-        function.run();
-      }
-    };
-    timer.schedule(task, 1000);
-    return task::cancel;
+  public Runnable run(@NotNull Runnable function) {
+    delay.setOnFinished(event -> function.run());
+    delay.playFromStart();
+    return delay::stop;
   }
 
   /**
