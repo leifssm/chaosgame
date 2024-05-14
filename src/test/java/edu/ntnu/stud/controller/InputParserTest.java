@@ -257,11 +257,9 @@ class InputParserTest {
       InputStream stream = null;
       // Act
       // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
+      TestHelper.assertNotNullParam(
           () -> InputParser.initialize(stream),
-          "The input stream cannot be null",
-          "InputParser should not be able to be initialized with a null stream"
+          "stream"
       );
     }
   }

@@ -11,14 +11,21 @@ import org.junit.runner.RunWith;
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(Enclosed.class)
-public class IterativeChaosGameCanvasTest {
+public class ChaosGameCanvasTest {
   private ChaosGameCanvas chaosGameCanvas;
   private final int width = 2;
   private final int height = 2;
 
   @BeforeEach
   void setUp() {
-    chaosGameCanvas = new ChaosGameCanvas(width, height, new Vector(0, 0), new Vector(10, 10));
+
+    chaosGameCanvas = new ChaosGameCanvas(
+        width,
+        height,
+        new Vector(0, 0),
+        new Vector(10, 10),
+        false
+    );
   }
 
   boolean isFilledWith(int value) {

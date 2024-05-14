@@ -86,11 +86,9 @@ class MenuItemTest {
       Runnable action = () -> {};
       // Act
       // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
+      TestHelper.assertNotNullParam(
           () -> new MenuItem(name, action),
-          "The name and action cannot be null",
-          "Expected thrown exception when name is null"
+          "name"
       );
     }
 
@@ -102,11 +100,9 @@ class MenuItemTest {
       Runnable action = null;
       // Act
       // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
+      TestHelper.assertNotNullParam(
           () -> new MenuItem(name, action),
-          "The name and action cannot be null",
-          "Expected thrown exception when action is null"
+          "action"
       );
     }
   }
