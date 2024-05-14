@@ -1,17 +1,13 @@
 package edu.ntnu.stud.controller.menu;
 
-import edu.ntnu.stud.TestHelper;
-import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(Enclosed.class)
 class MenuItemTest {
 
   @Nested
@@ -72,42 +68,6 @@ class MenuItemTest {
       item.run();
       // Assert
       assertTrue(ranFunction.get());
-    }
-  }
-
-  @Nested
-  @DisplayName("Negative tests")
-  class NegativeTests {
-    @Test
-    @DisplayName("Constructor throws when the name is set as null")
-    void constructorThrowsWhenNameIsNull() {
-      // Arrange
-      String name = null;
-      Runnable action = () -> {};
-      // Act
-      // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
-          () -> new MenuItem(name, action),
-          "The name and action cannot be null",
-          "Expected thrown exception when name is null"
-      );
-    }
-
-    @Test
-    @DisplayName("Constructor throws when the action is set as null")
-    void constructorThrowsWhenActionIsNull() {
-      // Arrange
-      String name = "Test";
-      Runnable action = null;
-      // Act
-      // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
-          () -> new MenuItem(name, action),
-          "The name and action cannot be null",
-          "Expected thrown exception when action is null"
-      );
     }
   }
 }

@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 public interface ComponentUtils {
 
   /**
-   * Throws if the class it is implemented on is not of type Parent
+   * Throws if the class it is implemented on is not of type Parent.
    *
    * @see Parent
    */
@@ -53,13 +53,13 @@ public interface ComponentUtils {
     }
 
     if (classes.length > 0) {
-      addCSSClasses(classes);
+      addCssClasses(classes);
       return;
     }
     String[] files = stylesheet.split("/");
     String className = files[files.length - 1];
 
-    addCSSClasses(element, className);
+    addCssClasses(element, className);
   }
 
   /**
@@ -80,7 +80,11 @@ public interface ComponentUtils {
    * @param stylesheet the name of the stylesheet to add
    * @param noClasses whether to add classes to the element, if true no classes are added
    */
-  default void useStylesheet(@NotNull Parent element, @NotNull String stylesheet, boolean noClasses) {
+  default void useStylesheet(
+      @NotNull Parent element,
+      @NotNull String stylesheet,
+      boolean noClasses
+  ) {
     if (noClasses) {
       useStylesheet(element, stylesheet, (String) null);
     } else {
@@ -106,7 +110,7 @@ public interface ComponentUtils {
    * @param element the element to add the classes to
    * @param classNames the classes to add
    */
-  default void addCSSClasses(@NotNull Parent element, @NotNull String @NotNull ... classNames) {
+  default void addCssClasses(@NotNull Parent element, @NotNull String @NotNull ... classNames) {
     element.getStyleClass().addAll(classNames);
   }
 
@@ -114,11 +118,11 @@ public interface ComponentUtils {
    * Shorthand for adding the given classes to the 'this' element.
    *
    * @param classNames the classes to add to the element
-   * @see #addCSSClasses(Parent, String...)
+   * @see #addCssClasses(Parent, String...)
    */
-  default void addCSSClasses(@NotNull String @NotNull ... classNames) {
+  default void addCssClasses(@NotNull String @NotNull ... classNames) {
     checkThis();
-    addCSSClasses((Parent) this, classNames);
+    addCssClasses((Parent) this, classNames);
   }
 
   /**
@@ -127,7 +131,7 @@ public interface ComponentUtils {
    * @param element the element to remove the classes from
    * @param classNames the classes to remove
    */
-  default void removeCSSClasses(@NotNull Parent element, @NotNull String @NotNull ... classNames) {
+  default void removeCssClasses(@NotNull Parent element, @NotNull String @NotNull ... classNames) {
     element.getStyleClass().removeAll(classNames);
   }
 
@@ -135,11 +139,11 @@ public interface ComponentUtils {
    * Shorthand for removing the given classes from the 'this' element.
    *
    * @param classNames the classes to remove from the element
-   * @see #removeCSSClasses(Parent, String...)
+   * @see #removeCssClasses(Parent, String...)
    */
-  default void removeCSSClasses(@NotNull String @NotNull ... classNames) {
+  default void removeCssClasses(@NotNull String @NotNull ... classNames) {
     checkThis();
-    removeCSSClasses((Parent) this, classNames);
+    removeCssClasses((Parent) this, classNames);
   }
 
   /**
@@ -149,7 +153,7 @@ public interface ComponentUtils {
    * @param className the class to check for
    * @return whether the element has the class
    */
-  default boolean hasCSSClass(@NotNull Parent element, @NotNull String className) {
+  default boolean hasCssClass(@NotNull Parent element, @NotNull String className) {
     return element.getStyleClass().contains(className);
   }
 
@@ -158,11 +162,11 @@ public interface ComponentUtils {
    *
    * @param className the class to check for
    * @return whether the element has the class
-   * @see #hasCSSClass(Parent, String)
+   * @see #hasCssClass(Parent, String)
    */
-  default boolean hasCSSClass(@NotNull String className) {
+  default boolean hasCssClass(@NotNull String className) {
     checkThis();
-    return hasCSSClass((Parent) this, className);
+    return hasCssClass((Parent) this, className);
   }
 
   /**
@@ -172,8 +176,8 @@ public interface ComponentUtils {
    * @param className the class to toggle
    * @return whether the class was added
    */
-  default boolean toggleCSSClass(@NotNull Parent element, @NotNull String className) {
-    if (hasCSSClass(className)) {
+  default boolean toggleCssClass(@NotNull Parent element, @NotNull String className) {
+    if (hasCssClass(className)) {
       element.getStyleClass().remove(className);
       return false;
     } else {
@@ -187,10 +191,10 @@ public interface ComponentUtils {
    *
    * @param className the class to toggle
    * @return whether the class was added
-   * @see #toggleCSSClass(Parent, String)
+   * @see #toggleCssClass(Parent, String)
    */
-  default boolean toggleCSSClass(@NotNull String className) {
+  default boolean toggleCssClass(@NotNull String className) {
     checkThis();
-    return toggleCSSClass((Parent) this, className);
+    return toggleCssClass((Parent) this, className);
   }
 }

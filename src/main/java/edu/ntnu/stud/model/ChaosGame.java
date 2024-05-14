@@ -1,7 +1,7 @@
 package edu.ntnu.stud.model;
 
 import edu.ntnu.stud.model.math.TransformationGroup;
-import edu.ntnu.stud.model.math.Vector;
+import edu.ntnu.stud.utils.GlobalData;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -9,9 +9,9 @@ import org.jetbrains.annotations.NotNull;
  * display.
  *
  * @author Leif Mørstad
- * @version 1.0
+ * @version 1.1
  */
-public class ChaosGame {
+public abstract class ChaosGame {
   /**
    * The canvas on which the fractal is drawn.
    */
@@ -21,11 +21,6 @@ public class ChaosGame {
    * The transformations used to generate the fractal.
    */
   private final @NotNull TransformationGroup transformations;
-
-  /**
-   * The current point where the fractal is drawn from. Starts at (0, 0)
-   */
-  private @NotNull Vector currentPoint = new Vector(0, 0);
 
   /**
    * Creates a new instance with the given width, height and description.
@@ -45,9 +40,9 @@ public class ChaosGame {
         width,
         height,
         description.minCoords(),
-        description.maxCoords()
+        description.maxCoords(),
+        GlobalData.isGUI()
     );
-    canvas.drawAtCoords(currentPoint);
   }
 
   public @NotNull TransformationGroup getTransformations() {
@@ -58,22 +53,5 @@ public class ChaosGame {
     return canvas;
   }
 
-  /**
-   * Iterates the transformations randomly a given number of times, and updates the canvas.
-   *
-   * @param steps the number of iterations to perform
-   */
-  public void iterate(int steps) {
-    for (int i = 0; i < steps; i++) {
-      iterate();
-    }
-  }
-
-  /**
-   * Iterates the point once, by randomly transforming the point, and draws it on the canvas.
-   */
-  public void iterate() {
-    currentPoint = transformations.transform(currentPoint);
-    canvas.drawAtCoords(currentPoint);
-  }
+  public abstract void render();
 }

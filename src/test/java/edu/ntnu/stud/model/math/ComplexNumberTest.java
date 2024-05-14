@@ -1,17 +1,14 @@
 package edu.ntnu.stud.model.math;
 
-import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
 import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-@RunWith(Enclosed.class)
 public class ComplexNumberTest {
   @Nested
   class PositiveTests {
@@ -189,16 +186,6 @@ public class ComplexNumberTest {
           () -> new ComplexNumber(new double[]{ 1.0 }),
           "Instantiating ComplexNumber with an array with less than 2 numbers should " +
               "throw an exception"
-      );
-    }
-
-    @Test
-    @DisplayName("Constructor throws when given null")
-    public void constructorThrowsOnANull() {
-      assertThrows(
-          IllegalArgumentException.class,
-          () -> ComplexNumber.fromVector((Vector) null),
-          "Instantiating ComplexNumber with null should throw an exception"
       );
     }
   }

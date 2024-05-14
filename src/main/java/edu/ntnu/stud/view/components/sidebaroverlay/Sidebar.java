@@ -1,4 +1,4 @@
-package edu.ntnu.stud.view.components.SidebarOverlay;
+package edu.ntnu.stud.view.components.sidebaroverlay;
 
 import edu.ntnu.stud.view.components.ComponentUtils;
 import javafx.scene.control.Label;

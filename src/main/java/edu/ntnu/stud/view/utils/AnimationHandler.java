@@ -40,6 +40,7 @@ public class AnimationHandler {
   /**
    * Replaces the current animation with the given one. Stops the current animation if it exists and
    * plays the new one.
+   *
    * @param animation the new animation to play
    */
   public void replaceAnimation(@NotNull Animation animation) {

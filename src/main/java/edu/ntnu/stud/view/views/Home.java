@@ -1,15 +1,17 @@
 package edu.ntnu.stud.view.views;
 
+import edu.ntnu.stud.utils.Debouncer;
 import edu.ntnu.stud.view.components.ChaosGamePanel;
-import edu.ntnu.stud.view.components.SidebarOverlay.SidebarOverlay;
+import edu.ntnu.stud.view.components.sidebaroverlay.SidebarOverlay;
 import javafx.scene.layout.StackPane;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import javafx.util.Duration;
 
 public class Home extends StackPane {
-  private volatile int width = 1;
-  private volatile int height = 1;
+  private int width = 1;
+  private int height = 1;
   private ChaosGamePanel chaosGamePanel;
+  private final Debouncer sizeUpdateDebouncer = new Debouncer(this::updateSize, Duration.millis(100));
   public Home() {
     super();
     SidebarOverlay sidebarOverlay = new SidebarOverlay();
@@ -23,7 +25,7 @@ public class Home extends StackPane {
       return;
     }
     this.width = width;
-    updateSize();
+    sizeUpdateDebouncer.run();
   }
 
   private void setHeight(int height) {
@@ -31,14 +33,18 @@ public class Home extends StackPane {
       return;
     }
     this.height = height;
-    updateSize();
+    sizeUpdateDebouncer.run();
   }
 
-  private synchronized void updateSize() {
+  /**
+   * Only run through debouncer.
+   */
+  private void updateSize() {
+    System.out.println("Updating size to " + width + "x" + height);
     if (chaosGamePanel != null) {
       chaosGamePanel.disconnect();
+      getChildren().remove(chaosGamePanel);
     }
-    getChildren().remove(chaosGamePanel);
     chaosGamePanel = new ChaosGamePanel(width, height);
     getChildren().add(chaosGamePanel);
     chaosGamePanel.toBack();

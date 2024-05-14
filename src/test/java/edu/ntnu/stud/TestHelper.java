@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import edu.ntnu.stud.controller.InputParser;
 import org.junit.jupiter.api.function.Executable;
 import org.opentest4j.AssertionFailedError;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -23,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * </p>
  *
  * @author Leif Mørstad
- * @version 1.0
+ * @version 1.1
  */
 public class TestHelper {
   /**

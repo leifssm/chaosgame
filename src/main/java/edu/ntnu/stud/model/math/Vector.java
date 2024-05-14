@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * An immutable two-dimensional vector with relevant methods.
  *
  * @author Leif Mørstad
- * @version 1.4
+ * @version 1.5
  */
 public class Vector {
   /**
@@ -43,10 +43,6 @@ public class Vector {
    *                                  values are {@link Double#NaN}
    */
   public Vector(double @NotNull [] values) throws IllegalArgumentException {
-    // Annotations are ignored when running mvn package
-    if (values == null) {
-      throw new IllegalArgumentException("The array of values cannot be null");
-    }
     if (values.length != 2) {
       throw new IllegalArgumentException("Given array must have exactly two values");
     }
@@ -220,6 +216,15 @@ public class Vector {
    */
   public double angle(@NotNull Vector vector) throws IllegalArgumentException {
     return Vector.angle(this, vector);
+  }
+
+  /**
+   * Creates a copy of the vector.
+   *
+   * @return a new vector with the same values as this vector
+   */
+  public @NotNull Vector copy() {
+    return new Vector(x0, x1);
   }
 
   /**

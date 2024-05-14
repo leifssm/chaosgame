@@ -1,16 +1,13 @@
 package edu.ntnu.stud.model.math;
 
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
 import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
 import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorNotEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(Enclosed.class)
 public class VectorTest {
   @Nested
   class PositiveTests {

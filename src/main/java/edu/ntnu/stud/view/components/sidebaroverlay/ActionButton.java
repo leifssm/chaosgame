@@ -1,4 +1,4 @@
-package edu.ntnu.stud.view.components.SidebarOverlay;
+package edu.ntnu.stud.view.components.sidebaroverlay;
 
 import edu.ntnu.stud.view.components.ComponentUtils;
 import javafx.scene.control.Button;
@@ -31,7 +31,7 @@ public class ActionButton extends Button implements ComponentUtils {
     setTooltip(new Tooltip(description));
 //    setGraphic(new FontIcon("mdi-" + icon));
     setOnAction(event -> action.run());
-    addCSSClasses("action-button");
+    addCssClasses("action-button");
   }
 
   /**
@@ -41,8 +41,8 @@ public class ActionButton extends Button implements ComponentUtils {
    * @return this instance
    */
   public ActionButton setType(@NotNull String type) {
-    addCSSClasses(type);
-    removeCSSClasses("primary"); // TODO add all types (or use enum)
+    addCssClasses(type);
+    removeCssClasses("primary"); // TODO add all types (or use enum)
     return this;
   }
 }
