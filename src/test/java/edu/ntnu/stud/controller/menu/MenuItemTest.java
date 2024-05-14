@@ -1,6 +1,5 @@
 package edu.ntnu.stud.controller.menu;
 
-import edu.ntnu.stud.TestHelper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

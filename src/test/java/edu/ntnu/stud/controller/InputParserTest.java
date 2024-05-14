@@ -1,7 +1,6 @@
 package edu.ntnu.stud.controller;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.time.LocalTime;
 import java.util.regex.Pattern;
 

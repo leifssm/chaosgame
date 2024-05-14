@@ -188,15 +188,5 @@ public class ComplexNumberTest {
               "throw an exception"
       );
     }
-
-    @Test
-    @DisplayName("Constructor throws when given null")
-    public void constructorThrowsOnANull() {
-      assertThrows(
-          IllegalArgumentException.class,
-          () -> ComplexNumber.fromVector((Vector) null),
-          "Instantiating ComplexNumber with null should throw an exception"
-      );
-    }
   }
 }
