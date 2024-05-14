@@ -1,6 +1,7 @@
 package edu.ntnu.stud.model;
 
 import edu.ntnu.stud.model.math.TransformationGroup;
+import edu.ntnu.stud.utils.GlobalData;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -39,7 +40,8 @@ public abstract class ChaosGame {
         width,
         height,
         description.minCoords(),
-        description.maxCoords()
+        description.maxCoords(),
+        GlobalData.isGUI()
     );
   }
 

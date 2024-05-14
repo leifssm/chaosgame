@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
  * @version 1.2
  * @author Leif Mørstad
  */
-public class Debouncer {
+public class Debouncer extends FunctionWrapper {
   /**
    * The function to debounce, null if no initial function was set.
    */
@@ -57,11 +57,11 @@ public class Debouncer {
    * Runs the function after a delay. If the function is called again before the delay is over, the
    * delay is reset. Overrides the current debounced function for this iteration.
    *
-   * @param function the function to debounce
+   * @param task the function to debounce
    * @return a runnable that can be used to cancel the debounced function
    */
-  public Runnable run(@NotNull Runnable function) {
-    delay.setOnFinished(event -> function.run());
+  public @NotNull TaskCanceller run(@NotNull Runnable task) {
+    delay.setOnFinished(event -> task.run());
     delay.playFromStart();
     return delay::stop;
   }
@@ -73,7 +73,7 @@ public class Debouncer {
    * @throws IllegalStateException if no function was set
    * @see #run(Runnable)
    */
-  public Runnable run() {
+  public @NotNull TaskCanceller run() {
     if (function == null) {
       throw new IllegalStateException("No initial or temporary function was set");
     }

@@ -39,7 +39,7 @@ public class ChaosGameCanvas {
    */
   private final @NotNull PixelCoordinateTranslator coordinateTranslator;
 
-  private final DebouncingSubscriptionHandler<int[][]> subscriptionHandler;
+  private final SubscriptionHandler<int[][]> subscriptionHandler;
 
   /**
    * Creates a new instance with the given width, height, and the coordinate bounds of the fractal.
@@ -51,24 +51,43 @@ public class ChaosGameCanvas {
    * @throws IllegalArgumentException if the width or height is less than 1, or if given null
    *                                  vectors as coordinates
    */
-  public ChaosGameCanvas(
+  private ChaosGameCanvas(
       int width,
       int height,
       @NotNull Vector minCoords,
-      @NotNull Vector maxCoords
+      @NotNull Vector maxCoords,
+      SubscriptionHandler<int[][]> subscriptionHandler
   ) throws IllegalArgumentException {
     if (width < 1 || height < 1) {
       throw new IllegalArgumentException("Width and height must be at least 1 each");
     }
     this.width = width;
     this.height = height;
-    this.canvas = new int[height][width];
-    subscriptionHandler = new DebouncingSubscriptionHandler<>(canvas, Duration.millis(200));
+    this.subscriptionHandler = subscriptionHandler;
+    this.canvas = subscriptionHandler.get();
 
     // Fills the array with 0s
     clear();
 
     coordinateTranslator = new PixelCoordinateTranslator(width, height, minCoords, maxCoords);
+  }
+
+  public ChaosGameCanvas(
+      int width,
+      int height,
+      @NotNull Vector minCoords,
+      @NotNull Vector maxCoords,
+      boolean isDebouncing
+  ) throws IllegalArgumentException {
+    this(
+        width,
+        height,
+        minCoords,
+        maxCoords,
+        isDebouncing
+            ? new DebouncingSubscriptionHandler<>(new int[height][width], Duration.millis(100))
+            : new SubscriptionHandler<>(new int[height][width])
+    );
   }
 
   /**
@@ -205,8 +224,8 @@ public class ChaosGameCanvas {
    * @return a simple ascii art representation of the canvas
    */
   public @NotNull String asSimpleString(int skip) {
-    if (skip <= 0) {
-      throw new IllegalArgumentException("Skip cannot be less than 1");
+    if (skip < 0) {
+      throw new IllegalArgumentException("Skip cannot be less than 0");
     }
     skip++;
     StringBuilder sb = new StringBuilder();

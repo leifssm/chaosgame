@@ -1,13 +1,10 @@
 package edu.ntnu.stud.controller.menu;
 
 import edu.ntnu.stud.TestHelper;
-import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.*;
-import org.junit.runner.RunWith;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-@RunWith(Enclosed.class)
 class MenuTest {
   private Menu menu;
   @BeforeEach
@@ -171,53 +168,6 @@ class MenuTest {
   @Nested
   @DisplayName("Negative tests")
   class NegativeTests {
-    @Test
-    @DisplayName("Constructor throws when the name is set as null")
-    void constructorThrowsWhenNameIsNull() {
-      // Arrange
-      String name = null;
-      // Act
-      // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
-          () -> new Menu(name),
-          "The name cannot be null",
-          "Expected thrown exception when name is null"
-      );
-    }
-
-    @Test
-    @DisplayName("addOption() throws when the given name is null")
-    void addOptionThrowsWhenNameIsNull() {
-      // Arrange
-      String name = null;
-      Runnable action = () -> {};
-      // Act
-      // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
-          () -> menu.addOption(name, action),
-          "The name and action cannot be null",
-          "Expected thrown exception when name is null"
-      );
-    }
-
-    @Test
-    @DisplayName("addOption() throws when the given action is null")
-    void addOptionThrowsWhenActionIsNull() {
-      // Arrange
-      String name = "Test Option";
-      Runnable action = null;
-      // Act
-      // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
-          () -> menu.addOption(name, action),
-          "The name and action cannot be null",
-          "Expected thrown exception when name is null"
-      );
-    }
-
     @Test
     @DisplayName("runOnce() throws if no options has been added to the menu")
     void runOnceWithZeroOptionShouldThrow() {

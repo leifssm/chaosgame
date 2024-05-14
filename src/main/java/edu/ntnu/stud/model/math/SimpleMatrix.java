@@ -102,6 +102,24 @@ public class SimpleMatrix implements Transform2D {
   }
 
   /**
+   * Returns A^-1 if possible, throws if the matrix is not invertible.
+   *
+   * @return A^-1
+   */
+  public @NotNull SimpleMatrix invert() {
+    double determinant = a00 * a11 - a01 * a10;
+    if (determinant == 0) {
+      throw new IllegalArgumentException("Matrix is not invertible");
+    }
+    return new SimpleMatrix(
+        a11 / determinant,
+        -a01 / determinant,
+        -a10 / determinant,
+        a00 / determinant
+    );
+  }
+
+  /**
    * Returns the matrix of this transformation as an easily loggable string.
    *
    * @return the matrix as a string

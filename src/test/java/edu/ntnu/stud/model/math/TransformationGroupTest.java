@@ -1,17 +1,14 @@
 package edu.ntnu.stud.model.math;
 
-import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RunWith(Enclosed.class)
 public class TransformationGroupTest {
   @Nested
   class PositiveTests {

@@ -1,6 +1,7 @@
 package edu.ntnu.stud.view;
 
 import edu.ntnu.stud.utils.FileLoader;
+import edu.ntnu.stud.utils.GlobalData;
 import edu.ntnu.stud.view.components.ComponentUtils;
 import edu.ntnu.stud.view.views.Home;
 import javafx.application.Application;
@@ -10,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class App extends Application implements ComponentUtils {
   public void start(@NotNull Stage stage) {
+    GlobalData.setIsRunningJavaFx();
     Scene scene = new Scene(new Home(), 400, 300);
     scene.getStylesheets().add(FileLoader.getStylesheet("root"));
 

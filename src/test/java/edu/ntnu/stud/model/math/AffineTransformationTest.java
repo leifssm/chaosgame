@@ -75,35 +75,6 @@ public class AffineTransformationTest {
           "Creating an AffineTransformation with not exactly six values should " +
               "throw an exception"
       );
-      assertThrows(
-          IllegalArgumentException.class,
-          () -> new AffineTransformation(
-              new SimpleMatrix(1,2,3,4),
-              null
-          ),
-          "Creating an AffineTransformation with null as the vector should throw an " +
-              "exception"
-      );
-      assertThrows(
-          IllegalArgumentException.class,
-          () -> new AffineTransformation(
-              null,
-              new Vector(5,6)
-          ),
-          "Creating an AffineTransformation with null as the matrix should throw an " +
-              "exception"
-      );
-    }
-
-    @Test
-    @DisplayName("Transforming null should throw an exception")
-    void transform() {
-      AffineTransformation transformation = new AffineTransformation();
-      assertThrows(
-          IllegalArgumentException.class,
-          () -> transformation.transform(null),
-          "Transforming a null vector should throw an exception"
-      );
     }
   }
 }

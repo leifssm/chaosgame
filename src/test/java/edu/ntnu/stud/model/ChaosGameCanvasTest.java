@@ -1,24 +1,28 @@
 package edu.ntnu.stud.model;
 
 import edu.ntnu.stud.model.math.Vector;
-import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(Enclosed.class)
-public class IterativeChaosGameCanvasTest {
+public class ChaosGameCanvasTest {
   private ChaosGameCanvas chaosGameCanvas;
   private final int width = 2;
   private final int height = 2;
 
   @BeforeEach
   void setUp() {
-    chaosGameCanvas = new ChaosGameCanvas(width, height, new Vector(0, 0), new Vector(10, 10));
+
+    chaosGameCanvas = new ChaosGameCanvas(
+        width,
+        height,
+        new Vector(0, 0),
+        new Vector(10, 10),
+        false
+    );
   }
 
   boolean isFilledWith(int value) {

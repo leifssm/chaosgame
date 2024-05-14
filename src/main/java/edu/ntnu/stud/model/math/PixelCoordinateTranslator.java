@@ -40,9 +40,6 @@ public class PixelCoordinateTranslator {
     double x0Scalar = (width - 1) / (maxCoords.getX0() - minCoords.getX0());
     double x1Scalar = (height - 1) / (maxCoords.getX1() - minCoords.getX1());
 
-    x0Scalar = Math.max(1, x0Scalar);
-    x1Scalar = Math.max(1, x1Scalar);
-
     Vector coordsTranslation = new Vector(
         minCoords.getX0() * x0Scalar,
         minCoords.getX1() * x1Scalar
@@ -56,10 +53,13 @@ public class PixelCoordinateTranslator {
         coordsTranslation.multiply(-1)
     );
 
-    this.indicesToCoordsScalar = new SimpleMatrix(
-        1 / x0Scalar, 0,
-        0, 1 / x1Scalar
-    );
+    boolean sizeError = width <= 1 || height <= 1;
+    this.indicesToCoordsScalar = sizeError
+        ? new SimpleMatrix(0, 0, 0, 0)
+        : new SimpleMatrix(
+            1 / x0Scalar, 0,
+            0, 1 / x1Scalar
+        );
 
     this.indicesToCoordsTranslation = coordsTranslation;
   }

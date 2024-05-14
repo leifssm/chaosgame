@@ -43,10 +43,6 @@ public class Vector {
    *                                  values are {@link Double#NaN}
    */
   public Vector(double @NotNull [] values) throws IllegalArgumentException {
-    // Annotations are ignored when running mvn package
-    if (values == null) {
-      throw new IllegalArgumentException("The array of values cannot be null");
-    }
     if (values.length != 2) {
       throw new IllegalArgumentException("Given array must have exactly two values");
     }

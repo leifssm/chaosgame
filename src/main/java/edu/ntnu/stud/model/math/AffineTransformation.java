@@ -29,10 +29,6 @@ public class AffineTransformation implements Transform2D {
    * @throws IllegalArgumentException if any of the given values are null
    */
   public AffineTransformation(@NotNull SimpleMatrix matrix, @NotNull Vector translation) {
-    // Annotations are ignored when running mvn package
-    if (matrix == null || translation == null) {
-      throw new IllegalArgumentException("The matrix and translation cannot be null");
-    }
     this.matrix = matrix;
     this.translation = translation;
   }
@@ -46,10 +42,6 @@ public class AffineTransformation implements Transform2D {
    *                                  null array
    */
   public AffineTransformation(double @NotNull ... values) throws IllegalArgumentException {
-    // Annotations are ignored when running mvn package
-    if (values == null) {
-      throw new IllegalArgumentException("The array of values cannot be null");
-    }
     if (values.length != 6) {
       throw new IllegalArgumentException("Given array must have exactly six values");
     }
@@ -72,10 +64,6 @@ public class AffineTransformation implements Transform2D {
    * @throws IllegalArgumentException if the given vector is null
    */
   public @NotNull Vector transform(@NotNull Vector vector) {
-    // Annotations are ignored when running mvn package
-    if (vector == null) {
-      throw new IllegalArgumentException("The vector cannot be null");
-    }
     return matrix
         .transform(vector)
         .add(translation);

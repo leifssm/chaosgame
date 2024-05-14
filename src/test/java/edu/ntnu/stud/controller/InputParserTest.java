@@ -1,22 +1,18 @@
 package edu.ntnu.stud.controller;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.time.LocalTime;
 import java.util.regex.Pattern;
 
 import edu.ntnu.stud.TestHelper;
 import org.intellij.lang.annotations.RegExp;
-import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(Enclosed.class)
 class InputParserTest {
 
   @AfterEach
@@ -244,25 +240,6 @@ class InputParserTest {
       InputParser.waitForUser(prompt);
       InputParser.waitForUser();
       InputParser.waitForUser();
-    }
-  }
-
-  @Nested
-  @DisplayName("Negative tests")
-  class NegativeTests {
-    @Test
-    @DisplayName("initialize() throws when trying to initialize with null")
-    void initializeThrowsWithNull() {
-      // Arrange
-      InputStream stream = null;
-      // Act
-      // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
-          () -> InputParser.initialize(stream),
-          "The input stream cannot be null",
-          "InputParser should not be able to be initialized with a null stream"
-      );
     }
   }
 }
