@@ -40,10 +40,6 @@ public class ComplexNumber extends Vector {
   public static @NotNull ComplexNumber fromVector(
       @NotNull Vector vector
   ) throws IllegalArgumentException {
-    // Annotations are ignored when running mvn package
-    if (vector == null) {
-      throw new IllegalArgumentException("The vector cannot be null");
-    }
     return new ComplexNumber(vector.getX0(), vector.getX1());
   }
 

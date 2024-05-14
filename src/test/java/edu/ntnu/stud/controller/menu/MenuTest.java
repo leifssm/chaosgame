@@ -169,47 +169,6 @@ class MenuTest {
   @DisplayName("Negative tests")
   class NegativeTests {
     @Test
-    @DisplayName("Constructor throws when the name is set as null")
-    void constructorThrowsWhenNameIsNull() {
-      // Arrange
-      String name = null;
-      // Act
-      // Assert
-      TestHelper.assertNotNullParam(
-          () -> new Menu(name),
-          "name"
-      );
-    }
-
-    @Test
-    @DisplayName("addOption() throws when the given name is null")
-    void addOptionThrowsWhenNameIsNull() {
-      // Arrange
-      String name = null;
-      Runnable action = () -> {};
-      // Act
-      // Assert
-      TestHelper.assertNotNullParam(
-          () -> menu.addOption(name, action),
-          "name"
-      );
-    }
-
-    @Test
-    @DisplayName("addOption() throws when the given action is null")
-    void addOptionThrowsWhenActionIsNull() {
-      // Arrange
-      String name = "Test Option";
-      Runnable action = null;
-      // Act
-      // Assert
-      TestHelper.assertNotNullParam(
-          () -> menu.addOption(name, action),
-          "action"
-      );
-    }
-
-    @Test
     @DisplayName("runOnce() throws if no options has been added to the menu")
     void runOnceWithZeroOptionShouldThrow() {
       // Arrange

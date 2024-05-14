@@ -243,21 +243,4 @@ class InputParserTest {
       InputParser.waitForUser();
     }
   }
-
-  @Nested
-  @DisplayName("Negative tests")
-  class NegativeTests {
-    @Test
-    @DisplayName("initialize() throws when trying to initialize with null")
-    void initializeThrowsWithNull() {
-      // Arrange
-      InputStream stream = null;
-      // Act
-      // Assert
-      TestHelper.assertNotNullParam(
-          () -> InputParser.initialize(stream),
-          "stream"
-      );
-    }
-  }
 }

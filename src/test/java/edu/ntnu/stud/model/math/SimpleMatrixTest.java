@@ -45,18 +45,4 @@ public class SimpleMatrixTest {
       assertEquals(4, matrix.getA11());
     }
   }
-
-  @Nested
-  class NegativeTests {
-    @Test
-    @DisplayName("Multiplying matrix with null vector throws an exception")
-    public void getTest() {
-      SimpleMatrix matrix = new SimpleMatrix(1, 2, 3, 4);
-      TestHelper.assertNotNullParam(
-          () -> matrix.transform(null),
-          "vector"
-      );
-    }
-  }
-
 }

@@ -52,10 +52,6 @@ public class InputParser {
    * @throws IllegalArgumentException If the stream is null
    */
   public static void initialize(@NotNull InputStream stream) throws IllegalArgumentException {
-    // Annotations are ignored when running mvn package
-    if (stream == null) {
-      throw new IllegalArgumentException("The input stream cannot be null");
-    }
     if (isInitialized()) {
       return;
     }

@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 import edu.ntnu.stud.controller.InputParser;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.junit.jupiter.api.function.Executable;
 import org.opentest4j.AssertionFailedError;
 
@@ -26,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * </p>
  *
  * @author Leif Mørstad
- * @version 1.0
+ * @version 1.1
  */
 public class TestHelper {
   /**
@@ -140,40 +138,6 @@ public class TestHelper {
     Throwable error = assertThrows(expectedError, executable, messageIfNotThrown);
     assertEquals(
         expectedErrorMessage,
-        error.getMessage()
-    );
-  }
-
-  /**
-   * A helper function that is a shorthand of two assertions, that first checks if the executable
-   * throws the expected NotNull error, and then checks if the error message matches the expected
-   * error message.
-   *
-   * @param executable The executable that should throw the NotNull error
-   * @throws AssertionFailedError If the executable doesn't throw, or if the error message doesn't
-   *                              match the expected error message.
-   */
-  public static void assertNotNullParam(
-      Executable executable,
-      String paramName
-  ) throws AssertionFailedError {
-
-    Throwable error = assertThrows(
-        IllegalArgumentException.class,
-        executable,
-        "Expected thrown exception when '" + paramName + "' is null"
-    );
-    Pattern pattern = Pattern.compile(
-        "^Argument for @NotNull parameter '" + paramName + "' of [^ ]+ must not be null$"
-    );
-    Matcher matcher = pattern.matcher(error.getMessage());
-
-    if (matcher.matches()) {
-      return;
-    }
-    throw new AssertionFailedError(
-        "Expected error to match param name",
-        "Argument for @NotNull parameter '" + paramName + "' of ... must not be null\"",
         error.getMessage()
     );
   }

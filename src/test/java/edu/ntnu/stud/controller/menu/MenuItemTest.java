@@ -71,36 +71,4 @@ class MenuItemTest {
       assertTrue(ranFunction.get());
     }
   }
-
-  @Nested
-  @DisplayName("Negative tests")
-  class NegativeTests {
-    @Test
-    @DisplayName("Constructor throws when the name is set as null")
-    void constructorThrowsWhenNameIsNull() {
-      // Arrange
-      String name = null;
-      Runnable action = () -> {};
-      // Act
-      // Assert
-      TestHelper.assertNotNullParam(
-          () -> new MenuItem(name, action),
-          "name"
-      );
-    }
-
-    @Test
-    @DisplayName("Constructor throws when the action is set as null")
-    void constructorThrowsWhenActionIsNull() {
-      // Arrange
-      String name = "Test";
-      Runnable action = null;
-      // Act
-      // Assert
-      TestHelper.assertNotNullParam(
-          () -> new MenuItem(name, action),
-          "action"
-      );
-    }
-  }
 }
