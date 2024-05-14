@@ -7,9 +7,9 @@ import java.util.NoSuchElementException;
 import edu.ntnu.stud.controller.InputParser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.function.Executable;
 import org.opentest4j.AssertionFailedError;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

@@ -4,11 +4,9 @@ import edu.ntnu.stud.model.math.PixelCoordinateTranslator;
 import edu.ntnu.stud.model.math.PixelCoordinateTranslator.IndexPair;
 import edu.ntnu.stud.model.math.Vector;
 import edu.ntnu.stud.utils.DebouncingSubscriptionHandler;
-import edu.ntnu.stud.utils.GlobalData;
 import edu.ntnu.stud.utils.SubscriptionHandler;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * A canvas for drawing and getting the output of a chaos game.

@@ -1,12 +1,9 @@
 package edu.ntnu.stud;
 
-import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
-@RunWith(Enclosed.class)
 public class TestTemplate {
   @Nested
   class PositiveTests {

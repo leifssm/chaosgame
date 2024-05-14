@@ -1,17 +1,14 @@
 package edu.ntnu.stud.model.math;
 
-import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
 import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-@RunWith(Enclosed.class)
 public class ComplexNumberTest {
   @Nested
   class PositiveTests {

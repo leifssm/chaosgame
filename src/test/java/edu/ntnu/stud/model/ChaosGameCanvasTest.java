@@ -1,16 +1,13 @@
 package edu.ntnu.stud.model;
 
 import edu.ntnu.stud.model.math.Vector;
-import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(Enclosed.class)
 public class ChaosGameCanvasTest {
   private ChaosGameCanvas chaosGameCanvas;
   private final int width = 2;

@@ -1,13 +1,10 @@
 package edu.ntnu.stud.controller.menu;
 
 import edu.ntnu.stud.TestHelper;
-import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.*;
-import org.junit.runner.RunWith;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-@RunWith(Enclosed.class)
 class MenuTest {
   private Menu menu;
   @BeforeEach

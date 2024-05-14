@@ -7,16 +7,13 @@ import java.util.regex.Pattern;
 
 import edu.ntnu.stud.TestHelper;
 import org.intellij.lang.annotations.RegExp;
-import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(Enclosed.class)
 class InputParserTest {
 
   @AfterEach
