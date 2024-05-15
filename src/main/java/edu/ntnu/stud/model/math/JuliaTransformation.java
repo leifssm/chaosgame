@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.1
  */
 public class JuliaTransformation implements Transform2D {
+
   /**
    * The complex number used in the transformation.
    */
@@ -20,26 +21,9 @@ public class JuliaTransformation implements Transform2D {
   private final int sign;
 
   /**
-   * Creates a new instance with the given complex number and given sign.
-   *
-   * @param c the complex number to use in the transformation
-   * @param sign the sign of the transformation, either a positive or negative integer. 0 is
-   *             positive
-   * @throws IllegalArgumentException if the given complex number is null
-   */
-  public JuliaTransformation(@NotNull ComplexNumber c, int sign) throws IllegalArgumentException {
-    // Annotations are ignored when running mvn package
-    if (c == null) {
-      throw new IllegalArgumentException("The complex number cannot be null");
-    }
-    this.complexNumber = c;
-    this.sign = sign >= 0 ? 1 : -1;
-  }
-
-  /**
    * Creates a new instance with the given complex number and a positive sign if given true.
    *
-   * @param c the complex number to use in the transformation
+   * @param c        the complex number to use in the transformation
    * @param positive whether the sign should be positive, false if negative
    * @throws IllegalArgumentException if the given complex number is null
    */
@@ -51,22 +35,16 @@ public class JuliaTransformation implements Transform2D {
   }
 
   /**
-   * Transforms the given complex number using the complex number of this transformation, and
-   * randomly negates the result.
+   * Creates a new instance with the given complex number and given sign.
    *
-   * @param z the complex number to transform
-   * @return the transformed complex number
+   * @param c    the complex number to use in the transformation
+   * @param sign the sign of the transformation, either a positive or negative integer. 0 is
+   *             positive
    * @throws IllegalArgumentException if the given complex number is null
    */
-  public @NotNull Vector transform(@NotNull ComplexNumber z) throws IllegalArgumentException {
-    // Annotations are ignored when running mvn package
-    if (z == null) {
-      throw new IllegalArgumentException("The complex number cannot be null");
-    }
-    return z
-        .subtract(complexNumber)
-        .sqrt()
-        .multiply(sign);
+  public JuliaTransformation(@NotNull ComplexNumber c, int sign) throws IllegalArgumentException {
+    this.complexNumber = c;
+    this.sign = sign >= 0 ? 1 : -1;
   }
 
   /**
@@ -78,9 +56,21 @@ public class JuliaTransformation implements Transform2D {
    * @throws IllegalArgumentException if the given vector is null
    */
   public @NotNull Vector transform(@NotNull Vector point) throws IllegalArgumentException {
-    if (point == null) {
-      throw new IllegalArgumentException("The vector cannot be null");
-    }
     return transform(ComplexNumber.fromVector(point));
+  }
+
+  /**
+   * Transforms the given complex number using the complex number of this transformation, and
+   * randomly negates the result.
+   *
+   * @param z the complex number to transform
+   * @return the transformed complex number
+   * @throws IllegalArgumentException if the given complex number is null
+   */
+  public @NotNull Vector transform(@NotNull ComplexNumber z) throws IllegalArgumentException {
+    return z
+        .subtract(complexNumber)
+        .sqrt()
+        .multiply(sign);
   }
 }

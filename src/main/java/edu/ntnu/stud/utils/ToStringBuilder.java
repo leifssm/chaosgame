@@ -8,8 +8,8 @@ import org.jetbrains.annotations.Nullable;
  * A builder class for creating a string representation of an object.
  *
  * <p>
- *   Example usage:
- *   <pre>
+ * Example usage:
+ * <pre>
  *     Vector v = new Vector(1, 2);
  *     return new ToStringBuilder(v)
  *       .field("x", v.getX0())
@@ -19,10 +19,11 @@ import org.jetbrains.annotations.Nullable;
  *   </pre>
  * </p>
  *
- * @version 1.0
  * @author Leif Mørstad
+ * @version 1.0
  */
 public class ToStringBuilder {
+
   /**
    * The name of the object to be stringified.
    */
@@ -46,7 +47,7 @@ public class ToStringBuilder {
   /**
    * Adds a field to the builder which will be displayed.
    *
-   * @param name the name of the field
+   * @param name  the name of the field
    * @param value the value of the field
    * @return this builder
    */

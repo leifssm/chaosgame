@@ -9,10 +9,11 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.2
  */
 public class ComplexNumber extends Vector {
+
   /**
    * Creates a new instance with the given real and imaginary values.
    *
-   * @param real the real value of the complex number
+   * @param real      the real value of the complex number
    * @param imaginary the imaginary value of the complex number
    * @throws IllegalArgumentException if any of the doubles are {@link Double#NaN}
    */
@@ -32,19 +33,12 @@ public class ComplexNumber extends Vector {
   }
 
   /**
-   * Creates a new instance with the given vector.
+   * Returns the square root of the complex number.
    *
-   * @param vector the vector to copy as a complex number
-   * @throws IllegalArgumentException if given a null vector
+   * @return the square root of the complex number
    */
-  public static @NotNull ComplexNumber fromVector(
-      @NotNull Vector vector
-  ) throws IllegalArgumentException {
-    // Annotations are ignored when running mvn package
-    if (vector == null) {
-      throw new IllegalArgumentException("The vector cannot be null");
-    }
-    return new ComplexNumber(vector.getX0(), vector.getX1());
+  public @NotNull ComplexNumber sqrt() {
+    return ComplexNumber.sqrt(this);
   }
 
   /**
@@ -63,19 +57,6 @@ public class ComplexNumber extends Vector {
   }
 
   /**
-   * Returns the square root of the complex number.
-   *
-   * @return the square root of the complex number
-   */
-  public @NotNull ComplexNumber sqrt() {
-    return ComplexNumber.sqrt(this);
-  }
-
-  // +-------------------------------------------------------------------------------------+
-  // | The following methods are overridden to return a ComplexNumber instead of a Vector. |
-  // +-------------------------------------------------------------------------------------+
-
-  /**
    * @throws IllegalArgumentException if the given vector is null
    * @see Vector#add(Vector)
    */
@@ -84,6 +65,22 @@ public class ComplexNumber extends Vector {
     return ComplexNumber.fromVector(
         super.add(other)
     );
+  }
+
+  // +-------------------------------------------------------------------------------------+
+  // | The following methods are overridden to return a ComplexNumber instead of a Vector. |
+  // +-------------------------------------------------------------------------------------+
+
+  /**
+   * Creates a new instance with the given vector.
+   *
+   * @param vector the vector to copy as a complex number
+   * @throws IllegalArgumentException if given a null vector
+   */
+  public static @NotNull ComplexNumber fromVector(
+      @NotNull Vector vector
+  ) throws IllegalArgumentException {
+    return new ComplexNumber(vector.getX0(), vector.getX1());
   }
 
   /**

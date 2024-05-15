@@ -1,16 +1,28 @@
 package edu.ntnu.stud.utils;
 
+import java.io.File;
+import java.net.URL;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-import java.net.URL;
-
+/**
+ * Utility class for loading files.
+ *
+ * @author Leif Mørstad
+ * @version 1.0
+ */
 public class FileLoader {
+
   private FileLoader() {
     throw new IllegalStateException("Utility class");
   }
 
+  /**
+   * Checks if a file exists.
+   *
+   * @param path the path to the file
+   * @return true if the file exists
+   */
   public static boolean fileExists(String path) {
     URL file = FileLoader.class.getResource("../../../../" + path);
     return new File(
@@ -18,6 +30,31 @@ public class FileLoader {
     ).exists();
   }
 
+  /**
+   * Gets a stylesheet from resources/stylesheets/*.
+   *
+   * @param stylesheet the location of the stylesheet from stylesheets/ , without the file
+   *                   extension
+   * @return the URL of the stylesheet or null if the stylesheet could not be found
+   */
+  public static @Nullable String getStylesheet(@NotNull String stylesheet) {
+    return getFile(
+        "stylesheets",
+        stylesheet,
+        ".css",
+        "Could not find stylesheet"
+    );
+  }
+
+  /**
+   * Gets the path to a file from resources/.
+   *
+   * @param parentFolders the parent folders of the file
+   * @param path          the path to the file
+   * @param fileType      the file type
+   * @param errorMessage  the error message to print if the file could not be found
+   * @return the path to the file or null if the file could not be found
+   */
   private static @Nullable String getFile(
       @NotNull String parentFolders,
       @NotNull String path,
@@ -36,15 +73,12 @@ public class FileLoader {
     return file.toExternalForm();
   }
 
-  public static @Nullable String getStylesheet(@NotNull String stylesheet) {
-    return getFile(
-        "stylesheets",
-        stylesheet,
-        ".css",
-        "Could not find stylesheet"
-    );
-  }
-
+  /**
+   * Gets an image from resources/images/*.
+   *
+   * @param image the location and name of the image from images/
+   * @return the URL of the image or null if the image could not be found
+   */
   public static @Nullable String getImage(@NotNull String image) {
     return getFile(
         "images",
@@ -53,5 +87,4 @@ public class FileLoader {
         "Could not find image"
     );
   }
-
 }

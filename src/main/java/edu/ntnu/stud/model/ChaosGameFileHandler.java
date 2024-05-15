@@ -1,6 +1,11 @@
 package edu.ntnu.stud.model;
 
-import edu.ntnu.stud.model.math.*;
+import edu.ntnu.stud.model.math.AffineTransformation;
+import edu.ntnu.stud.model.math.ComplexNumber;
+import edu.ntnu.stud.model.math.JuliaTransformation;
+import edu.ntnu.stud.model.math.Transform2D;
+import edu.ntnu.stud.model.math.TransformationGroup;
+import edu.ntnu.stud.model.math.Vector;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -16,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
  * @see ChaosGameDescription
  */
 public class ChaosGameFileHandler {
+
   /**
    * Reads a chaos game description from a file.
    *

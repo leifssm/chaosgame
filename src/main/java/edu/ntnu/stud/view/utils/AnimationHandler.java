@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
  * @version 1.0
  */
 public class AnimationHandler {
+
   private @Nullable Animation currentAnimation = null;
 
   /**
@@ -26,20 +27,13 @@ public class AnimationHandler {
   /**
    * Creates a new instance and wait until given a task.
    */
-  public AnimationHandler() {}
-
-  /**
-   * Returns whether the handler is currently animating.
-   *
-   * @return whether the handler is currently animating
-   */
-  public boolean isAnimating() {
-    return currentAnimation != null;
+  public AnimationHandler() {
   }
 
   /**
    * Replaces the current animation with the given one. Stops the current animation if it exists and
    * plays the new one.
+   *
    * @param animation the new animation to play
    */
   public void replaceAnimation(@NotNull Animation animation) {
@@ -69,6 +63,15 @@ public class AnimationHandler {
     if (this.currentAnimation == animation) {
       stopCurrentAnimation();
     }
+  }
+
+  /**
+   * Returns whether the handler is currently animating.
+   *
+   * @return whether the handler is currently animating
+   */
+  public boolean isAnimating() {
+    return currentAnimation != null;
   }
 
   /**

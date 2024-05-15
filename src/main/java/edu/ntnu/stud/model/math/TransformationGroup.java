@@ -8,10 +8,11 @@ import org.jetbrains.annotations.NotNull;
  * Represents a group of affine transformations. The group is a collection of transformations which
  * are randomly picked every time the transform method is called.
  *
- * @version 1.3
  * @author Leif Mørstad
+ * @version 1.3
  */
 public class TransformationGroup implements Transform2D {
+
   /**
    * The random number generator used to pick a random transformation from the group.
    */

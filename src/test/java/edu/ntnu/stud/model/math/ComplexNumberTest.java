@@ -1,20 +1,18 @@
 package edu.ntnu.stud.model.math;
 
-import org.junit.experimental.runners.Enclosed;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-
 import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 
-@RunWith(Enclosed.class)
 public class ComplexNumberTest {
+
   @Nested
   class PositiveTests {
+
     @Test
     @DisplayName("Constructor takes any two doubles")
     public void constructor() {
@@ -28,7 +26,7 @@ public class ComplexNumberTest {
     @Test
     @DisplayName("Constructor takes an array of two doubles")
     public void constructorTakesArray() {
-      new ComplexNumber(new double[]{ 1.0, 2.0 });
+      new ComplexNumber(new double[]{1.0, 2.0});
     }
 
     @Test
@@ -160,6 +158,7 @@ public class ComplexNumberTest {
 
   @Nested
   class NegativeTests {
+
     @Test
     @DisplayName("Constructor throws with NaN")
     public void constructorThrowsWithNaN() {
@@ -180,25 +179,15 @@ public class ComplexNumberTest {
     public void constructorTakesArray() {
       assertThrows(
           IllegalArgumentException.class,
-          () -> new ComplexNumber(new double[]{ 1.0, 2.0, 3.0 }),
+          () -> new ComplexNumber(new double[]{1.0, 2.0, 3.0}),
           "Instantiating ComplexNumber with an array with more than 2 numbers should " +
               "throw an exception"
       );
       assertThrows(
           IllegalArgumentException.class,
-          () -> new ComplexNumber(new double[]{ 1.0 }),
+          () -> new ComplexNumber(new double[]{1.0}),
           "Instantiating ComplexNumber with an array with less than 2 numbers should " +
               "throw an exception"
-      );
-    }
-
-    @Test
-    @DisplayName("Constructor throws when given null")
-    public void constructorThrowsOnANull() {
-      assertThrows(
-          IllegalArgumentException.class,
-          () -> ComplexNumber.fromVector((Vector) null),
-          "Instantiating ComplexNumber with null should throw an exception"
       );
     }
   }

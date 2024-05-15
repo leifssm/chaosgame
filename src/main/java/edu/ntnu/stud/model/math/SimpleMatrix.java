@@ -1,14 +1,16 @@
 package edu.ntnu.stud.model.math;
 
+import edu.ntnu.stud.utils.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * A simple two-by-two matrix.
  *
- * @version 2.0
  * @author Leif Mørstad
+ * @version 2.1
  */
 public class SimpleMatrix implements Transform2D {
+
   /**
    * The top left corner of the matrix. Cannot be {@link Double#NaN}
    */
@@ -97,6 +99,40 @@ public class SimpleMatrix implements Transform2D {
     return new Vector(
         a00 * vector.getX0() + a01 * vector.getX1(),
         a10 * vector.getX0() + a11 * vector.getX1()
+    );
+  }
+
+  /**
+   * Returns A^-1 if possible, throws if the matrix is not invertible.
+   *
+   * @return A^-1
+   */
+  public @NotNull SimpleMatrix invert() {
+    double determinant = a00 * a11 - a01 * a10;
+    if (determinant == 0) {
+      throw new IllegalArgumentException("Matrix is not invertible");
+    }
+    return new SimpleMatrix(
+        a11 / determinant,
+        -a01 / determinant,
+        -a10 / determinant,
+        a00 / determinant
+    );
+  }
+
+  /**
+   * Returns the matrix of this transformation as an easily loggable string.
+   *
+   * @return the matrix as a string
+   */
+  public @NotNull String asSimpleString() {
+    int firstSegmentLength = Math.max(String.valueOf(a00).length(), String.valueOf(a01).length());
+    int secondSegmentLength = Math.max(String.valueOf(a10).length(), String.valueOf(a11).length());
+    return "|%s, %s|\n|%s, %s|".formatted(
+        StringUtils.padLeft(a00 + "", firstSegmentLength),
+        StringUtils.padLeft(a01 + "", secondSegmentLength),
+        StringUtils.padLeft(a10 + "", firstSegmentLength),
+        StringUtils.padLeft(a11 + "", secondSegmentLength)
     );
   }
 }

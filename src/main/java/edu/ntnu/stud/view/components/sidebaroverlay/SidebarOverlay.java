@@ -1,4 +1,4 @@
-package edu.ntnu.stud.view.components.SidebarOverlay;
+package edu.ntnu.stud.view.components.sidebaroverlay;
 
 import edu.ntnu.stud.view.utils.AnimationHandler;
 import javafx.animation.Transition;
@@ -8,11 +8,22 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * A sidebar handler that handles showing/hiding the sidebar.
+ *
+ * @author Leif Mørstad
+ * @version 1.0
+ */
 public class SidebarOverlay extends StackPane {
+
   private final @NotNull AnimationHandler sidebarAnimation = new AnimationHandler();
   private final @NotNull Sidebar sidebar = new Sidebar();
   private final @NotNull DoubleProperty sidebarOffset = new SimpleDoubleProperty(0);
   private boolean sidebarOpen = false;
+
+  /**
+   * Creates a new instance with a sidebar and a button group.
+   */
   public SidebarOverlay() {
     super();
 

@@ -9,14 +9,15 @@ import org.jetbrains.annotations.NotNull;
  * An immutable two-dimensional vector with relevant methods.
  *
  * @author Leif Mørstad
- * @version 1.4
+ * @version 1.5
  */
 public class Vector {
+
   /**
    * The first value of the vector. Cannot be {@link Double#NaN}
    */
   private final double x0;
-  
+
   /**
    * The second value of the vector. Cannot be {@link Double#NaN}
    */
@@ -36,26 +37,6 @@ public class Vector {
   }
 
   /**
-   * Creates a new instance from the given array of values.
-   *
-   * @param values an array with exactly two numerical values
-   * @throws IllegalArgumentException if the array does not have exactly two values or if any of the
-   *                                  values are {@link Double#NaN}
-   */
-  public Vector(double @NotNull [] values) throws IllegalArgumentException {
-    // Annotations are ignored when running mvn package
-    if (values == null) {
-      throw new IllegalArgumentException("The array of values cannot be null");
-    }
-    if (values.length != 2) {
-      throw new IllegalArgumentException("Given array must have exactly two values");
-    }
-    this.x0 = values[0];
-    this.x1 = values[1];
-    checkNaN();
-  }
-
-  /**
    * Checks if the vector contains any NaN values, and throws if it does.
    *
    * @throws IllegalArgumentException if the vector contains any NaN values
@@ -67,32 +48,19 @@ public class Vector {
   }
 
   /**
-   * Returns the length of the vector.
+   * Creates a new instance from the given array of values.
    *
-   * @return the hypotenuse of the x0 and the x1 of the vector
+   * @param values an array with exactly two numerical values
+   * @throws IllegalArgumentException if the array does not have exactly two values or if any of the
+   *                                  values are {@link Double#NaN}
    */
-  public double length() {
-    return Math.sqrt(x0 * x0 + x1 * x1);
-  }
-
-  /**
-   * Returns the first value of the vector.
-   *
-   * @return the first value of the vector
-   * @see Vector#x0
-   */
-  public double getX0() {
-    return x0;
-  }
-
-  /**
-   * Returns the second value of the vector.
-   *
-   * @return the second value of the vector
-   * @see Vector#x1
-   */
-  public double getX1() {
-    return x1;
+  public Vector(double @NotNull [] values) throws IllegalArgumentException {
+    if (values.length != 2) {
+      throw new IllegalArgumentException("Given array must have exactly two values");
+    }
+    this.x0 = values[0];
+    this.x1 = values[1];
+    checkNaN();
   }
 
   /**
@@ -120,6 +88,26 @@ public class Vector {
       @NotNull Vector b
   ) throws IllegalArgumentException {
     return new Vector(a.getX0() + b.getX0(), a.getX1() + b.getX1());
+  }
+
+  /**
+   * Returns the first value of the vector.
+   *
+   * @return the first value of the vector
+   * @see Vector#x0
+   */
+  public double getX0() {
+    return x0;
+  }
+
+  /**
+   * Returns the second value of the vector.
+   *
+   * @return the second value of the vector
+   * @see Vector#x1
+   */
+  public double getX1() {
+    return x1;
   }
 
   /**
@@ -175,6 +163,17 @@ public class Vector {
   }
 
   /**
+   * Returns the dot product of this vector and the given vector.
+   *
+   * @param vector the vector to calculate the dot product with
+   * @return the dot product of this vector and the given vector
+   * @throws IllegalArgumentException if the given vector is null
+   */
+  public double dot(@NotNull Vector vector) throws IllegalArgumentException {
+    return Vector.dot(this, vector);
+  }
+
+  /**
    * Calculates the dot product of two vectors and returns the result.
    *
    * @param a the first vector
@@ -187,14 +186,14 @@ public class Vector {
   }
 
   /**
-   * Returns the dot product of this vector and the given vector.
+   * Returns the angle between this vector and the given vector.
    *
-   * @param vector the vector to calculate the dot product with
-   * @return the dot product of this vector and the given vector
+   * @param vector the vector to calculate the angle with
+   * @return the angle between this vector and the given vector
    * @throws IllegalArgumentException if the given vector is null
    */
-  public double dot(@NotNull Vector vector) throws IllegalArgumentException {
-    return Vector.dot(this, vector);
+  public double angle(@NotNull Vector vector) throws IllegalArgumentException {
+    return Vector.angle(this, vector);
   }
 
   /**
@@ -212,14 +211,32 @@ public class Vector {
   }
 
   /**
-   * Returns the angle between this vector and the given vector.
+   * Returns the length of the vector.
    *
-   * @param vector the vector to calculate the angle with
-   * @return the angle between this vector and the given vector
-   * @throws IllegalArgumentException if the given vector is null
+   * @return the hypotenuse of the x0 and the x1 of the vector
    */
-  public double angle(@NotNull Vector vector) throws IllegalArgumentException {
-    return Vector.angle(this, vector);
+  public double length() {
+    return Math.sqrt(x0 * x0 + x1 * x1);
+  }
+
+  /**
+   * Creates a copy of the vector.
+   *
+   * @return a new vector with the same values as this vector
+   */
+  public @NotNull Vector copy() {
+    return new Vector(x0, x1);
+  }
+
+  /**
+   * Returns the hash code of the vector based on its x0 and x1 components.
+   *
+   * @return the hash code of the vector
+   */
+  @Override
+  public int hashCode() {
+    // Generated by IntelliJ IDEA
+    return Objects.hash(x0, x1);
   }
 
   /**
@@ -242,26 +259,6 @@ public class Vector {
   }
 
   /**
-   * Returns the hash code of the vector based on its x0 and x1 components.
-   *
-   * @return the hash code of the vector
-   */
-  @Override
-  public int hashCode() {
-    // Generated by IntelliJ IDEA
-    return Objects.hash(x0, x1);
-  }
-
-  /**
-   * Returns a simple string representation of the vector.
-   *
-   * @return a simple string representation of the vector
-   */
-  public @NotNull String asSimpleString() {
-    return "(" + x0 + ", " + x1 + ")";
-  }
-
-  /**
    * Returns a string representation of the vector.
    *
    * @return a string representation of the vector
@@ -271,5 +268,14 @@ public class Vector {
         .field("x0", x0)
         .field("x1", x1)
         .build();
+  }
+
+  /**
+   * Returns a simple string representation of the vector.
+   *
+   * @return a simple string representation of the vector
+   */
+  public @NotNull String asSimpleString() {
+    return "(" + x0 + ", " + x1 + ")";
   }
 }

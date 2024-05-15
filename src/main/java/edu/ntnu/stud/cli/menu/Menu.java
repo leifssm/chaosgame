@@ -1,6 +1,6 @@
-package edu.ntnu.stud.controller.menu;
+package edu.ntnu.stud.cli.menu;
 
-import edu.ntnu.stud.controller.InputParser;
+import edu.ntnu.stud.cli.InputParser;
 import edu.ntnu.stud.utils.ToStringBuilder;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,11 @@ import org.jetbrains.annotations.Nullable;
  * <br>
  * <h2>Role and Responsibility:</h2>
  * <p>
- *   This class is responsible for creating a collection of {@link MenuItem}s using an
- *   {@link ArrayList}, to create an easier developer experience for creating menus. The menu can
- *   be assigned functions to run before the menu is shown and after an option is selected and run.
- *   After building the menu, with options using the {@link Menu#addOption(String, Runnable)}
- *   method, the {@link Menu#start} method can be called to start the menu.
+ * This class is responsible for creating a collection of {@link MenuItem}s using an
+ * {@link ArrayList}, to create an easier developer experience for creating menus. The menu can be
+ * assigned functions to run before the menu is shown and after an option is selected and run. After
+ * building the menu, with options using the {@link Menu#addOption(String, Runnable)} method, the
+ * {@link Menu#start} method can be called to start the menu.
  * </p>
  *
  * @author Leif Mørstad
@@ -25,6 +25,7 @@ import org.jetbrains.annotations.Nullable;
  * @see MenuItem
  */
 public class Menu {
+
   /**
    * The name of the menu, shows when the menu is shown. Cannot be null, and cannot be changed after
    * the menu is created, because it should never be necessary.
@@ -34,15 +35,15 @@ public class Menu {
   /**
    * An {@link ArrayList} of {@link MenuItem}s. The property is immutable, and cannot be accessed
    * directly. The data type is an {@link ArrayList} because the order of the items are important,
-   * which an array is very useful for. An {@link ArrayList} was chosen over an Array because of
-   * the easy usage the {@link ArrayList} provides.
+   * which an array is very useful for. An {@link ArrayList} was chosen over an Array because of the
+   * easy usage the {@link ArrayList} provides.
    */
   private final @NotNull List<MenuItem> entries = new ArrayList<>();
 
   /**
    * A {@link Runnable} action to run right before the menu is shown. Can be set to null if no
-   * action should be run before the menu is shown. The {@link Runnable} class was chosen because
-   * it represents a function that takes no arguments and returns no value, which fits perfectly
+   * action should be run before the menu is shown. The {@link Runnable} class was chosen because it
+   * represents a function that takes no arguments and returns no value, which fits perfectly
    * because the action should have no effect on the menu's functionality.
    */
   private Runnable beforeAction;
@@ -64,20 +65,15 @@ public class Menu {
    * @param name The name of the menu.
    */
   public Menu(@NotNull String name) {
-    // Annotations are ignored when running mvn package
-    if (name == null) {
-      throw new IllegalArgumentException("The name cannot be null");
-    }
-
     this.name = name;
   }
 
   /**
    * Adds an option to the menu. Makes the associated action accessible through the menu to the
-   * user. Neither the name nor the action can be null. Returns the {@code this} object to allow
-   * the chaining of methods.
+   * user. Neither the name nor the action can be null. Returns the {@code this} object to allow the
+   * chaining of methods.
    *
-   * @param name The title of the option.
+   * @param name   The title of the option.
    * @param action The action associated to the option.
    * @return The {@code this} object.
    * @throws IllegalArgumentException If the name or the action is null.
@@ -121,24 +117,25 @@ public class Menu {
   }
 
   /**
-   * Print the menu title, and all the options with their corresponding index to the console.
+   * Runs the {@link Menu#runOnce} method in until the program is terminated. The
+   * {@link Menu#runOnce} and this method are separate to allow for testing of the workflow.
+   *
+   * @throws IllegalStateException If the menu has no options.
+   * @see Menu#runOnce
    */
-  public void print() {
-    // Prints the title and entries to the console.
-    System.out.println("══ " + name + " ══");
-    for (int i = 0; i < entries.size(); i++) {
-      final MenuItem item = entries.get(i);
-      System.out.printf("%d: %s\n", i + 1, item.getName());
+  public void start() throws IllegalStateException {
+    // Loops the menu until the program is terminated.
+    while (true) {
+      runOnce();
     }
-    System.out.println();
   }
 
   /**
    * If present, runs the runBefore {@link Runnable}, then prints the entire menu with the
    * {@link Menu#print} method. After printing, it waits for the user pick an option and runs the
    * corresponding action before running the runAfter {@link Runnable} if present.The runBefore and
-   * runAfter actions are two separate actions to allow for more flexibility. If the menu has
-   * no options, it throws an {@link IllegalStateException}.
+   * runAfter actions are two separate actions to allow for more flexibility. If the menu has no
+   * options, it throws an {@link IllegalStateException}.
    *
    * @throws IllegalStateException If the menu has no options.
    */
@@ -177,17 +174,16 @@ public class Menu {
   }
 
   /**
-   * Runs the {@link Menu#runOnce} method in until the program is terminated. The
-   * {@link Menu#runOnce} and this method are separate to allow for testing of the workflow.
-   *
-   * @throws IllegalStateException If the menu has no options.
-   * @see Menu#runOnce
+   * Print the menu title, and all the options with their corresponding index to the console.
    */
-  public void start() throws IllegalStateException {
-    // Loops the menu until the program is terminated.
-    while (true) {
-      runOnce();
+  public void print() {
+    // Prints the title and entries to the console.
+    System.out.println("══ " + name + " ══");
+    for (int i = 0; i < entries.size(); i++) {
+      final MenuItem item = entries.get(i);
+      System.out.printf("%d: %s\n", i + 1, item.getName());
     }
+    System.out.println();
   }
 
   /**

@@ -1,24 +1,33 @@
 package edu.ntnu.stud.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import edu.ntnu.stud.model.math.Vector;
-import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-@RunWith(Enclosed.class)
 public class ChaosGameCanvasTest {
-  private ChaosGameCanvas chaosGameCanvas;
+
   private final int width = 2;
   private final int height = 2;
+  private ChaosGameCanvas chaosGameCanvas;
 
   @BeforeEach
   void setUp() {
-    chaosGameCanvas = new ChaosGameCanvas(width, height, new Vector(0, 0), new Vector(10, 10));
+
+    chaosGameCanvas = new ChaosGameCanvas(
+        width,
+        height,
+        new Vector(0, 0),
+        new Vector(10, 10),
+        false
+    );
+  }
+
+  boolean isEmpty() {
+    return isFilledWith(0);
   }
 
   boolean isFilledWith(int value) {
@@ -32,16 +41,13 @@ public class ChaosGameCanvasTest {
     return true;
   }
 
-  boolean isEmpty() {
-    return isFilledWith(0);
-  }
-
   boolean isFilled() {
     return isFilledWith(1);
   }
 
   @Nested
   class PositiveTests {
+
     @Test
     @DisplayName("clear() should set all pixels to 0")
     void clear() {

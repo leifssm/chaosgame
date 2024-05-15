@@ -1,19 +1,16 @@
 package edu.ntnu.stud.model.math;
 
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
+import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
-import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
-import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorNotEquals;
-import static org.junit.jupiter.api.Assertions.*;
-
-@RunWith(Enclosed.class)
 public class SimpleMatrixTest {
+
   @Nested
   class PositiveTests {
+
     @Test
     @DisplayName("Constructor does not throw exception when given any doubles")
     public void testConstructor() {
@@ -43,24 +40,9 @@ public class SimpleMatrixTest {
       SimpleMatrix matrix = new SimpleMatrix(1, 2, 3, 4);
 
       assertEquals(1, matrix.getA00());
-      assertEquals(2, matrix.getA10());
-      assertEquals(3, matrix.getA01());
+      assertEquals(2, matrix.getA01());
+      assertEquals(3, matrix.getA10());
       assertEquals(4, matrix.getA11());
     }
   }
-
-  @Nested
-  class NegativeTests {
-    @Test
-    @DisplayName("Multiplying matrix with null vector throws an exception")
-    public void getTest() {
-      SimpleMatrix matrix = new SimpleMatrix(1, 2, 3, 4);
-      assertThrows(
-          ArrayIndexOutOfBoundsException.class,
-          () -> matrix.transform(null),
-          "Multiplying the matrix with a null vector should throw an exception"
-      );
-    }
-  }
-
 }

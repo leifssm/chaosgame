@@ -1,28 +1,26 @@
-package edu.ntnu.stud.controller.menu;
+package edu.ntnu.stud.cli.menu;
 
-import edu.ntnu.stud.TestHelper;
-import org.junit.experimental.runners.Enclosed;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-@RunWith(Enclosed.class)
 class MenuItemTest {
 
   @Nested
   @DisplayName("Positive tests")
   class PositiveTests {
+
     @Test
     @DisplayName("Constructor doesn't throw when given valid parameters")
     void constructorDoesntThrowWithValidParams() {
       // Arrange
       String name = "Test";
-      Runnable action = () -> {};
+      Runnable action = () -> {
+      };
       // Act
       // Assert
       assertDoesNotThrow(
@@ -36,7 +34,8 @@ class MenuItemTest {
     void getNameReturnsItemName() {
       // Arrange
       final String name = "Test";
-      Runnable action = () -> {};
+      Runnable action = () -> {
+      };
       // Act
       MenuItem item = new MenuItem(name, action);
       // Assert
@@ -48,7 +47,8 @@ class MenuItemTest {
     void toStringReturnsStringRepresentation() {
       // Arrange
       final String name = "Test";
-      Runnable action = () -> {};
+      Runnable action = () -> {
+      };
       // Act
       MenuItem item = new MenuItem(name, action);
       // Assert
@@ -72,42 +72,6 @@ class MenuItemTest {
       item.run();
       // Assert
       assertTrue(ranFunction.get());
-    }
-  }
-
-  @Nested
-  @DisplayName("Negative tests")
-  class NegativeTests {
-    @Test
-    @DisplayName("Constructor throws when the name is set as null")
-    void constructorThrowsWhenNameIsNull() {
-      // Arrange
-      String name = null;
-      Runnable action = () -> {};
-      // Act
-      // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
-          () -> new MenuItem(name, action),
-          "The name and action cannot be null",
-          "Expected thrown exception when name is null"
-      );
-    }
-
-    @Test
-    @DisplayName("Constructor throws when the action is set as null")
-    void constructorThrowsWhenActionIsNull() {
-      // Arrange
-      String name = "Test";
-      Runnable action = null;
-      // Act
-      // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
-          () -> new MenuItem(name, action),
-          "The name and action cannot be null",
-          "Expected thrown exception when action is null"
-      );
     }
   }
 }

@@ -1,9 +1,9 @@
-package edu.ntnu.stud.controller;
+package edu.ntnu.stud.cli;
 
-import edu.ntnu.stud.controller.menu.Menu;
-import edu.ntnu.stud.model.ChaosGame;
+import edu.ntnu.stud.cli.menu.Menu;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
+import edu.ntnu.stud.model.IterativeChaosGame;
 import java.io.File;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.0
  */
 public class TextInterface {
+
   /**
    * Starts the CLI.
    *
@@ -69,7 +70,7 @@ public class TextInterface {
     System.out.println("Running file: " + fileName);
 
     ChaosGameDescription description = ChaosGameFileHandler.readFromFile(fileName);
-    ChaosGame chaosGame = new ChaosGame(60, 20, description);
+    IterativeChaosGame chaosGame = new IterativeChaosGame(60, 20, description);
     chaosGame.iterate(iterations);
 
     System.out.println(chaosGame.getCanvas().asSimpleString());

@@ -1,22 +1,18 @@
-package edu.ntnu.stud.controller;
+package edu.ntnu.stud.cli;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import edu.ntnu.stud.TestHelper;
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.time.LocalTime;
 import java.util.regex.Pattern;
-
-import edu.ntnu.stud.TestHelper;
 import org.intellij.lang.annotations.RegExp;
-import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-@RunWith(Enclosed.class)
 class InputParserTest {
 
   @AfterEach
@@ -27,6 +23,7 @@ class InputParserTest {
   @Nested
   @DisplayName("Positive tests")
   class PositiveTests {
+
     @Test
     @DisplayName("isInitialized() returns if the parser is initialized")
     void isInitializedReturnIfInputParserIsInitialized() {
@@ -167,7 +164,8 @@ class InputParserTest {
     @DisplayName("getTime() returns a LocalTime from the user")
     void getTime() {
       // Arrange
-      TestHelper.setupMockInput("", "2", "12:0", "0:60", "000:00", "24:00", "4:00", "23:59", "04:00");
+      TestHelper.setupMockInput("", "2", "12:0", "0:60", "000:00", "24:00", "4:00", "23:59",
+          "04:00");
       String prompt = "Test";
       // Act
       // Assert
@@ -194,7 +192,8 @@ class InputParserTest {
     @DisplayName("getBoolean() returns a boolean from the user")
     void getBoolean() {
       // Arrange
-      TestHelper.setupMockInput("", "das", "ds", "FSF", "A", "B", "Y", "n", "E", "FF", "G", "N", "y");
+      TestHelper.setupMockInput("", "das", "ds", "FSF", "A", "B", "Y", "n", "E", "FF", "G", "N",
+          "y");
       String prompt = "Test";
       // Act
       // Assert
@@ -244,25 +243,6 @@ class InputParserTest {
       InputParser.waitForUser(prompt);
       InputParser.waitForUser();
       InputParser.waitForUser();
-    }
-  }
-
-  @Nested
-  @DisplayName("Negative tests")
-  class NegativeTests {
-    @Test
-    @DisplayName("initialize() throws when trying to initialize with null")
-    void initializeThrowsWithNull() {
-      // Arrange
-      InputStream stream = null;
-      // Act
-      // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
-          () -> InputParser.initialize(stream),
-          "The input stream cannot be null",
-          "InputParser should not be able to be initialized with a null stream"
-      );
     }
   }
 }

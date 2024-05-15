@@ -1,15 +1,17 @@
-package edu.ntnu.stud.controller.menu;
-
-import edu.ntnu.stud.TestHelper;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.jupiter.api.*;
-import org.junit.runner.RunWith;
+package edu.ntnu.stud.cli.menu;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import edu.ntnu.stud.TestHelper;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
-@RunWith(Enclosed.class)
 class MenuTest {
+
   private Menu menu;
+
   @BeforeEach
   void setUp() {
     menu = new Menu("Test Menu");
@@ -24,6 +26,7 @@ class MenuTest {
   @Nested
   @DisplayName("Positive tests")
   class PositiveTests {
+
     @Test
     @DisplayName("Constructor doesn't throw when a name is given")
     void constructorDoesntThrowWithGivenName() {
@@ -54,7 +57,8 @@ class MenuTest {
     @DisplayName("setRunBefore() should not throw when given a runnable")
     void setRunBeforeDoesntThrowWithRunnable() {
       // Arrange
-      Runnable runBefore = () -> {};
+      Runnable runBefore = () -> {
+      };
       // Act
       // Assert
       assertDoesNotThrow(
@@ -80,7 +84,8 @@ class MenuTest {
     @DisplayName("setRunAfter() should not throw when given a runnable")
     void setRunAfterDoesntThrowWithRunnable() {
       // Arrange
-      Runnable runAfter = () -> {};
+      Runnable runAfter = () -> {
+      };
       // Act
       // Assert
       assertDoesNotThrow(
@@ -99,8 +104,10 @@ class MenuTest {
           "2: Test Option 2"
       );
       menu
-          .addOption("Test Option 1", () -> {})
-          .addOption("Test Option 2", () -> {});
+          .addOption("Test Option 1", () -> {
+          })
+          .addOption("Test Option 2", () -> {
+          });
       // Act
       menu.print();
       // Assert
@@ -121,7 +128,8 @@ class MenuTest {
           "Option: ",
           " ══ Picked option \"Test Option 1\" ══"
       );
-      menu.addOption("Test Option 1", () -> {});
+      menu.addOption("Test Option 1", () -> {
+      });
       // Act
       menu.runOnce();
       // Assert
@@ -154,11 +162,16 @@ class MenuTest {
           "Running After"
       );
       menu
-          .addOption("Test Option 1", () -> {})
-          .addOption("Test Option 2", () -> {})
-          .addOption("Test Option 3", () -> {})
-          .addOption("Test Option 4", () -> {})
-          .addOption("Test Option 5", () -> {})
+          .addOption("Test Option 1", () -> {
+          })
+          .addOption("Test Option 2", () -> {
+          })
+          .addOption("Test Option 3", () -> {
+          })
+          .addOption("Test Option 4", () -> {
+          })
+          .addOption("Test Option 5", () -> {
+          })
           .setRunBefore(() -> System.out.println("Running Before"))
           .setRunAfter(() -> System.out.println("Running After"));
       // Act
@@ -171,52 +184,6 @@ class MenuTest {
   @Nested
   @DisplayName("Negative tests")
   class NegativeTests {
-    @Test
-    @DisplayName("Constructor throws when the name is set as null")
-    void constructorThrowsWhenNameIsNull() {
-      // Arrange
-      String name = null;
-      // Act
-      // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
-          () -> new Menu(name),
-          "The name cannot be null",
-          "Expected thrown exception when name is null"
-      );
-    }
-
-    @Test
-    @DisplayName("addOption() throws when the given name is null")
-    void addOptionThrowsWhenNameIsNull() {
-      // Arrange
-      String name = null;
-      Runnable action = () -> {};
-      // Act
-      // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
-          () -> menu.addOption(name, action),
-          "The name and action cannot be null",
-          "Expected thrown exception when name is null"
-      );
-    }
-
-    @Test
-    @DisplayName("addOption() throws when the given action is null")
-    void addOptionThrowsWhenActionIsNull() {
-      // Arrange
-      String name = "Test Option";
-      Runnable action = null;
-      // Act
-      // Assert
-      TestHelper.assertThrowsWithMessage(
-          IllegalArgumentException.class,
-          () -> menu.addOption(name, action),
-          "The name and action cannot be null",
-          "Expected thrown exception when name is null"
-      );
-    }
 
     @Test
     @DisplayName("runOnce() throws if no options has been added to the menu")

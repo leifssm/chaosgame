@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
  * @see Vector
  */
 public interface Transform2D {
+
   /**
    * Transforms the given vector.
    *
