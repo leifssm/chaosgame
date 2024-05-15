@@ -1,4 +1,4 @@
-package edu.ntnu.stud.controller;
+package edu.ntnu.stud.cli;
 
 import java.io.ByteArrayInputStream;
 import java.time.LocalTime;

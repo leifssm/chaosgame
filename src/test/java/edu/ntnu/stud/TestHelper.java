@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
-import edu.ntnu.stud.controller.InputParser;
+import edu.ntnu.stud.cli.InputParser;
 import org.junit.jupiter.api.function.Executable;
 import org.opentest4j.AssertionFailedError;
 

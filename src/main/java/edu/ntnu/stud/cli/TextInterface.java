@@ -1,7 +1,7 @@
-package edu.ntnu.stud.controller;
+package edu.ntnu.stud.cli;
 
 import java.io.File;
-import edu.ntnu.stud.controller.menu.Menu;
+import edu.ntnu.stud.cli.menu.Menu;
 import edu.ntnu.stud.model.IterativeChaosGame;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameFileHandler;

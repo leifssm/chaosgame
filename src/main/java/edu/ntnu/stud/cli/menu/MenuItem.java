@@ -1,4 +1,4 @@
-package edu.ntnu.stud.controller.menu;
+package edu.ntnu.stud.cli.menu;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.platform.commons.util.ToStringBuilder;

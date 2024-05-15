@@ -1,6 +1,6 @@
-package edu.ntnu.stud.controller.menu;
+package edu.ntnu.stud.cli.menu;
 
-import edu.ntnu.stud.controller.InputParser;
+import edu.ntnu.stud.cli.InputParser;
 import edu.ntnu.stud.utils.ToStringBuilder;
 import java.util.ArrayList;
 import java.util.List;

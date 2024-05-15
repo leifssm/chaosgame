@@ -1,4 +1,4 @@
-package edu.ntnu.stud.controller.menu;
+package edu.ntnu.stud.cli.menu;
 
 import edu.ntnu.stud.TestHelper;
 import org.junit.jupiter.api.*;
