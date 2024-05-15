@@ -2,15 +2,24 @@ package edu.ntnu.stud.view.utils;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Utility class for handling icons.
+ *
+ * @author Leif Mørstad
+ * @version 1.0
+ */
 public class IconUtils {
+
   /**
-   * Extends the icon name to the new Material Design Icons 2 format.
+   * Converts the icon to the correct format.
    *
    * @param iconName The icon name to extend.
    * @return The given name prefixed by "mdi2" followed by the first letter of the name, a dash and
-   *         then the icon name.
+   * then the icon name.
+   * @see <a href="https://kordamp.org/ikonli/cheat-sheet-materialdesign.html">
+   * * Material Design Icons</a>
    */
   public static @NotNull String extendIconName(@NotNull String iconName) {
-    return "mdi2" + iconName.charAt(0) + "-" + iconName;
+    return "mdi-" + iconName;
   }
 }
