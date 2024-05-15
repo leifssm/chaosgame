@@ -6,14 +6,14 @@ import org.junit.platform.commons.util.ToStringBuilder;
 /**
  * <h1>MenuItem.</h1>
  * <p>
- *   An immutable package-private class that's used from {@link Menu}. Represents
- *   a labeled runnable function.
+ * An immutable package-private class that's used from {@link Menu}. Represents a labeled runnable
+ * function.
  * </p>
  * <br>
  * <h2>Role and Responsibility:</h2>
  * <p>
- *   This class is responsible for creating being a container for a labeled {@link Runnable} action,
- *   and nothing else. The class {@link Menu} contains all of the functionality.
+ * This class is responsible for creating being a container for a labeled {@link Runnable} action,
+ * and nothing else. The class {@link Menu} contains all of the functionality.
  * </p>
  *
  * @author Leif Mørstad
@@ -21,6 +21,7 @@ import org.junit.platform.commons.util.ToStringBuilder;
  * @see Menu
  */
 class MenuItem {
+
   /**
    * The name of the menu item. A non-null immutable string because the class is immutable.
    */
@@ -37,7 +38,7 @@ class MenuItem {
    * parameters other than that neither the name nor the action can be null. It trows if either of
    * the given parameters are null.
    *
-   * @param name The name of the menu item.
+   * @param name   The name of the menu item.
    * @param action The action to run when the menu item is selected.
    * @throws IllegalArgumentException If the name or the action is null.
    */

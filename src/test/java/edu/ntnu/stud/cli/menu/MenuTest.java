@@ -1,12 +1,17 @@
 package edu.ntnu.stud.cli.menu;
 
-import edu.ntnu.stud.TestHelper;
-import org.junit.jupiter.api.*;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import edu.ntnu.stud.TestHelper;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 class MenuTest {
+
   private Menu menu;
+
   @BeforeEach
   void setUp() {
     menu = new Menu("Test Menu");
@@ -21,6 +26,7 @@ class MenuTest {
   @Nested
   @DisplayName("Positive tests")
   class PositiveTests {
+
     @Test
     @DisplayName("Constructor doesn't throw when a name is given")
     void constructorDoesntThrowWithGivenName() {
@@ -51,7 +57,8 @@ class MenuTest {
     @DisplayName("setRunBefore() should not throw when given a runnable")
     void setRunBeforeDoesntThrowWithRunnable() {
       // Arrange
-      Runnable runBefore = () -> {};
+      Runnable runBefore = () -> {
+      };
       // Act
       // Assert
       assertDoesNotThrow(
@@ -77,7 +84,8 @@ class MenuTest {
     @DisplayName("setRunAfter() should not throw when given a runnable")
     void setRunAfterDoesntThrowWithRunnable() {
       // Arrange
-      Runnable runAfter = () -> {};
+      Runnable runAfter = () -> {
+      };
       // Act
       // Assert
       assertDoesNotThrow(
@@ -96,8 +104,10 @@ class MenuTest {
           "2: Test Option 2"
       );
       menu
-          .addOption("Test Option 1", () -> {})
-          .addOption("Test Option 2", () -> {});
+          .addOption("Test Option 1", () -> {
+          })
+          .addOption("Test Option 2", () -> {
+          });
       // Act
       menu.print();
       // Assert
@@ -118,7 +128,8 @@ class MenuTest {
           "Option: ",
           " ══ Picked option \"Test Option 1\" ══"
       );
-      menu.addOption("Test Option 1", () -> {});
+      menu.addOption("Test Option 1", () -> {
+      });
       // Act
       menu.runOnce();
       // Assert
@@ -151,11 +162,16 @@ class MenuTest {
           "Running After"
       );
       menu
-          .addOption("Test Option 1", () -> {})
-          .addOption("Test Option 2", () -> {})
-          .addOption("Test Option 3", () -> {})
-          .addOption("Test Option 4", () -> {})
-          .addOption("Test Option 5", () -> {})
+          .addOption("Test Option 1", () -> {
+          })
+          .addOption("Test Option 2", () -> {
+          })
+          .addOption("Test Option 3", () -> {
+          })
+          .addOption("Test Option 4", () -> {
+          })
+          .addOption("Test Option 5", () -> {
+          })
           .setRunBefore(() -> System.out.println("Running Before"))
           .setRunAfter(() -> System.out.println("Running After"));
       // Act
@@ -168,6 +184,7 @@ class MenuTest {
   @Nested
   @DisplayName("Negative tests")
   class NegativeTests {
+
     @Test
     @DisplayName("runOnce() throws if no options has been added to the menu")
     void runOnceWithZeroOptionShouldThrow() {

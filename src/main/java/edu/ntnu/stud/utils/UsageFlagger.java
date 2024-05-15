@@ -9,74 +9,30 @@ import org.jetbrains.annotations.NotNull;
  * Allows grouping and handling of multiple related states. Can be used to for example show if any
  * calculations are running to display a loading spinner.
  *
- * @version 1.0
  * @author Leif Mørstad
+ * @version 1.0
  */
 public class UsageFlagger {
-  /**
-   * Used for creating unique flags.
-   */
-  private volatile int flag = 0;
 
   /**
    * A set of all flags that are currently set.
    */
   private final HashSet<Integer> flags = new HashSet<>();
-
   /**
    * A handler for subscribing to flag changes.
    *
    * @see SubscriptionHandler
    */
   private final SubscriptionHandler<Boolean> subscriptions = new SubscriptionHandler<>(false);
+  /**
+   * Used for creating unique flags.
+   */
+  private volatile int flag = 0;
 
   /**
    * Creates a new flag group.
    */
-  public UsageFlagger() {}
-
-  /**
-   * Requests a new unique flag id.
-   *
-   * @return a new unique flag id to set or query
-   */
-  public synchronized int requestNewFlagId() {
-    int flag = this.flag;
-    this.flag++;
-    return flag;
-  }
-
-  /**
-   * Flags the group with the given flag.
-   *
-   * @param flag the flag id to set
-   * @see #requestNewFlagId() Getting a flag id
-   */
-  public synchronized void flag(int flag) {
-    flags.add(flag);
-    subscriptions.set(true);
-  }
-
-  /**
-   * Unflags the group with the given flag if present.
-   *
-   * @param flag the flag id to remove
-   * @see #requestNewFlagId() Getting a flag id
-   */
-  public synchronized void unflag(int flag) {
-    flags.remove(flag);
-    subscriptions.set(isFlagged());
-  }
-
-  /**
-   * Checks if the group is flagged with the given flag.
-   *
-   * @param flag the flag id to query
-   * @return true if the group is flagged with the given flag
-   * @see #requestNewFlagId() Getting a flag id
-   */
-  public synchronized boolean isFlaggedBy(int flag) {
-    return flags.contains(flag);
+  public UsageFlagger() {
   }
 
   /**
@@ -96,25 +52,45 @@ public class UsageFlagger {
   }
 
   /**
+   * Checks if the group is flagged with the given flag.
+   *
+   * @param flag the flag id to query
+   * @return true if the group is flagged with the given flag
+   * @see #requestNewFlagId() Getting a flag id
+   */
+  public synchronized boolean isFlaggedBy(int flag) {
+    return flags.contains(flag);
+  }
+
+  /**
+   * Unflags the group with the given flag if present.
+   *
+   * @param flag the flag id to remove
+   * @see #requestNewFlagId() Getting a flag id
+   */
+  public synchronized void unflag(int flag) {
+    flags.remove(flag);
+    subscriptions.set(isFlagged());
+  }
+
+  /**
+   * Flags the group with the given flag.
+   *
+   * @param flag the flag id to set
+   * @see #requestNewFlagId() Getting a flag id
+   */
+  public synchronized void flag(int flag) {
+    flags.add(flag);
+    subscriptions.set(true);
+  }
+
+  /**
    * Checks if the group is flagged by any flag.
    *
    * @return whether the group is flagged by any flag
    */
   public synchronized boolean isFlagged() {
     return !flags.isEmpty();
-  }
-
-  /**
-   * A listener for global flag changes.
-   */
-  public interface FlagListener {
-
-    /**
-     * Called when the global state of flags changes.
-     *
-     * @param isFlagged Whether any flags are set.
-     */
-    void onFlagChange(boolean isFlagged);
   }
 
   /**
@@ -132,16 +108,12 @@ public class UsageFlagger {
   }
 
   /**
-   * A setter for a unique flag
+   * Returns a flag setter for a new flag.
+   *
+   * @return a flag setter for a new flag
    */
-  public interface FlagSetter {
-
-    /**
-     * Sets the flag to flagged or not flagged.
-     *
-     * @param isFlagged whether the flag should be set or not
-     */
-    void setFlag(boolean isFlagged);
+  public @NotNull FlagSetter createFlagSetter() {
+    return createFlagSetter(requestNewFlagId());
   }
 
   /**
@@ -161,11 +133,39 @@ public class UsageFlagger {
   }
 
   /**
-   * Returns a flag setter for a new flag.
+   * Requests a new unique flag id.
    *
-   * @return a flag setter for a new flag
+   * @return a new unique flag id to set or query
    */
-  public @NotNull FlagSetter createFlagSetter() {
-    return createFlagSetter(requestNewFlagId());
+  public synchronized int requestNewFlagId() {
+    int flag = this.flag;
+    this.flag++;
+    return flag;
+  }
+
+  /**
+   * A listener for global flag changes.
+   */
+  public interface FlagListener {
+
+    /**
+     * Called when the global state of flags changes.
+     *
+     * @param isFlagged Whether any flags are set.
+     */
+    void onFlagChange(boolean isFlagged);
+  }
+
+  /**
+   * A setter for a unique flag.
+   */
+  public interface FlagSetter {
+
+    /**
+     * Sets the flag to flagged or not flagged.
+     *
+     * @param isFlagged whether the flag should be set or not
+     */
+    void setFlag(boolean isFlagged);
   }
 }

@@ -5,8 +5,10 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class TestTemplate {
+
   @Nested
   class PositiveTests {
+
     @Test
     @DisplayName("")
     void constructor() {
@@ -15,6 +17,7 @@ public class TestTemplate {
 
   @Nested
   class NegativeTests {
+
     @Test
     @DisplayName("")
     void constructor() {

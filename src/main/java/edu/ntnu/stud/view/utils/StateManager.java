@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.0
  */
 public class StateManager {
+
   private final @NotNull SimpleIntegerProperty screenWidth = new SimpleIntegerProperty(1);
   private final @NotNull SimpleIntegerProperty screenHeight = new SimpleIntegerProperty(1);
   private final @NotNull UsageFlagger isLoading = new UsageFlagger();
@@ -20,6 +21,14 @@ public class StateManager {
    */
   public StateManager() {
     super();
+  }
+
+  public static void importState() {
+
+  }
+
+  public static void exportState() {
+
   }
 
   /**
@@ -47,13 +56,5 @@ public class StateManager {
    */
   public @NotNull UsageFlagger getIsLoading() {
     return isLoading;
-  }
-
-  public static void importState() {
-
-  }
-
-  public static void exportState() {
-
   }
 }

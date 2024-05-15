@@ -1,27 +1,27 @@
 image: maven:eclipse-temurin
 
 stages:
-- build
-- test
-- package
+  - build
+  - test
+  - package
 
 build:
   stage: build
   script:
-  - echo "Building the application"
-  - mvn clean package
-  - echo "Build finished"
+    - echo "Building the application"
+    - mvn clean package
+    - echo "Build finished"
 
 test:
-    stage: test
-    script:
+  stage: test
+  script:
     - echo "Testing the application"
     - mvn test
     - echo "Test finished"
 
 package:
-    stage: package
-    script:
+  stage: package
+  script:
     - echo "Packaging the application"
     - mvn package
     - echo "Package finished"

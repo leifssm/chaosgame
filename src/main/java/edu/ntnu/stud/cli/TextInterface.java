@@ -1,10 +1,10 @@
 package edu.ntnu.stud.cli;
 
-import java.io.File;
 import edu.ntnu.stud.cli.menu.Menu;
-import edu.ntnu.stud.model.IterativeChaosGame;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
+import edu.ntnu.stud.model.IterativeChaosGame;
+import java.io.File;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.0
  */
 public class TextInterface {
+
   /**
    * Starts the CLI.
    *

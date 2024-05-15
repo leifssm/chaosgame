@@ -5,10 +5,11 @@ import org.jetbrains.annotations.NotNull;
 /**
  * A class for translating between pixel coordinates and indices in a canvas.
  *
- * @version 1.0
  * @author Leif Mørstad
+ * @version 1.0
  */
 public class PixelCoordinateTranslator {
+
   /**
    * The transformation used to convert coordinates to indices in the canvas.
    */
@@ -25,8 +26,8 @@ public class PixelCoordinateTranslator {
   /**
    * Creates a new instance with the given width, height, and the coordinate bounds of the fractal.
    *
-   * @param width the width of the canvas, cannot be less than 1
-   * @param height the height of the canvas, cannot be less than 1
+   * @param width     the width of the canvas, cannot be less than 1
+   * @param height    the height of the canvas, cannot be less than 1
    * @param minCoords the bottom left bounds of the fractal to show
    * @param maxCoords the top right bounds of the fractal to show
    */
@@ -65,15 +66,6 @@ public class PixelCoordinateTranslator {
   }
 
   /**
-   * A record for holding a pair of indices. Used instead of a vector because the indexes are
-   * integers.
-   *
-   * @param x0 the first index
-   * @param x1 the second index
-   */
-  public record IndexPair(int x0, int x1) {}
-
-  /**
    * Transforms the given coordinates to indices in the canvas.
    *
    * @param coords the coordinates to transform
@@ -96,7 +88,18 @@ public class PixelCoordinateTranslator {
    */
   public @NotNull Vector indicesToCoords(int x0, int x1) {
     return indicesToCoordsScalar.transform(
-        new Vector(x0,x1).add(indicesToCoordsTranslation)
+        new Vector(x0, x1).add(indicesToCoordsTranslation)
     );
+  }
+
+  /**
+   * A record for holding a pair of indices. Used instead of a vector because the indexes are
+   * integers.
+   *
+   * @param x0 the first index
+   * @param x1 the second index
+   */
+  public record IndexPair(int x0, int x1) {
+
   }
 }

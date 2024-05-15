@@ -1,15 +1,16 @@
 package edu.ntnu.stud.model.math;
 
+import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
-import static org.junit.jupiter.api.Assertions.*;
-
 public class SimpleMatrixTest {
+
   @Nested
   class PositiveTests {
+
     @Test
     @DisplayName("Constructor does not throw exception when given any doubles")
     public void testConstructor() {

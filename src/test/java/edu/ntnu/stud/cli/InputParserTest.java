@@ -1,17 +1,17 @@
 package edu.ntnu.stud.cli;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import edu.ntnu.stud.TestHelper;
 import java.io.ByteArrayInputStream;
 import java.time.LocalTime;
 import java.util.regex.Pattern;
-
-import edu.ntnu.stud.TestHelper;
 import org.intellij.lang.annotations.RegExp;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class InputParserTest {
 
@@ -23,6 +23,7 @@ class InputParserTest {
   @Nested
   @DisplayName("Positive tests")
   class PositiveTests {
+
     @Test
     @DisplayName("isInitialized() returns if the parser is initialized")
     void isInitializedReturnIfInputParserIsInitialized() {
@@ -163,7 +164,8 @@ class InputParserTest {
     @DisplayName("getTime() returns a LocalTime from the user")
     void getTime() {
       // Arrange
-      TestHelper.setupMockInput("", "2", "12:0", "0:60", "000:00", "24:00", "4:00", "23:59", "04:00");
+      TestHelper.setupMockInput("", "2", "12:0", "0:60", "000:00", "24:00", "4:00", "23:59",
+          "04:00");
       String prompt = "Test";
       // Act
       // Assert
@@ -190,7 +192,8 @@ class InputParserTest {
     @DisplayName("getBoolean() returns a boolean from the user")
     void getBoolean() {
       // Arrange
-      TestHelper.setupMockInput("", "das", "ds", "FSF", "A", "B", "Y", "n", "E", "FF", "G", "N", "y");
+      TestHelper.setupMockInput("", "das", "ds", "FSF", "A", "B", "Y", "n", "E", "FF", "G", "N",
+          "y");
       String prompt = "Test";
       // Act
       // Assert

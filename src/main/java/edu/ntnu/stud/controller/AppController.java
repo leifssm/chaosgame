@@ -10,16 +10,28 @@ import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * The controller for the {@link App} view.
+ *
+ * @author Leif Mørstad
+ * @version 1.0
+ */
 public class AppController implements Controller {
-  private final @NotNull App application;
+
   private static final @NotNull StateManager state = new StateManager();
+  private final @NotNull App application;
+  private final @NotNull FlagSetter setIsRendering;
   private @Nullable FractalPane fractalPane;
   private final @NotNull Debouncer notifyResize = new Debouncer(
       this::updateSize,
       Duration.millis(1000)
   );
-  private final @NotNull FlagSetter setIsRendering;
 
+  /**
+   * Creates a new controller for an application and binds it.
+   *
+   * @param application the application to control
+   */
   public AppController(@NotNull App application) {
     this.application = application;
     state.widthProperty().bind(application.widthProperty().map(AppController::clampSize));
@@ -28,7 +40,8 @@ public class AppController implements Controller {
     state.heightProperty().subscribe(this::update);
 
     // Necessary to keep the subscriptions "live", I don't know why
-    state.widthProperty().subscribe(ignored -> {});
+    state.widthProperty().subscribe(ignored -> {
+    });
 
     FlagSetter isWaitingForResize = state.getIsLoading().createFlagSetter();
 
@@ -38,22 +51,25 @@ public class AppController implements Controller {
     setIsRendering = state.getIsLoading().createFlagSetter();
   }
 
-  static private int clampSize(@NotNull Number size) {
+  private static int clampSize(@NotNull Number size) {
     return Math.max(2, size.intValue());
-  }
-  public @NotNull StateManager getState() {
-    return state;
   }
 
   public void update() {
     notifyResize.run();
   }
 
+  public @NotNull StateManager getState() {
+    return state;
+  }
+
   /**
    * Only run through debouncer.
    */
   private void updateSize() {
-    System.out.println("Updating size to " + state.widthProperty().get() + "x" + state.heightProperty().get());
+    System.out.println(
+        "Updating size to " + state.widthProperty().get() + "x" + state.heightProperty().get()
+    );
 
     setIsRendering.setFlag(true);
     FractalPane oldPanel = fractalPane;

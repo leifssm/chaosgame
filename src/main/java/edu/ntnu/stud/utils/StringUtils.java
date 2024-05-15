@@ -5,8 +5,8 @@ import org.jetbrains.annotations.NotNull;
 /**
  * A class containing utility methods for working with strings.
  *
- * @version 1.0
  * @author Leif Mørstad
+ * @version 1.0
  */
 public class StringUtils {
 

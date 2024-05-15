@@ -13,10 +13,15 @@ import org.jetbrains.annotations.NotNull;
 public class ReverseChaosGame extends ChaosGame {
 
   /**
+   * The maximum number of iterations to perform per pixel when rendering the fractal.
+   */
+  static final int MAX_ITERATION = 100;
+
+  /**
    * Creates a new instance with the given width, height and description.
    *
-   * @param width the width of the canvas
-   * @param height the height of the canvas
+   * @param width       the width of the canvas
+   * @param height      the height of the canvas
    * @param description the description of the chaos game
    * @throws IllegalArgumentException if description is null
    */
@@ -29,9 +34,17 @@ public class ReverseChaosGame extends ChaosGame {
   }
 
   /**
-   * The maximum number of iterations to perform per pixel when rendering the fractal.
+   * Renders the fractal on the canvas.
    */
-  static final int MAX_ITERATION = 100;
+  public void render() {
+    System.out.println("Rendering");
+    for (int x0Index = 0; x0Index < getCanvas().getWidth(); x0Index++) {
+      for (int x1Index = 0; x1Index < getCanvas().getHeight(); x1Index++) {
+        renderPixel(x0Index, x1Index);
+      }
+    }
+    System.out.println("Done rendering");
+  }
 
   /**
    * Renders a pixel at the given indices and modifies the {@link #getCanvas() canvas}.
@@ -41,7 +54,6 @@ public class ReverseChaosGame extends ChaosGame {
    */
   public void renderPixel(int x0Index, int x1Index) {
     Vector plotLoc = getCanvas().getCoordinateTranslator().indicesToCoords(x0Index, x1Index);
-
 
     int iterations = 0;
     double x0Squared = 0;
@@ -59,18 +71,5 @@ public class ReverseChaosGame extends ChaosGame {
     }
 
     getCanvas().setPixel(x0Index, x1Index, iterations);
-  }
-
-  /**
-   * Renders the fractal on the canvas.
-   */
-  public void render() {
-    System.out.println("Rendering");
-    for (int x0Index = 0; x0Index < getCanvas().getWidth(); x0Index++) {
-      for (int x1Index = 0; x1Index < getCanvas().getHeight(); x1Index++) {
-        renderPixel(x0Index, x1Index);
-      }
-    }
-    System.out.println("Done rendering");
   }
 }

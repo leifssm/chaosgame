@@ -11,15 +11,15 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.1
  */
 public class IterativeChaosGame extends ChaosGame {
-  /**
-   * The current point where the fractal is drawn from. Starts at (0, 0)
-   */
-  private @NotNull Vector currentPoint = new Vector(0, 0);
 
   /**
    * The scalar for the number of iterations to perform.
    */
   private static final int ITERATION_SCALAR = 1;
+  /**
+   * The current point where the fractal is drawn from. Starts at (0, 0)
+   */
+  private @NotNull Vector currentPoint = new Vector(0, 0);
 
   /**
    * @see ChaosGame#ChaosGame(int, int, ChaosGameDescription)
@@ -30,6 +30,10 @@ public class IterativeChaosGame extends ChaosGame {
       @NotNull ChaosGameDescription description
   ) throws IllegalArgumentException {
     super(width, height, description);
+  }
+
+  public void render() {
+    iterate(getIterations());
   }
 
   /**
@@ -44,14 +48,6 @@ public class IterativeChaosGame extends ChaosGame {
   }
 
   /**
-   * Iterates the point once, by randomly transforming the point, and draws it on the canvas.
-   */
-  public void iterate() {
-    currentPoint = getTransformations().transform(currentPoint);
-    getCanvas().drawAtCoords(currentPoint);
-  }
-
-  /**
    * Returns the number of iterations the chaos game should perform.
    *
    * @return the number of iterations
@@ -63,7 +59,11 @@ public class IterativeChaosGame extends ChaosGame {
     );
   }
 
-  public void render() {
-    iterate(getIterations());
+  /**
+   * Iterates the point once, by randomly transforming the point, and draws it on the canvas.
+   */
+  public void iterate() {
+    currentPoint = getTransformations().transform(currentPoint);
+    getCanvas().drawAtCoords(currentPoint);
   }
 }

@@ -6,10 +6,11 @@ import org.jetbrains.annotations.NotNull;
 /**
  * A simple two-by-two matrix.
  *
- * @version 2.1
  * @author Leif Mørstad
+ * @version 2.1
  */
 public class SimpleMatrix implements Transform2D {
+
   /**
    * The top left corner of the matrix. Cannot be {@link Double#NaN}
    */

@@ -8,8 +8,19 @@ import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * The main application view. Contains the sidebar, loader spinner and the fractal pane.
+ *
+ * @author Leif Mørstad
+ * @version 1.1
+ */
 public class App extends StackPane {
+
   private final @NotNull LoaderOverlay spinner = new LoaderOverlay();
+
+  /**
+   * Creates a new application view.
+   */
   public App() {
     super();
     setMargin(spinner, new Insets(10, 10, 10, 10));
@@ -17,6 +28,9 @@ public class App extends StackPane {
     getChildren().addAll(sidebarOverlay, spinner);
   }
 
+  /**
+   * Returns the loader spinner.
+   */
   public @NotNull LoaderOverlay getSpinner() {
     return spinner;
   }
