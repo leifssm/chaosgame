@@ -1,6 +1,7 @@
 package edu.ntnu.stud.utils;
 
 import javafx.animation.PauseTransition;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,6 +24,8 @@ public class Debouncer extends FunctionWrapper {
    * A transition class used to sync the debouncing with javafx
    */
   private final @NotNull PauseTransition delay;
+
+  private final @NotNull SimpleBooleanProperty isWaiting = new SimpleBooleanProperty(false);
 
   /**
    * Creates a new instance with the given function.
@@ -61,9 +64,22 @@ public class Debouncer extends FunctionWrapper {
    * @return a runnable that can be used to cancel the debounced function
    */
   public @NotNull TaskCanceller run(@NotNull Runnable task) {
-    delay.setOnFinished(event -> task.run());
+    isWaiting.set(true);
+    delay.setOnFinished(event -> {
+      System.out.println("Running debounced function");
+      task.run();
+      isWaiting.set(false);
+    });
     delay.playFromStart();
-    return delay::stop;
+
+    return () -> {
+      delay.stop();
+      isWaiting.set(false);
+    };
+  }
+
+  public @NotNull SimpleBooleanProperty getIsWaiting() {
+    return isWaiting;
   }
 
   /**
