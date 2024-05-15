@@ -1,18 +1,18 @@
 package edu.ntnu.stud.model.math;
 
-import org.jetbrains.annotations.NotNull;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import org.jetbrains.annotations.NotNull;
 
 public class VectorTestUtils {
+
   /**
    * Asserts that the given vector is equal to the given values, or throws an exception with
    * appended extra information.
    *
-   * @param x0 the expected x0 value of the vector
-   * @param x1 the expected x1 value of the vector
-   * @param actual the vector to compare to
+   * @param x0           the expected x0 value of the vector
+   * @param x1           the expected x1 value of the vector
+   * @param actual       the vector to compare to
    * @param errorMessage the error message to display if the assertion fails
    */
   public static void assertVectorEquals(
@@ -32,9 +32,9 @@ public class VectorTestUtils {
    * Asserts that the given vector is not equal to the given values, or throws an exception with
    * appended extra information.
    *
-   * @param x0 the unexpected x0 value of the vector
-   * @param x1 the unexpected x1 value of the vector
-   * @param actual the vector to compare to
+   * @param x0           the unexpected x0 value of the vector
+   * @param x1           the unexpected x1 value of the vector
+   * @param actual       the vector to compare to
    * @param errorMessage the error message to display if the assertion succeeds
    */
   public static void assertVectorNotEquals(
@@ -54,8 +54,8 @@ public class VectorTestUtils {
    * Asserts that the given vectors are not equal, or throws an exception with appended extra
    * information.
    *
-   * @param expected the unexpected vector
-   * @param actual the actual vector to compare to
+   * @param expected     the unexpected vector
+   * @param actual       the actual vector to compare to
    * @param errorMessage the error message to display if the vectors are equal
    * @see #assertVectorNotEquals(double, double, Vector, String)
    */

@@ -1,24 +1,26 @@
-package edu.ntnu.stud.controller.menu;
+package edu.ntnu.stud.cli.menu;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class MenuItemTest {
 
   @Nested
   @DisplayName("Positive tests")
   class PositiveTests {
+
     @Test
     @DisplayName("Constructor doesn't throw when given valid parameters")
     void constructorDoesntThrowWithValidParams() {
       // Arrange
       String name = "Test";
-      Runnable action = () -> {};
+      Runnable action = () -> {
+      };
       // Act
       // Assert
       assertDoesNotThrow(
@@ -32,7 +34,8 @@ class MenuItemTest {
     void getNameReturnsItemName() {
       // Arrange
       final String name = "Test";
-      Runnable action = () -> {};
+      Runnable action = () -> {
+      };
       // Act
       MenuItem item = new MenuItem(name, action);
       // Assert
@@ -44,7 +47,8 @@ class MenuItemTest {
     void toStringReturnsStringRepresentation() {
       // Arrange
       final String name = "Test";
-      Runnable action = () -> {};
+      Runnable action = () -> {
+      };
       // Act
       MenuItem item = new MenuItem(name, action);
       // Assert

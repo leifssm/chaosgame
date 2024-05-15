@@ -1,14 +1,17 @@
 package edu.ntnu.stud;
 
-import java.io.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import edu.ntnu.stud.cli.InputParser;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
-
-import edu.ntnu.stud.controller.InputParser;
 import org.junit.jupiter.api.function.Executable;
 import org.opentest4j.AssertionFailedError;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * <h1>TestHelper.</h1>
@@ -16,17 +19,18 @@ import static org.junit.jupiter.api.Assertions.*;
  * <br>
  * <h2>Role and Responsibility:</h2>
  * <p>
- *   This class is responsible for providing helper methods that makes it easier to test the
- *   application. The class provides methods for {@link #setupMockInput(String...) mocking inputs},
- *   for {@link #expectOutput(String...) testing the output}, for {@link #tearDown() tearing down
- *   the mock inputs and outputs}, and a shorthand for {@link #assertThrowsWithMessage testing
- *   thrown errors}.
+ * This class is responsible for providing helper methods that makes it easier to test the
+ * application. The class provides methods for {@link #setupMockInput(String...) mocking inputs},
+ * for {@link #expectOutput(String...) testing the output}, for
+ * {@link #tearDown() tearing down the mock inputs and outputs}, and a shorthand for
+ * {@link #assertThrowsWithMessage testing thrown errors}.
  * </p>
  *
  * @author Leif Mørstad
  * @version 1.1
  */
 public class TestHelper {
+
   /**
    * The original input stream. It is immutably stored so that it can be restored on teardown.
    */
@@ -38,8 +42,8 @@ public class TestHelper {
   private static final PrintStream originalOut = System.out;
 
   /**
-   * Creates an input stream with the given input, and initializes the InputParser simpleton with it,
-   * so that if a method is called from InputParser, it will read from the given input.
+   * Creates an input stream with the given input, and initializes the InputParser simpleton with
+   * it, so that if a method is called from InputParser, it will read from the given input.
    *
    * @param inputs A list of strings, each representing one line of input
    */
@@ -122,10 +126,10 @@ public class TestHelper {
    * throws the expected error, and then checks if the error message matches the expected error
    * message.
    *
-   * @param expectedError The expected error class
-   * @param executable The executable that should throw the given error
+   * @param expectedError        The expected error class
+   * @param executable           The executable that should throw the given error
    * @param expectedErrorMessage The expected error message when the executable throws
-   * @param messageIfNotThrown The error message to show if the executable doesn't throw.
+   * @param messageIfNotThrown   The error message to show if the executable doesn't throw.
    * @throws AssertionFailedError If the executable doesn't throw, or if the error message doesn't
    *                              match the expected error message.
    */

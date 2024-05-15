@@ -1,16 +1,20 @@
 package edu.ntnu.stud.model.math;
 
+import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
+import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorNotEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
-import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorNotEquals;
-import static org.junit.jupiter.api.Assertions.*;
-
 public class VectorTest {
+
   @Nested
   class PositiveTests {
+
     @Test
     @DisplayName("Testing constructor")
     public void constructor() {
@@ -36,7 +40,7 @@ public class VectorTest {
           "Vector(-1, -1) Should not throw an exception"
       );
     }
-    
+
     @Test
     @DisplayName("Testing length")
     public void length() {
@@ -242,6 +246,7 @@ public class VectorTest {
 
   @Nested
   class NegativeTests {
+
     @Test
     @DisplayName("Constructor throws with NaN")
     public void constructorThrowsWithNaN() {
@@ -256,6 +261,7 @@ public class VectorTest {
           "Vector(0, Double.NaN) should throw an exception"
       );
     }
+
     @Test
     @DisplayName("Constructor throws when dividing by zero")
     public void divideShouldThrowWithDividingByZero() {

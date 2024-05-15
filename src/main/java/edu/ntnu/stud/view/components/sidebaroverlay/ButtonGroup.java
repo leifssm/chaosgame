@@ -4,10 +4,22 @@ import edu.ntnu.stud.view.components.ComponentUtils;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
-//import org.kordamp.ikonli.javafx.FontIcon;
 
+/**
+ * A group of buttons. Displays them from the bottom right towards the top right.
+ *
+ * @author Leif Mørstad
+ * @version 1.0
+ */
 public class ButtonGroup extends HBox implements ComponentUtils {
+
   private final VBox buttonWrapper = new VBox();
+
+  /**
+   * Creates a new instance with the given buttons in reverse order.
+   *
+   * @param buttons the buttons to add
+   */
   public ButtonGroup(@NotNull ActionButton @NotNull ... buttons) {
     super();
     useStylesheet("components/button-group");
@@ -19,9 +31,12 @@ public class ButtonGroup extends HBox implements ComponentUtils {
     getChildren().add(buttonWrapper);
   }
 
+  /**
+   * Adds a button to the group. Adds it to the top of the group.
+   *
+   * @param button the button to add
+   */
   public void addButton(@NotNull ActionButton button) {
     buttonWrapper.getChildren().addFirst(button);
   }
-
-
 }

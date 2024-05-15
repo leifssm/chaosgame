@@ -1,14 +1,15 @@
 package edu.ntnu.stud.model.math;
 
+import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
-
 public class JuliaTransformationTest {
+
   @Nested
   class PositiveTests {
+
     @Test
     @DisplayName("Constructor accepts booleans and ints")
     void constructor() {

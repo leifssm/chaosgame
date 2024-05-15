@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.1
  */
 public abstract class ChaosGame {
+
   /**
    * The canvas on which the fractal is drawn.
    */
@@ -25,8 +26,8 @@ public abstract class ChaosGame {
   /**
    * Creates a new instance with the given width, height and description.
    *
-   * @param width the width of the canvas
-   * @param height the height of the canvas
+   * @param width       the width of the canvas
+   * @param height      the height of the canvas
    * @param description the description of the chaos game
    * @throws IllegalArgumentException if description is null
    */

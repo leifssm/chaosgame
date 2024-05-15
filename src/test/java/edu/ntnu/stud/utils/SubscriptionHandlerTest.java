@@ -1,7 +1,8 @@
 package edu.ntnu.stud.utils;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.DisplayName;
@@ -9,8 +10,10 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class SubscriptionHandlerTest {
+
   @Nested
   class PositiveTests {
+
     @Test
     @DisplayName("Subscribing runs the subscriber once")
     void subscribingGivesValueAtOnce() {

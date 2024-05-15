@@ -1,22 +1,46 @@
 package edu.ntnu.stud.view;
 
-import edu.ntnu.stud.utils.FileLoader;
-import edu.ntnu.stud.utils.GlobalData;
-import edu.ntnu.stud.view.components.ComponentUtils;
-import edu.ntnu.stud.view.views.Home;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import edu.ntnu.stud.view.components.FractalPane;
+import edu.ntnu.stud.view.components.LoaderOverlay;
+import edu.ntnu.stud.view.components.sidebaroverlay.SidebarOverlay;
+import javafx.geometry.Insets;
+import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class App extends Application implements ComponentUtils {
-  public void start(@NotNull Stage stage) {
-    GlobalData.setIsRunningJavaFx();
-    Scene scene = new Scene(new Home(), 400, 300);
-    scene.getStylesheets().add(FileLoader.getStylesheet("root"));
+/**
+ * The main application view. Contains the sidebar, loader spinner and the fractal pane.
+ *
+ * @author Leif Mørstad
+ * @version 1.1
+ */
+public class App extends StackPane {
 
-    stage.setTitle("Chaos Game");
-    stage.setScene(scene);
-    stage.show();
+  private final @NotNull LoaderOverlay spinner = new LoaderOverlay();
+
+  /**
+   * Creates a new application view.
+   */
+  public App() {
+    super();
+    setMargin(spinner, new Insets(10, 10, 10, 10));
+    SidebarOverlay sidebarOverlay = new SidebarOverlay();
+    getChildren().addAll(sidebarOverlay, spinner);
+  }
+
+  /**
+   * Returns the loader spinner.
+   */
+  public @NotNull LoaderOverlay getSpinner() {
+    return spinner;
+  }
+
+  public void replaceChaosPanel(@Nullable FractalPane oldPanel, @NotNull FractalPane newPanel) {
+    if (oldPanel != null) {
+      oldPanel.destroy();
+      getChildren().remove(oldPanel);
+    }
+    getChildren().add(newPanel);
+    newPanel.toBack();
   }
 }

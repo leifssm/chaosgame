@@ -7,10 +7,11 @@ import org.jetbrains.annotations.NotNull;
  * Represents an affine transformation in two dimensions. The transformation is a multiplication
  * followed by a translation. Identical to <pre>u = Ax + b</pre>
  *
- * @version 1.4
  * @author Leif Mørstad
+ * @version 1.4
  */
 public class AffineTransformation implements Transform2D {
+
   /**
    * The matrix which the input vector is multiplied by.
    */
@@ -20,18 +21,6 @@ public class AffineTransformation implements Transform2D {
    * The translation which is added to the result of the matrix multiplication.
    */
   private final @NotNull Vector translation;
-
-  /**
-   * Creates a new instance with the given matrix and translation.
-   *
-   * @param matrix the matrix of the transformation
-   * @param translation the translation of the transformation
-   * @throws IllegalArgumentException if any of the given values are null
-   */
-  public AffineTransformation(@NotNull SimpleMatrix matrix, @NotNull Vector translation) {
-    this.matrix = matrix;
-    this.translation = translation;
-  }
 
   /**
    * Creates a new instance with the given matrix and translation.
@@ -54,6 +43,18 @@ public class AffineTransformation implements Transform2D {
    */
   public AffineTransformation() {
     this(new SimpleMatrix(1, 0, 0, 1), new Vector(0, 0));
+  }
+
+  /**
+   * Creates a new instance with the given matrix and translation.
+   *
+   * @param matrix      the matrix of the transformation
+   * @param translation the translation of the transformation
+   * @throws IllegalArgumentException if any of the given values are null
+   */
+  public AffineTransformation(@NotNull SimpleMatrix matrix, @NotNull Vector translation) {
+    this.matrix = matrix;
+    this.translation = translation;
   }
 
   /**

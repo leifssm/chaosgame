@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.1
  */
 public class ChaosGameCanvas {
+
   /**
    * The canvas on which the fractal is drawn, starts filled with 0. The origin is in the bottom
    * left, with the y-axis pointing upwards and the x-axis pointing to the right, so that the
@@ -44,8 +45,36 @@ public class ChaosGameCanvas {
   /**
    * Creates a new instance with the given width, height, and the coordinate bounds of the fractal.
    *
-   * @param width the width of the canvas, cannot be less than 1
-   * @param height the height of the canvas, cannot be less than 1
+   * @param width        the width of the canvas, cannot be less than 1
+   * @param height       the height of the canvas, cannot be less than 1
+   * @param minCoords    the top left bounds of the fractal to show
+   * @param maxCoords    the bottom right bounds of the fractal to show
+   * @param isDebouncing whether to debounce subscription notifications
+   * @throws IllegalArgumentException if the width or height is less than 1, or if given null
+   */
+  public ChaosGameCanvas(
+      int width,
+      int height,
+      @NotNull Vector minCoords,
+      @NotNull Vector maxCoords,
+      boolean isDebouncing
+  ) throws IllegalArgumentException {
+    this(
+        width,
+        height,
+        minCoords,
+        maxCoords,
+        isDebouncing
+            ? new DebouncingSubscriptionHandler<>(new int[height][width], Duration.millis(100))
+            : new SubscriptionHandler<>(new int[height][width])
+    );
+  }
+
+  /**
+   * Creates a new instance with the given width, height, and the coordinate bounds of the fractal.
+   *
+   * @param width     the width of the canvas, cannot be less than 1
+   * @param height    the height of the canvas, cannot be less than 1
    * @param minCoords the minimum coordinate bounds of the fractal to show
    * @param maxCoords the maximum coordinate bounds of the fractal to show
    * @throws IllegalArgumentException if the width or height is less than 1, or if given null
@@ -70,24 +99,6 @@ public class ChaosGameCanvas {
     clear();
 
     coordinateTranslator = new PixelCoordinateTranslator(width, height, minCoords, maxCoords);
-  }
-
-  public ChaosGameCanvas(
-      int width,
-      int height,
-      @NotNull Vector minCoords,
-      @NotNull Vector maxCoords,
-      boolean isDebouncing
-  ) throws IllegalArgumentException {
-    this(
-        width,
-        height,
-        minCoords,
-        maxCoords,
-        isDebouncing
-            ? new DebouncingSubscriptionHandler<>(new int[height][width], Duration.millis(100))
-            : new SubscriptionHandler<>(new int[height][width])
-    );
   }
 
   /**
@@ -116,20 +127,27 @@ public class ChaosGameCanvas {
   }
 
   /**
+   * @see #setPixel(int, int, int)
+   */
+  public void setPixel(double x, double y, int value) {
+    this.setPixel((int) Math.floor(x), (int) Math.floor(y), value);
+  }
+
+  /**
    * Sets the pixel value at the given coordinates. The origin is in the bottom left, with the
    * coordinates (0, 0) being in the bottom left corner. Does nothing if the given coordinates are
    * outside the canvas.
    *
-   * @param x the x-coordinate of the pixel from left to right
-   * @param y the y-coordinate of the pixel from bottom to top
+   * @param x     the x-coordinate of the pixel from left to right
+   * @param y     the y-coordinate of the pixel from bottom to top
    * @param value the value to set the pixel to
    */
   public void setPixel(int x, int y, int value) {
     if (
         x < 0
-        || x >= width
-        || y < 0
-        || y >= height
+            || x >= width
+            || y < 0
+            || y >= height
     ) {
       return;
     }
@@ -138,10 +156,18 @@ public class ChaosGameCanvas {
   }
 
   /**
-   * @see #setPixel(int, int, int)
+   * Rounds the double down to the nearest integer to prevent -0.4 from being rounded to 0, then
+   * calls {@link #touchPixel(int, int)} with the new values
+   *
+   * @param x the x-coordinate of the pixel from left to right
+   * @param y the y-coordinate of the pixel from bottom to top
+   * @see #touchPixel(int, int)
    */
-  public void setPixel(double x, double y, int value) {
-    this.setPixel((int) Math.floor(x), (int) Math.floor(y), value);
+  public void touchPixel(double x, double y) {
+    if (x < 0 || y < 0) {
+      return;
+    }
+    this.touchPixel((int) x, (int) y);
   }
 
   /**
@@ -163,21 +189,6 @@ public class ChaosGameCanvas {
     }
     canvas[height - y - 1][x]++;
     subscriptionHandler.notifySubscribers();
-  }
-
-  /**
-   * Rounds the double down to the nearest integer to prevent -0.4 from being rounded to 0, then
-   * calls {@link #touchPixel(int, int)} with the new values
-   *
-   * @param x the x-coordinate of the pixel from left to right
-   * @param y the y-coordinate of the pixel from bottom to top
-   * @see #touchPixel(int, int)
-   */
-  public void touchPixel(double x, double y) {
-    if (x < 0 || y < 0) {
-      return;
-    }
-    this.touchPixel((int) x, (int) y);
   }
 
   /**
@@ -217,6 +228,15 @@ public class ChaosGameCanvas {
   }
 
   /**
+   * Runs {@link #asSimpleString(int)} with a skip value of 0.
+   *
+   * @see #asSimpleString(int)
+   */
+  public @NotNull String asSimpleString() {
+    return asSimpleString(0);
+  }
+
+  /**
    * Returns a simple ascii art representation of the canvas, and skips a number of lines defined by
    * the skip param.
    *
@@ -236,14 +256,5 @@ public class ChaosGameCanvas {
       sb.append("\n");
     }
     return sb.toString();
-  }
-
-  /**
-   * Runs {@link #asSimpleString(int)} with a skip value of 0.
-   *
-   * @see #asSimpleString(int)
-   */
-  public @NotNull String asSimpleString() {
-    return asSimpleString(0);
   }
 }

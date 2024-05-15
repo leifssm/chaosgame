@@ -1,17 +1,19 @@
 package edu.ntnu.stud.model.math;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TransformationGroupTest {
+
   @Nested
   class PositiveTests {
+
     @Test
     @DisplayName("Instantiating should succeed when given transformations.")
     void constructor() {
@@ -28,7 +30,7 @@ public class TransformationGroupTest {
           t1,
           t2
       );
-      new TransformationGroup(List.of(t1,t2));
+      new TransformationGroup(List.of(t1, t2));
     }
 
     @RepeatedTest(10)
@@ -66,6 +68,7 @@ public class TransformationGroupTest {
 
   @Nested
   class NegativeTests {
+
     @Test
     @DisplayName("Constructor should throw when given no elements")
     void constructor() {

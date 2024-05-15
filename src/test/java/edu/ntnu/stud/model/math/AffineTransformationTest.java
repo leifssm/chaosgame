@@ -1,34 +1,35 @@
 package edu.ntnu.stud.model.math;
 
+import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
-import static org.junit.jupiter.api.Assertions.*;
-
 public class AffineTransformationTest {
+
   @Nested
   class PositiveTests {
+
     @Test
     @DisplayName("Constructor with six values should not throw an exception")
     void constructorWithNumbers() {
-      new AffineTransformation(1,2,3,4,5,6);
+      new AffineTransformation(1, 2, 3, 4, 5, 6);
     }
 
     @Test
     @DisplayName("Constructor with a defined matrix and vector should not throw an exception")
     void constructorWithObjects() {
       new AffineTransformation(
-          new SimpleMatrix(1,2,3,4),
-          new Vector(5,6)
+          new SimpleMatrix(1, 2, 3, 4),
+          new Vector(5, 6)
       );
     }
 
     @Test
     @DisplayName("Constructor with no arguments creates an identity transformation")
     void constructorWithNoArgs() {
-      Vector vector = new Vector(1,2);
+      Vector vector = new Vector(1, 2);
       Vector transformedVector = new AffineTransformation().transform(vector);
       assertVectorEquals(
           1,
@@ -42,10 +43,10 @@ public class AffineTransformationTest {
     @DisplayName("Transforming a vector with a transformation should work")
     void transform() {
       AffineTransformation transformation = new AffineTransformation(
-          new SimpleMatrix(1,2,3,4),
-          new Vector(5,6)
+          new SimpleMatrix(1, 2, 3, 4),
+          new Vector(5, 6)
       );
-      Vector vector = new Vector(7,8);
+      Vector vector = new Vector(7, 8);
 
       Vector transformedVector = transformation.transform(vector);
       assertVectorEquals(
@@ -60,18 +61,19 @@ public class AffineTransformationTest {
 
   @Nested
   class NegativeTests {
+
     @Test
     @DisplayName("Constructor throws with invalid arguments")
     void constructor() {
       assertThrows(
           IllegalArgumentException.class,
-          () -> new AffineTransformation(1,2,3,4,5),
+          () -> new AffineTransformation(1, 2, 3, 4, 5),
           "Creating an AffineTransformation with not exactly six values should " +
               "throw an exception"
       );
       assertThrows(
           IllegalArgumentException.class,
-          () -> new AffineTransformation(1,2,3,4,5,6,7),
+          () -> new AffineTransformation(1, 2, 3, 4, 5, 6, 7),
           "Creating an AffineTransformation with not exactly six values should " +
               "throw an exception"
       );
