@@ -1,9 +1,10 @@
 package edu.ntnu.stud.utils;
 
-import java.io.File;
-import java.net.URL;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
+import java.net.URL;
 
 /**
  * Utility class for loading files.
@@ -86,5 +87,22 @@ public class FileLoader {
         "",
         "Could not find image"
     );
+  }
+
+  public static File @NotNull [] getAllFractals() {
+    File fractalFolder = new File("src/main/resources/fractals/");
+    try {
+      var ignored = fractalFolder.createNewFile();
+    } catch (Exception e) {
+      System.out.println("Could not create fractals folder");
+      return new File[0];
+    }
+
+    File[] files = fractalFolder.listFiles((dir, name) -> name.endsWith(".txt"));
+    if (files == null || files.length == 0) {
+      System.out.println("No files found");
+      return new File[0];
+    }
+    return files;
   }
 }
