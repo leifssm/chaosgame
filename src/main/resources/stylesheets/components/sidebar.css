@@ -3,4 +3,12 @@
   -fx-pref-height: 100px;
   -fx-pref-width: 10%;
   -fx-max-width: 150px;
+  -fx-hgap: 5;
+  -fx-vgap: 5;
+}
+
+.fractal-display {
+  -fx-background-color: #4c4d50;
+  -fx-text-fill: white;
+  -fx-cursor: hand;
 }

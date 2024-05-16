@@ -4,8 +4,10 @@ import edu.ntnu.stud.cli.menu.Menu;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
 import edu.ntnu.stud.model.IterativeChaosGame;
-import java.io.File;
+import edu.ntnu.stud.utils.FileLoader;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 
 /**
  * A simple CLI for the chaos game.
@@ -32,17 +34,8 @@ public class TextInterface {
    * "src/main/resources/fractals" folder.
    */
   public static void runFilePrompt() {
-    File fractalFolder = new File("src/main/resources/fractals/");
-    try {
-      fractalFolder.createNewFile();
-    } catch (Exception e) {
-      System.out.println("Could not create fractals folder");
-      return;
-    }
-
-    File[] files = fractalFolder.listFiles((dir, name) -> name.endsWith(".txt"));
-    if (files == null) {
-      System.out.println("No files found");
+    File[] files = FileLoader.getAllFractals();
+    if (files.length == 0) {
       return;
     }
 

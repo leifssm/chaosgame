@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * A sidebar handler that handles showing/hiding the sidebar.
  *
  * @author Leif Mørstad
- * @version 1.0
+ * @version 1.1
  */
 public class SidebarOverlay extends StackPane {
 
@@ -28,7 +28,7 @@ public class SidebarOverlay extends StackPane {
     super();
 
     ButtonGroup buttonGroup = new ButtonGroup(
-        new ActionButton("folder", "folder", this::toggleSidebar).setType("primary"),
+        new ActionButton("folder", "note-plus", this::toggleSidebar).setType("primary"),
         new ActionButton("account", "account", () -> System.out.println("Button 2 clicked"))
     );
 
@@ -63,5 +63,9 @@ public class SidebarOverlay extends StackPane {
           }
         }
     );
+  }
+
+  public @NotNull Sidebar getSidebar() {
+    return sidebar;
   }
 }

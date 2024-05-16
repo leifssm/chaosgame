@@ -4,12 +4,12 @@ package edu.ntnu.stud.controller.controllers;
  * Interface for all controllers.
  *
  * @author Leif Mørstad
- * @version 1.0
+ * @version 2.0
  */
-public interface Controller {
+public abstract class Controller {
 
   /**
    * Update the controller.
    */
-  void update();
+  public abstract void update();
 }
