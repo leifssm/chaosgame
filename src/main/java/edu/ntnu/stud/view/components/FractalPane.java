@@ -1,28 +1,23 @@
 package edu.ntnu.stud.view.components;
 
 import edu.ntnu.stud.model.ChaosGame;
-import edu.ntnu.stud.model.ChaosGameDescription;
-import edu.ntnu.stud.model.ChaosGameFileHandler;
-import edu.ntnu.stud.model.ReverseChaosGame;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.WritableImage;
-import javax.security.auth.Destroyable;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * A pane that displays a fractal image rendered from a {@link ChaosGame}.
  *
  * @author Leif Mørstad
- * @version 1.0
+ * @version 2.0
  */
-public class FractalPane extends ImageView implements Destroyable {
+public class FractalPane extends ImageView {
 
-  private static final String DEFAULT_FILE_PATH = "julia.txt";
   private final WritableImage image;
   private final int[] colors = new int[]{
       0xFF000000,
@@ -42,47 +37,34 @@ public class FractalPane extends ImageView implements Destroyable {
       0xFF995700,
       0xFF6A3403
   };
-  private @Nullable ChaosGame chaosGame;
+  private final @NotNull ChaosGame chaosGame;
 
   /**
-   * Creates a new instance with the given width and height.
+   * Creates a new instance with the given chaos game.
    *
-   * @param width  the width of the image
-   * @param height the height of the image
+   * @param chaosGame the chaos game to render
    */
-  public FractalPane(int width, int height) {
-    super(new WritableImage(width, height));
+  public FractalPane(ChaosGame chaosGame) {
+    super(
+        new WritableImage(
+            chaosGame.getCanvas().getWidth(),
+            chaosGame.getCanvas().getHeight()
+        )
+    );
+    this.chaosGame = chaosGame;
 
     image = (WritableImage) getImage();
-    replaceCurrentGame(DEFAULT_FILE_PATH);
+    render();
   }
 
-  /**
-   * Replaces the current game with the game from the given file path.
-   *
-   * @param filePath the path to the file to read the game from
-   */
-  public void replaceCurrentGame(@NotNull String filePath) {
-    ChaosGameDescription file = ChaosGameFileHandler.readFromFile(filePath);
-    destroy();
-
-    chaosGame = new ReverseChaosGame((int) image.getWidth(), (int) image.getHeight(), file);
-
-    chaosGame.render();
-    chaosGame.getCanvas().getSubscriptionHandler().subscribe(this::redraw);
+  public void changeZoom() {
+    //chaosGame.getCanvas().setView();
   }
 
-  @Override
-  public void destroy() {
-    if (chaosGame != null) {
-      chaosGame.getCanvas().getSubscriptionHandler().unsubscribeAll();
-    }
-  }
-
-  private void redraw(int @NotNull [] @NotNull [] canvas) {
+  private void render() {
     Platform.runLater(() -> {
       // https://stackoverflow.com/questions/8935367/convert-a-2d-array-into-a-1d-array
-      int[] flattened = Stream.of(canvas)
+      int[] flattened = Stream.of(chaosGame.getCanvas().getCanvas())
           .flatMapToInt(IntStream::of)
           .map(this::mapColor)
           .toArray();

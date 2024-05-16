@@ -10,7 +10,7 @@ import java.net.URL;
  * Utility class for loading files.
  *
  * @author Leif Mørstad
- * @version 1.0
+ * @version 1.1
  */
 public class FileLoader {
 
@@ -104,5 +104,10 @@ public class FileLoader {
       return new File[0];
     }
     return files;
+  }
+
+  public static @NotNull String removeFileExtension(@NotNull String fileName) {
+    // https://stackoverflow.com/questions/924394/how-to-get-the-filename-without-the-extension-in-java
+    return fileName.replaceFirst("\\.[^.]+$", "");
   }
 }

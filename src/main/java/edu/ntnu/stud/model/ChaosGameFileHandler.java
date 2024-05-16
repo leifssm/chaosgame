@@ -1,23 +1,19 @@
 package edu.ntnu.stud.model;
 
-import edu.ntnu.stud.model.math.AffineTransformation;
-import edu.ntnu.stud.model.math.ComplexNumber;
-import edu.ntnu.stud.model.math.JuliaTransformation;
-import edu.ntnu.stud.model.math.Transform2D;
-import edu.ntnu.stud.model.math.TransformationGroup;
-import edu.ntnu.stud.model.math.Vector;
+import edu.ntnu.stud.model.math.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * This class is responsible for reading and writing chaos game descriptions to and from files.
  *
  * @author Leif Mørstad
- * @version 1.0
+ * @version 1.1
  * @see ChaosGameDescription
  */
 public class ChaosGameFileHandler {
@@ -33,15 +29,29 @@ public class ChaosGameFileHandler {
   public static @NotNull ChaosGameDescription readFromFile(
       @NotNull String filename
   ) throws IllegalArgumentException {
+    File file = new File("src/main/resources/fractals/" + filename);
+    if (!file.exists()) {
+      throw new IllegalArgumentException("File does not exist: " + filename);
+    }
+    return readFromFile(file);
+  }
+
+  /**
+   * Reads a chaos game description from a file.
+   *
+   * @param file the file to read from
+   * @return the chaos game description read from the file
+   * @throws IllegalArgumentException if the file could not be read or the file contains invalid
+   *                                  data
+   */
+  public static @NotNull ChaosGameDescription readFromFile(
+      @NotNull File file
+  ) throws IllegalArgumentException {
     Scanner scanner;
     try {
-      File file = new File("src/main/resources/fractals/" + filename);
-      if (!file.exists()) {
-        throw new Exception();
-      }
       scanner = new Scanner(file);
     } catch (Exception e) {
-      throw new IllegalArgumentException("Could not read file: " + filename);
+      throw new IllegalArgumentException("Could not read file: " + file.getName());
     }
 
     scanner
