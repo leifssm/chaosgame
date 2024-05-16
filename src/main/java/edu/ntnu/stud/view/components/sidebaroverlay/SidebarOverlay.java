@@ -28,7 +28,7 @@ public class SidebarOverlay extends StackPane {
     super();
 
     ButtonGroup buttonGroup = new ButtonGroup(
-        new ActionButton("folder", "folder", this::toggleSidebar).setType("primary"),
+        new ActionButton("folder", "note-plus", this::toggleSidebar).setType("primary"),
         new ActionButton("account", "account", () -> System.out.println("Button 2 clicked"))
     );
 
