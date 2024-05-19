@@ -1,6 +1,6 @@
 package edu.ntnu.stud.view.components.sidebaroverlay;
 
-import edu.ntnu.stud.utils.FileLoader;
+import edu.ntnu.stud.utils.FileHandler;
 import edu.ntnu.stud.utils.StringUtils;
 import edu.ntnu.stud.view.components.ComponentUtils;
 import edu.ntnu.stud.view.utils.IconUtils;
@@ -30,7 +30,7 @@ public class FractalDisplay extends VBox implements ComponentUtils {
     addCssClasses("fractal-display");
     Node fractalDisplay;
 
-    String fractalImageUrl = FileLoader.getImage(fractalName);
+    String fractalImageUrl = FileHandler.getImage(fractalName);
     if (fractalImageUrl == null) {
       fractalDisplay = IconUtils.createIcon("layers-off");
     } else {
@@ -38,7 +38,7 @@ public class FractalDisplay extends VBox implements ComponentUtils {
       fractalDisplay = new ImageView(image);
     }
 
-    String cleanFractalName = FileLoader
+    String cleanFractalName = FileHandler
         .removeFileExtension(fractalName)
         .replaceAll("[-_ ]+", " ");
     cleanFractalName = StringUtils.capitalizeWords(cleanFractalName);

@@ -1,5 +1,6 @@
 package edu.ntnu.stud.model.math;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.ntnu.stud.utils.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -68,6 +69,21 @@ public class AffineTransformation implements Transform2D {
     return matrix
         .transform(vector)
         .add(translation);
+  }
+
+  @Override
+  public @NotNull String getType() {
+    return "AffineTransformation";
+  }
+
+  @JsonProperty
+  public @NotNull SimpleMatrix getMatrix() {
+    return matrix;
+  }
+
+  @JsonProperty
+  public @NotNull Vector getTranslation() {
+    return translation;
   }
 
   /**

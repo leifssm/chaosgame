@@ -1,5 +1,10 @@
 package edu.ntnu.stud.cli;
 
+import org.intellij.lang.annotations.RegExp;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalTime;
@@ -7,10 +12,6 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.intellij.lang.annotations.RegExp;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * <h1>InputParser.</h1>
@@ -36,6 +37,39 @@ public class InputParser {
    * automatically initialize the scanner with the current {@link System#in}.
    */
   private static Scanner scanner;
+
+  /**
+   * Initializes the scanner with {@link System#in}. Does not override an already initialized
+   * scanner.
+   *
+   * @see System#in
+   */
+  public static void initialize() {
+    initialize(System.in);
+  }
+
+  /**
+   * Initializes the scanner with a given non-null {@link InputStream input stream}. Does not
+   * override the scanner if it is already initialized.
+   *
+   * @param stream The input stream to read data from.
+   * @throws IllegalArgumentException If the stream is null
+   */
+  public static void initialize(@NotNull InputStream stream) throws IllegalArgumentException {
+    if (isInitialized()) {
+      return;
+    }
+    scanner = new Scanner(stream, StandardCharsets.UTF_8);
+  }
+
+  /**
+   * Returns if the scanner has yet been initialized with {@link #initialize}.
+   *
+   * @return If the scanner is initialized.
+   */
+  public static boolean isInitialized() {
+    return scanner != null;
+  }
 
   /**
    * If initialized, it closes the {@link InputStream} the singleton is initialized with, and clears
@@ -138,39 +172,6 @@ public class InputParser {
   public static @NotNull String getString() {
     initialize();
     return scanner.nextLine();
-  }
-
-  /**
-   * Initializes the scanner with {@link System#in}. Does not override an already initialized
-   * scanner.
-   *
-   * @see System#in
-   */
-  public static void initialize() {
-    initialize(System.in);
-  }
-
-  /**
-   * Initializes the scanner with a given non-null {@link InputStream input stream}. Does not
-   * override the scanner if it is already initialized.
-   *
-   * @param stream The input stream to read data from.
-   * @throws IllegalArgumentException If the stream is null
-   */
-  public static void initialize(@NotNull InputStream stream) throws IllegalArgumentException {
-    if (isInitialized()) {
-      return;
-    }
-    scanner = new Scanner(stream, StandardCharsets.UTF_8);
-  }
-
-  /**
-   * Returns if the scanner has yet been initialized with {@link #initialize}.
-   *
-   * @return If the scanner is initialized.
-   */
-  public static boolean isInitialized() {
-    return scanner != null;
   }
 
   /**

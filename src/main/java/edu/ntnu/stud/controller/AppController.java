@@ -6,10 +6,10 @@ import edu.ntnu.stud.model.ChaosGame;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.IterativeChaosGame;
 import edu.ntnu.stud.utils.Debouncer;
+import edu.ntnu.stud.utils.StateManager;
 import edu.ntnu.stud.utils.UsageFlagger.FlagSetter;
 import edu.ntnu.stud.view.App;
 import edu.ntnu.stud.view.components.FractalPane;
-import edu.ntnu.stud.view.utils.StateManager;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 

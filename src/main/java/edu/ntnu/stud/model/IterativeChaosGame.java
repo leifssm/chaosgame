@@ -32,6 +32,10 @@ public class IterativeChaosGame extends ChaosGame {
     super(width, height, description);
   }
 
+  /**
+   * Renders the fractal by iterating the transformations a number of times proportional to the
+   * screen size.
+   */
   public void render() {
     iterate(getIterations());
   }

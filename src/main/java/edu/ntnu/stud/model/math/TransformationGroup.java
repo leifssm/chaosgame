@@ -1,8 +1,11 @@
 package edu.ntnu.stud.model.math;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents a group of affine transformations. The group is a collection of transformations which
@@ -63,5 +66,15 @@ public class TransformationGroup implements Transform2D {
   public @NotNull Vector transform(@NotNull Vector vector) throws IllegalArgumentException {
     int index = random.nextInt(transformations.length);
     return transformations[index].transform(vector);
+  }
+
+  @Override
+  public @NotNull String getType() {
+    return "TransformationGroup";
+  }
+
+  @JsonValue
+  public @NotNull Transform2D[] getTransformations() {
+    return Arrays.copyOf(transformations, transformations.length);
   }
 }

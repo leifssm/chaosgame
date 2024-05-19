@@ -2,7 +2,7 @@ package edu.ntnu.stud.utils;
 
 /**
  * A class to store global important, unchanging variables. Not to be confused with the
- * {@link edu.ntnu.stud.view.utils.StateManager} which stores the state of the application.
+ * {@link StateManager} which stores the state of the application.
  *
  * @author Leif Mørstad
  * @version 1.0

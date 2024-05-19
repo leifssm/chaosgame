@@ -1,6 +1,6 @@
 package edu.ntnu.stud.view.components;
 
-import edu.ntnu.stud.utils.FileLoader;
+import edu.ntnu.stud.utils.FileHandler;
 import javafx.scene.Parent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -53,7 +53,7 @@ public interface ComponentUtils {
       String @Nullable ... classes
   ) {
     checkThis();
-    String filePath = FileLoader.getStylesheet(stylesheet);
+    String filePath = FileHandler.getStylesheet(stylesheet);
     if (filePath == null) {
       return;
     }
@@ -71,27 +71,6 @@ public interface ComponentUtils {
     String className = files[files.length - 1];
 
     addCssClasses(element, className);
-  }
-
-  /**
-   * Shorthand for adding the given classes to the 'this' element.
-   *
-   * @param classNames the classes to add to the element
-   * @see #addCssClasses(Parent, String...)
-   */
-  default void addCssClasses(@NotNull String @NotNull ... classNames) {
-    checkThis();
-    addCssClasses((Parent) this, classNames);
-  }
-
-  /**
-   * Adds the given classes to the element.
-   *
-   * @param element    the element to add the classes to
-   * @param classNames the classes to add
-   */
-  default void addCssClasses(@NotNull Parent element, @NotNull String @NotNull ... classNames) {
-    element.getStyleClass().addAll(classNames);
   }
 
   /**
@@ -123,6 +102,27 @@ public interface ComponentUtils {
     } else {
       useStylesheet(element, stylesheet);
     }
+  }
+
+  /**
+   * Shorthand for adding the given classes to the 'this' element.
+   *
+   * @param classNames the classes to add to the element
+   * @see #addCssClasses(Parent, String...)
+   */
+  default void addCssClasses(@NotNull String @NotNull ... classNames) {
+    checkThis();
+    addCssClasses((Parent) this, classNames);
+  }
+
+  /**
+   * Adds the given classes to the element.
+   *
+   * @param element    the element to add the classes to
+   * @param classNames the classes to add
+   */
+  default void addCssClasses(@NotNull Parent element, @NotNull String @NotNull ... classNames) {
+    element.getStyleClass().addAll(classNames);
   }
 
   /**

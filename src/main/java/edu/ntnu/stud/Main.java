@@ -1,7 +1,7 @@
 package edu.ntnu.stud;
 
 import edu.ntnu.stud.controller.AppController;
-import edu.ntnu.stud.utils.FileLoader;
+import edu.ntnu.stud.utils.FileHandler;
 import edu.ntnu.stud.utils.GlobalData;
 import edu.ntnu.stud.view.App;
 import javafx.application.Application;
@@ -29,7 +29,7 @@ public class Main extends Application {
     new AppController(application);
 
     Scene scene = new Scene(application, 500, 400);
-    scene.getStylesheets().add(FileLoader.getStylesheet("root"));
+    scene.getStylesheets().add(FileHandler.getStylesheet("root"));
 
     stage.setTitle("Chaos Game");
     stage.setScene(scene);
