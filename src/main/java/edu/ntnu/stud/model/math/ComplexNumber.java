@@ -33,15 +33,6 @@ public class ComplexNumber extends Vector {
   }
 
   /**
-   * Returns the square root of the complex number.
-   *
-   * @return the square root of the complex number
-   */
-  public @NotNull ComplexNumber sqrt() {
-    return ComplexNumber.sqrt(this);
-  }
-
-  /**
    * Returns the square root of the given complex number.
    *
    * @param z the complex number to find the square root of
@@ -57,21 +48,6 @@ public class ComplexNumber extends Vector {
   }
 
   /**
-   * @throws IllegalArgumentException if the given vector is null
-   * @see Vector#add(Vector)
-   */
-  @Override
-  public @NotNull ComplexNumber add(@NotNull Vector other) throws IllegalArgumentException {
-    return ComplexNumber.fromVector(
-        super.add(other)
-    );
-  }
-
-  // +-------------------------------------------------------------------------------------+
-  // | The following methods are overridden to return a ComplexNumber instead of a Vector. |
-  // +-------------------------------------------------------------------------------------+
-
-  /**
    * Creates a new instance with the given vector.
    *
    * @param vector the vector to copy as a complex number
@@ -81,6 +57,30 @@ public class ComplexNumber extends Vector {
       @NotNull Vector vector
   ) throws IllegalArgumentException {
     return new ComplexNumber(vector.getX0(), vector.getX1());
+  }
+
+  /**
+   * Returns the square root of the complex number.
+   *
+   * @return the square root of the complex number
+   */
+  public @NotNull ComplexNumber sqrt() {
+    return ComplexNumber.sqrt(this);
+  }
+
+  // +-------------------------------------------------------------------------------------+
+  // | The following methods are overridden to return a ComplexNumber instead of a Vector. |
+  // +-------------------------------------------------------------------------------------+
+
+  /**
+   * @throws IllegalArgumentException if the given vector is null
+   * @see Vector#add(Vector)
+   */
+  @Override
+  public @NotNull ComplexNumber add(@NotNull Vector other) throws IllegalArgumentException {
+    return ComplexNumber.fromVector(
+        super.add(other)
+    );
   }
 
   /**

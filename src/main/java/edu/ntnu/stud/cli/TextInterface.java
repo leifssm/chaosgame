@@ -4,8 +4,9 @@ import edu.ntnu.stud.cli.menu.Menu;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
 import edu.ntnu.stud.model.IterativeChaosGame;
-import java.io.File;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 
 /**
  * A simple CLI for the chaos game.
@@ -32,17 +33,8 @@ public class TextInterface {
    * "src/main/resources/fractals" folder.
    */
   public static void runFilePrompt() {
-    File fractalFolder = new File("src/main/resources/fractals/");
-    try {
-      fractalFolder.createNewFile();
-    } catch (Exception e) {
-      System.out.println("Could not create fractals folder");
-      return;
-    }
-
-    File[] files = fractalFolder.listFiles((dir, name) -> name.endsWith(".txt"));
-    if (files == null) {
-      System.out.println("No files found");
+    File[] files = ChaosGameFileHandler.getAllFractals();
+    if (files.length == 0) {
       return;
     }
 
@@ -69,7 +61,15 @@ public class TextInterface {
     );
     System.out.println("Running file: " + fileName);
 
-    ChaosGameDescription description = ChaosGameFileHandler.readFromFile(fileName);
+    ChaosGameDescription description;
+
+    try {
+      description = ChaosGameFileHandler.readFromFile(fileName);
+    } catch (Exception e) {
+      System.out.println("Could not read file: " + fileName);
+      return;
+    }
+
     IterativeChaosGame chaosGame = new IterativeChaosGame(60, 20, description);
     chaosGame.iterate(iterations);
 

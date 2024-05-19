@@ -1,7 +1,6 @@
 package edu.ntnu.stud.model;
 
 import edu.ntnu.stud.model.math.TransformationGroup;
-import edu.ntnu.stud.utils.GlobalData;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -9,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
  * display.
  *
  * @author Leif Mørstad
- * @version 1.1
+ * @version 1.2
  */
 public abstract class ChaosGame {
 
@@ -17,6 +16,11 @@ public abstract class ChaosGame {
    * The canvas on which the fractal is drawn.
    */
   private final @NotNull ChaosGameCanvas canvas;
+
+  /**
+   * The original description of the chaos game.
+   */
+  private final @NotNull ChaosGameDescription description;
 
   /**
    * The transformations used to generate the fractal.
@@ -37,12 +41,12 @@ public abstract class ChaosGame {
       @NotNull ChaosGameDescription description
   ) throws IllegalArgumentException {
     this.transformations = description.transformations();
+    this.description = description;
     this.canvas = new ChaosGameCanvas(
         width,
         height,
         description.minCoords(),
-        description.maxCoords(),
-        GlobalData.isGUI()
+        description.maxCoords()
     );
   }
 
@@ -52,6 +56,10 @@ public abstract class ChaosGame {
 
   public @NotNull ChaosGameCanvas getCanvas() {
     return canvas;
+  }
+
+  public @NotNull ChaosGameDescription getDescription() {
+    return description;
   }
 
   public abstract void render();

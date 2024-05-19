@@ -1,5 +1,7 @@
 package edu.ntnu.stud.model.math;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -72,5 +74,20 @@ public class JuliaTransformation implements Transform2D {
         .subtract(complexNumber)
         .sqrt()
         .multiply(sign);
+  }
+
+  @Override
+  public @NotNull String getType() {
+    return "JuliaTransformation";
+  }
+
+  @JsonProperty
+  public @NotNull ComplexNumber getComplexNumber() {
+    return complexNumber;
+  }
+
+  @JsonIgnore
+  public int getSign() {
+    return sign;
   }
 }
