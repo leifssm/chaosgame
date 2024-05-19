@@ -39,7 +39,7 @@ public class StringUtils {
    * @return the capitalized string
    */
   public static @NotNull String capitalizeFirstLetter(@NotNull String s) {
-    return s.substring(0, 1).toUpperCase() + s.substring(1);
+    return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
   }
 
   /**

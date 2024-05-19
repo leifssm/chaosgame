@@ -19,18 +19,13 @@ public class SidebarOverlay extends StackPane {
   private final @NotNull AnimationHandler sidebarAnimation = new AnimationHandler();
   private final @NotNull Sidebar sidebar = new Sidebar();
   private final @NotNull DoubleProperty sidebarOffset = new SimpleDoubleProperty(0);
-  private boolean sidebarOpen = false;
+  private final @NotNull ButtonGroup buttonGroup = new ButtonGroup();
 
   /**
    * Creates a new instance with a sidebar and a button group.
    */
   public SidebarOverlay() {
     super();
-
-    ButtonGroup buttonGroup = new ButtonGroup(
-        new ActionButton("folder", "note-plus", this::toggleSidebar).setType("primary"),
-        new ActionButton("account", "account", () -> System.out.println("Button 2 clicked"))
-    );
 
     sidebar.translateXProperty().bind(
         sidebar.widthProperty().subtract(sidebarOffset)
@@ -46,8 +41,7 @@ public class SidebarOverlay extends StackPane {
     getChildren().addAll(sidebar, buttonGroup);
   }
 
-  private void toggleSidebar() {
-    final boolean open = sidebarOpen = !sidebarOpen;
+  public void setState(boolean open) {
     final int fps = 40;
 
     sidebarAnimation.replaceAnimation(
@@ -67,5 +61,9 @@ public class SidebarOverlay extends StackPane {
 
   public @NotNull Sidebar getSidebar() {
     return sidebar;
+  }
+
+  public @NotNull ButtonGroup getButtonGroup() {
+    return buttonGroup;
   }
 }

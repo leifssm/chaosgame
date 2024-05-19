@@ -1,0 +1,26 @@
+{
+  "minCoords": {
+    "x0": -2,
+    "x1": -1.6
+  },
+  "maxCoords": {
+    "x0": 2,
+    "x1": 1.6
+  },
+  "transformations": [
+    {
+      "complexNumber": {
+        "x0": 0.35,
+        "x1": 0.35
+      },
+      "type": "JuliaTransformation"
+    },
+    {
+      "complexNumber": {
+        "x0": 0.35,
+        "x1": 0.35
+      },
+      "type": "JuliaTransformation"
+    }
+  ]
+}

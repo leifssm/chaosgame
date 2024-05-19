@@ -1,0 +1,21 @@
+.standard-button {
+  -fx-cursor: hand;
+}
+
+.standard-button:hover {
+  -fx-opacity: 0.9;
+}
+
+.standard-button:armed {
+  -fx-opacity: 0.8;
+}
+
+.standard-button.default {
+  -fx-background-color: #1e1f22;
+  -fx-text-fill: white;
+}
+
+.standard-button.primary {
+  -fx-background-color: #e3855d;
+  -fx-text-fill: white;
+}
