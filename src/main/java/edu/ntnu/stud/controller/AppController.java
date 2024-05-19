@@ -2,6 +2,7 @@ package edu.ntnu.stud.controller;
 
 import edu.ntnu.stud.controller.controllers.Controller;
 import edu.ntnu.stud.controller.controllers.SidebarController;
+import edu.ntnu.stud.controller.controllers.SidebarOverlayController;
 import edu.ntnu.stud.model.ChaosGame;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.IterativeChaosGame;
@@ -50,6 +51,7 @@ public class AppController extends Controller {
     notifyResize.getIsWaiting().subscribe(isWaitingForResize::setFlag);
     application.getSpinner().setHandler(state.getIsLoading());
 
+    new SidebarOverlayController(application.getSidebarOverlay(), state);
     new SidebarController(application.getSidebarOverlay().getSidebar(), state);
   }
 

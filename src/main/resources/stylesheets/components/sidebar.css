@@ -1,14 +1,31 @@
 .sidebar {
   -fx-background-color: #1e1f22;
-  -fx-pref-height: 100px;
   -fx-pref-width: 10%;
-  -fx-max-width: 150px;
+  -fx-max-width: 200px;
+}
+
+.sidebar ScrollPane {
+  -fx-padding: 5px;
+  -fx-hbar-policy: NEVER;
+  -fx-vbar-policy: NEVER;
+  -fx-background-color: transparent;
+}
+
+.sidebar GridPane {
   -fx-hgap: 5;
   -fx-vgap: 5;
 }
 
 .fractal-display {
   -fx-background-color: #4c4d50;
-  -fx-text-fill: white;
   -fx-cursor: hand;
+  -fx-padding: 2px;
+}
+
+.fractal-display Label {
+  -fx-text-fill: white;
+  -fx-wrap-text: true;
+  -fx-text-alignment: center;
+  -fx-alignment: center;
+  -fx-max-width: 91px;
 }

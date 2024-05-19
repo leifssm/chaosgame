@@ -1,13 +1,8 @@
 package edu.ntnu.stud.view.components.sidebaroverlay;
 
 import edu.ntnu.stud.utils.FileHandler;
-import edu.ntnu.stud.utils.StringUtils;
 import edu.ntnu.stud.view.components.ComponentUtils;
-import edu.ntnu.stud.view.utils.IconUtils;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,24 +23,22 @@ public class FractalDisplay extends VBox implements ComponentUtils {
   public FractalDisplay(@NotNull String fractalName, @NotNull Runnable onClick) {
     super();
     addCssClasses("fractal-display");
-    Node fractalDisplay;
 
-    String fractalImageUrl = FileHandler.getImage(fractalName);
-    if (fractalImageUrl == null) {
-      fractalDisplay = IconUtils.createIcon("layers-off");
-    } else {
-      Image image = new Image(fractalImageUrl);
-      fractalDisplay = new ImageView(image);
-    }
+    // Potential for showing a preview of the fractal using the node.snapshot() method, but this
+    // is beyond the current scope of the project.
 
-    String cleanFractalName = FileHandler
-        .removeFileExtension(fractalName)
-        .replaceAll("[-_ ]+", " ");
-    cleanFractalName = StringUtils.capitalizeWords(cleanFractalName);
+    //Node fractalDisplay;
+    //String fractalImageUrl = FileHandler.getImage(fractalName);
+    //if (fractalImageUrl == null) {
+    //  fractalDisplay = IconUtils.createIcon("layers-off");
+    //} else {
+    //  Image image = new Image(fractalImageUrl);
+    //  fractalDisplay = new ImageView(image);
+    //}
 
-    Label label = new Label(cleanFractalName);
+    Label label = new Label(FileHandler.removeFileExtension(fractalName));
 
-    getChildren().addAll(fractalDisplay, label);
+    getChildren().add(label);
     setOnMouseClicked(event -> onClick.run());
   }
 }

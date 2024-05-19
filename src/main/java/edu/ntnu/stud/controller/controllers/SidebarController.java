@@ -3,6 +3,7 @@ package edu.ntnu.stud.controller.controllers;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
 import edu.ntnu.stud.utils.StateManager;
+import edu.ntnu.stud.view.components.prompt.prompts.TransformationAmountDialog;
 import edu.ntnu.stud.view.components.sidebaroverlay.Sidebar;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,6 +28,7 @@ public class SidebarController extends Controller {
 
   public void update() {
     sidebar.clear();
+    sidebar.addFractalDisplay("Add Fractal +", this::startAddFractalFlow);
     for (File fractal : ChaosGameFileHandler.getAllFractals()) {
       sidebar.addFractalDisplay(fractal.getName(), () -> runFile(fractal.getName()));
     }
@@ -38,6 +40,13 @@ public class SidebarController extends Controller {
       state.currentFractalDescription().set(game);
     } catch (Exception e) {
       System.out.println("Could not read file: " + fileName);
+    }
+  }
+
+  public void startAddFractalFlow() {
+    boolean success = new TransformationAmountDialog().waitForResult();
+    if (success) {
+      update();
     }
   }
 }

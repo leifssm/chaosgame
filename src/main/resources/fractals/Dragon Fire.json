@@ -1,0 +1,51 @@
+{
+  "minCoords": {
+    "x0": -150.0,
+    "x1": -250.0
+  },
+  "maxCoords": {
+    "x0": 250.0,
+    "x1": 150.0
+  },
+  "transformations": [
+    {
+      "matrix": {
+        "a00": 0.5,
+        "a01": 0.0,
+        "a10": 0.0,
+        "a11": 0.8
+      },
+      "translation": {
+        "x0": 0.0,
+        "x1": 50
+      },
+      "type": "AffineTransformation"
+    },
+    {
+      "matrix": {
+        "a00": 0.5,
+        "a01": -0.2,
+        "a10": 0.2,
+        "a11": 0.5
+      },
+      "translation": {
+        "x0": 100,
+        "x1": -100
+      },
+      "type": "AffineTransformation"
+    },
+    {
+      "matrix": {
+        "a00": 0.5,
+        "a01": 0.2,
+        "a10": -0.2,
+        "a11": 0.5
+      },
+      "translation": {
+        "x0": -100,
+        "x1": 100
+      },
+      "type": "AffineTransformation"
+    }
+  ]
+}
