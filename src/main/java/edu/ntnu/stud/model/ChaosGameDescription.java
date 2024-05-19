@@ -18,5 +18,4 @@ public record ChaosGameDescription(
     @NotNull Vector maxCoords,
     @NotNull TransformationGroup transformations
 ) {
-
 }

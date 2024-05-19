@@ -4,8 +4,9 @@ import edu.ntnu.stud.cli.menu.Menu;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
 import edu.ntnu.stud.model.IterativeChaosGame;
-import java.io.File;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 
 /**
  * A simple CLI for the chaos game.
@@ -69,7 +70,15 @@ public class TextInterface {
     );
     System.out.println("Running file: " + fileName);
 
-    ChaosGameDescription description = ChaosGameFileHandler.readFromFile(fileName);
+    ChaosGameDescription description;
+    
+    try {
+      description = ChaosGameFileHandler.readFromFile(fileName);
+    } catch (Exception e) {
+      System.out.println("Could not read file: " + fileName);
+      return;
+    }
+
     IterativeChaosGame chaosGame = new IterativeChaosGame(60, 20, description);
     chaosGame.iterate(iterations);
 

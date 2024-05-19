@@ -1,5 +1,7 @@
 package edu.ntnu.stud.model.math;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.ntnu.stud.utils.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -57,7 +59,8 @@ public class SimpleMatrix implements Transform2D {
    *
    * @return the top left corner of the matrix
    */
-  double getA00() {
+  @JsonProperty
+  public double getA00() {
     return a00;
   }
 
@@ -66,7 +69,8 @@ public class SimpleMatrix implements Transform2D {
    *
    * @return the top right corner of the matrix
    */
-  double getA01() {
+  @JsonProperty
+  public double getA01() {
     return a01;
   }
 
@@ -75,7 +79,8 @@ public class SimpleMatrix implements Transform2D {
    *
    * @return the bottom left corner of the matrix
    */
-  double getA10() {
+  @JsonProperty
+  public double getA10() {
     return a10;
   }
 
@@ -84,7 +89,8 @@ public class SimpleMatrix implements Transform2D {
    *
    * @return the bottom right corner of the matrix
    */
-  double getA11() {
+  @JsonProperty
+  public double getA11() {
     return a11;
   }
 
@@ -118,6 +124,12 @@ public class SimpleMatrix implements Transform2D {
         -a10 / determinant,
         a00 / determinant
     );
+  }
+
+  @Override
+  @JsonIgnore
+  public @NotNull String getType() {
+    return "Matrix";
   }
 
   /**

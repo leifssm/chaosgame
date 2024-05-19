@@ -3,16 +3,19 @@ package edu.ntnu.stud.view.components;
 import edu.ntnu.stud.model.ChaosGame;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
-import edu.ntnu.stud.model.ReverseChaosGame;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import edu.ntnu.stud.model.IterativeChaosGame;
 import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.WritableImage;
-import javax.security.auth.Destroyable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import javax.security.auth.Destroyable;
+import java.io.FileNotFoundException;
+import java.io.InvalidObjectException;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * A pane that displays a fractal image rendered from a {@link ChaosGame}.
@@ -22,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class FractalPane extends ImageView implements Destroyable {
 
-  private static final String DEFAULT_FILE_PATH = "julia.txt";
+  private static final String DEFAULT_FILE_PATH = "sierpinski";
   private final WritableImage image;
   private final int[] colors = new int[]{
       0xFF000000,
@@ -63,11 +66,20 @@ public class FractalPane extends ImageView implements Destroyable {
    * @param filePath the path to the file to read the game from
    */
   public void replaceCurrentGame(@NotNull String filePath) {
-    ChaosGameDescription file = ChaosGameFileHandler.readFromFile(filePath);
+    ChaosGameDescription description;
+    try {
+      description = ChaosGameFileHandler.readFromFile(filePath);
+    } catch (InvalidObjectException | FileNotFoundException e) {
+      System.out.println("Could not read file: " + e.getMessage());
+      return;
+    }
     destroy();
 
-    chaosGame = new ReverseChaosGame((int) image.getWidth(), (int) image.getHeight(), file);
-
+    chaosGame = new IterativeChaosGame(
+        (int) image.getWidth(),
+        (int) image.getHeight(),
+        description
+    );
     chaosGame.render();
     chaosGame.getCanvas().getSubscriptionHandler().subscribe(this::redraw);
   }

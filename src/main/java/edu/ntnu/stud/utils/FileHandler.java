@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import edu.ntnu.stud.view.components.FractalPane;
 import javafx.util.Callback;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -60,7 +61,7 @@ public class FileHandler {
    * @param path the path to the file
    * @return the path to the file
    */
-  private static @NotNull String getAbsoluteFilePath(@NotNull String path) {
+  public static @NotNull String getAbsoluteFilePath(@NotNull String path) {
     return getFile(path).getAbsolutePath();
   }
 
@@ -71,7 +72,7 @@ public class FileHandler {
    * @param errorMessage the error message to print if the file could not be found
    * @return the path to the file or null if the file could not be found
    */
-  private static @Nullable String getAbsoluteFilePathIfExists(
+  public static @Nullable String getAbsoluteFilePathIfExists(
       @NotNull String path,
       @NotNull String errorMessage
   ) {
@@ -83,6 +84,18 @@ public class FileHandler {
     return file.getAbsolutePath();
   }
 
+  public static @Nullable String getResource(
+      @NotNull String path,
+      @NotNull String errorMessage
+  ) {
+    URL url = FractalPane.class.getResource("../../../../../" + path);
+    if (url == null) {
+      System.out.println(errorMessage + ": " + getAbsoluteFilePath(path));
+      return null;
+    }
+    return url.toExternalForm();
+  }
+
   /**
    * Gets the url to a file from resources/*.
    *
@@ -90,7 +103,7 @@ public class FileHandler {
    * @param errorMessage the error message to print if the file could not be found
    * @return the url to the file or null if the file could not be found
    */
-  private static @Nullable URL getAbsoluteFileUrlIfExists(
+  public static @Nullable URL getAbsoluteFileUrlIfExists(
       @NotNull String path,
       @NotNull String errorMessage
   ) {
@@ -109,7 +122,7 @@ public class FileHandler {
    * @return the URL of the stylesheet or null if the stylesheet could not be found
    */
   public static @Nullable String getStylesheet(@NotNull String stylesheet) {
-    return getAbsoluteFilePathIfExists(
+    return getResource(
         "stylesheets/" + stylesheet + ".css",
         "Could not find stylesheet"
     );
@@ -122,7 +135,7 @@ public class FileHandler {
    * @return the URL of the image or null if the image could not be found
    */
   public static @Nullable String getImage(@NotNull String image) {
-    return getAbsoluteFilePathIfExists(
+    return getResource(
         "images/" + image,
         "Could not find image"
     );
@@ -150,6 +163,10 @@ public class FileHandler {
       System.out.println("Could not read " + path);
       return null;
     }
+  }
+
+  public static @Nullable JsonNode readFile(@NotNull String path) {
+    return readFile(path, json -> json);
   }
 
   public static boolean writeToFile(@NotNull String path, @NotNull Object object) {

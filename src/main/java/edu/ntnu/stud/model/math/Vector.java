@@ -1,9 +1,11 @@
 package edu.ntnu.stud.model.math;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.ntnu.stud.utils.ToStringBuilder;
-import java.util.Objects;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 /**
  * An immutable two-dimensional vector with relevant methods.
@@ -37,17 +39,6 @@ public class Vector {
   }
 
   /**
-   * Checks if the vector contains any NaN values, and throws if it does.
-   *
-   * @throws IllegalArgumentException if the vector contains any NaN values
-   */
-  private void checkNaN() throws IllegalArgumentException {
-    if (Double.isNaN(x0) || Double.isNaN(x1)) {
-      throw new IllegalArgumentException("Vector contains NaN values");
-    }
-  }
-
-  /**
    * Creates a new instance from the given array of values.
    *
    * @param values an array with exactly two numerical values
@@ -61,17 +52,6 @@ public class Vector {
     this.x0 = values[0];
     this.x1 = values[1];
     checkNaN();
-  }
-
-  /**
-   * Creates a new vector which represents the sum of this vector and the given vector.
-   *
-   * @param vector the vector to add to this vector
-   * @return a new vector which is the sum of this vector and the given vector
-   * @throws IllegalArgumentException if the given vector is null
-   */
-  public @NotNull Vector add(@NotNull Vector vector) throws IllegalArgumentException {
-    return Vector.add(this, vector);
   }
 
   /**
@@ -91,37 +71,6 @@ public class Vector {
   }
 
   /**
-   * Returns the first value of the vector.
-   *
-   * @return the first value of the vector
-   * @see Vector#x0
-   */
-  public double getX0() {
-    return x0;
-  }
-
-  /**
-   * Returns the second value of the vector.
-   *
-   * @return the second value of the vector
-   * @see Vector#x1
-   */
-  public double getX1() {
-    return x1;
-  }
-
-  /**
-   * Creates a new vector which represents the difference between this vector and the given vector.
-   *
-   * @param vector the vector to subtract from this vector
-   * @return a new vector which is the difference between this vector and the given vector
-   * @throws IllegalArgumentException if the given vector is null
-   */
-  public @NotNull Vector subtract(@NotNull Vector vector) throws IllegalArgumentException {
-    return Vector.subtract(this, vector);
-  }
-
-  /**
    * Subtracts two vectors and returns the result.
    *
    * @param a the first vector
@@ -135,6 +84,87 @@ public class Vector {
       @NotNull Vector b
   ) throws IllegalArgumentException {
     return new Vector(a.getX0() - b.getX0(), a.getX1() - b.getX1());
+  }
+
+  /**
+   * Calculates the dot product of two vectors and returns the result.
+   *
+   * @param a the first vector
+   * @param b the second vector
+   * @return the dot product of the two vectors
+   * @throws IllegalArgumentException if either of the given vectors are null
+   */
+  public static double dot(@NotNull Vector a, @NotNull Vector b) throws IllegalArgumentException {
+    return a.getX0() * b.getX0() + a.getX1() * b.getX1();
+  }
+
+  /**
+   * Calculates the angle between two vectors and returns the result.
+   *
+   * @param a the first vector
+   * @param b the second vector
+   * @return the angle between the two vectors
+   * @throws IllegalArgumentException if either of the given vectors are null
+   */
+  public static double angle(@NotNull Vector a, @NotNull Vector b) throws IllegalArgumentException {
+    return Math.acos(
+        Vector.dot(a, b) / (a.length() * b.length())
+    );
+  }
+
+  /**
+   * Checks if the vector contains any NaN values, and throws if it does.
+   *
+   * @throws IllegalArgumentException if the vector contains any NaN values
+   */
+  private void checkNaN() throws IllegalArgumentException {
+    if (Double.isNaN(x0) || Double.isNaN(x1)) {
+      throw new IllegalArgumentException("Vector contains NaN values");
+    }
+  }
+
+  /**
+   * Creates a new vector which represents the sum of this vector and the given vector.
+   *
+   * @param vector the vector to add to this vector
+   * @return a new vector which is the sum of this vector and the given vector
+   * @throws IllegalArgumentException if the given vector is null
+   */
+  public @NotNull Vector add(@NotNull Vector vector) throws IllegalArgumentException {
+    return Vector.add(this, vector);
+  }
+
+  /**
+   * Returns the first value of the vector.
+   *
+   * @return the first value of the vector
+   * @see Vector#x0
+   */
+  @JsonProperty
+  public double getX0() {
+    return x0;
+  }
+
+  /**
+   * Returns the second value of the vector.
+   *
+   * @return the second value of the vector
+   * @see Vector#x1
+   */
+  @JsonProperty
+  public double getX1() {
+    return x1;
+  }
+
+  /**
+   * Creates a new vector which represents the difference between this vector and the given vector.
+   *
+   * @param vector the vector to subtract from this vector
+   * @return a new vector which is the difference between this vector and the given vector
+   * @throws IllegalArgumentException if the given vector is null
+   */
+  public @NotNull Vector subtract(@NotNull Vector vector) throws IllegalArgumentException {
+    return Vector.subtract(this, vector);
   }
 
   /**
@@ -174,18 +204,6 @@ public class Vector {
   }
 
   /**
-   * Calculates the dot product of two vectors and returns the result.
-   *
-   * @param a the first vector
-   * @param b the second vector
-   * @return the dot product of the two vectors
-   * @throws IllegalArgumentException if either of the given vectors are null
-   */
-  public static double dot(@NotNull Vector a, @NotNull Vector b) throws IllegalArgumentException {
-    return a.getX0() * b.getX0() + a.getX1() * b.getX1();
-  }
-
-  /**
    * Returns the angle between this vector and the given vector.
    *
    * @param vector the vector to calculate the angle with
@@ -194,20 +212,6 @@ public class Vector {
    */
   public double angle(@NotNull Vector vector) throws IllegalArgumentException {
     return Vector.angle(this, vector);
-  }
-
-  /**
-   * Calculates the angle between two vectors and returns the result.
-   *
-   * @param a the first vector
-   * @param b the second vector
-   * @return the angle between the two vectors
-   * @throws IllegalArgumentException if either of the given vectors are null
-   */
-  public static double angle(@NotNull Vector a, @NotNull Vector b) throws IllegalArgumentException {
-    return Math.acos(
-        Vector.dot(a, b) / (a.length() * b.length())
-    );
   }
 
   /**
