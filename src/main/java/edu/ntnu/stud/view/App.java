@@ -12,11 +12,13 @@ import org.jetbrains.annotations.Nullable;
  * The main application view. Contains the sidebar, loader spinner and the fractal pane.
  *
  * @author Leif Mørstad
- * @version 1.1
+ * @version 2.0
  */
 public class App extends StackPane {
 
   private final @NotNull LoaderOverlay spinner = new LoaderOverlay();
+  private final @NotNull SidebarOverlay sidebarOverlay = new SidebarOverlay();
+  private @Nullable FractalPane currentPane;
 
   /**
    * Creates a new application view.
@@ -24,7 +26,6 @@ public class App extends StackPane {
   public App() {
     super();
     setMargin(spinner, new Insets(10, 10, 10, 10));
-    SidebarOverlay sidebarOverlay = new SidebarOverlay();
     getChildren().addAll(sidebarOverlay, spinner);
   }
 
@@ -35,10 +36,18 @@ public class App extends StackPane {
     return spinner;
   }
 
-  public void replaceChaosPanel(@Nullable FractalPane oldPanel, @NotNull FractalPane newPanel) {
-    if (oldPanel != null) {
-      oldPanel.destroy();
-      getChildren().remove(oldPanel);
+  /**
+   * Returns the loader spinner.
+   */
+  public @NotNull SidebarOverlay getSidebarOverlay() {
+    return sidebarOverlay;
+  }
+
+  public void replaceChaosPanel(@Nullable FractalPane newPanel) {
+    getChildren().remove(currentPane);
+    currentPane = newPanel;
+    if (newPanel == null) {
+      return;
     }
     getChildren().add(newPanel);
     newPanel.toBack();

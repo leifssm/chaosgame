@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
  * A utility interface for JavaFX components.
  *
  * @author Leif Mørstad
- * @version 1.0
+ * @version 1.1
  */
 public interface ComponentUtils {
 
@@ -19,7 +19,7 @@ public interface ComponentUtils {
    * @param stylesheet the name of the stylesheet to add
    * @param classes    the classes to add to the element
    */
-  default void useStylesheet(@NotNull String stylesheet, String @NotNull ... classes) {
+  default void useStylesheet(@NotNull String stylesheet, String... classes) {
     checkThis();
     useStylesheet((Parent) this, stylesheet, classes);
   }

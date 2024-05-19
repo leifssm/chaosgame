@@ -5,6 +5,7 @@ import edu.ntnu.stud.model.math.*;
 import edu.ntnu.stud.utils.FileHandler;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InvalidObjectException;
 import java.util.ArrayList;
@@ -13,10 +14,27 @@ import java.util.ArrayList;
  * This class is responsible for reading and writing chaos game descriptions to and from files.
  *
  * @author Leif Mørstad
- * @version 1.0
+ * @version 1.2
  * @see ChaosGameDescription
  */
 public class ChaosGameFileHandler {
+
+  public static @NotNull File @NotNull [] getAllFractals() {
+    File fractalFolder = FileHandler.getFile("fractals/");
+    try {
+      var ignored = fractalFolder.createNewFile();
+    } catch (Exception e) {
+      System.out.println("Could not create fractals folder");
+      return new File[0];
+    }
+
+    File[] files = fractalFolder.listFiles((dir, name) -> name.endsWith(".json"));
+    if (files == null || files.length == 0) {
+      System.out.println("No files found");
+      return new File[0];
+    }
+    return files;
+  }
 
   /**
    * Reads a chaos game description from a file.

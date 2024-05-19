@@ -131,7 +131,7 @@ public class FileHandler {
    */
   public static @Nullable String getStylesheet(@NotNull String stylesheet) {
     return getResource(
-        "stylesheets/" + stylesheet + ".css",
+        "stylesheets/" + removeFileExtension(stylesheet) + ".css",
         "Could not find stylesheet"
     );
   }
@@ -157,7 +157,7 @@ public class FileHandler {
    */
   public static @Nullable URL getJson(@NotNull String json) {
     return getAbsoluteFileUrlIfExists(
-        json + ".json",
+        removeFileExtension(json) + ".json",
         "Could not find json file"
     );
   }
@@ -179,6 +179,11 @@ public class FileHandler {
       System.out.println("Could not read " + path);
       return null;
     }
+  }
+
+  public static @NotNull String removeFileExtension(@NotNull String fileName) {
+    // https://stackoverflow.com/questions/924394/how-to-get-the-filename-without-the-extension-in-java
+    return fileName.replaceFirst("\\.[^/\\\\]+$", "");
   }
 
   /**

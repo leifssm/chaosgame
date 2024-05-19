@@ -5,13 +5,12 @@ import edu.ntnu.stud.view.utils.IconUtils;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import org.jetbrains.annotations.NotNull;
-import org.kordamp.ikonli.javafx.FontIcon;
 
 /**
  * A simple button with an icon and a description that shows when hovered.
  *
  * @author Leif Mørstad
- * @version 0.1
+ * @version 0.2
  * @see <a href="https://kordamp.org/ikonli/cheat-sheet-materialdesign.html">
  * Material Design Icons
  * </a>
@@ -30,7 +29,7 @@ public class ActionButton extends Button implements ComponentUtils {
   public ActionButton(@NotNull String icon, @NotNull String description, @NotNull Runnable action) {
     super();
     setTooltip(new Tooltip(description));
-    setGraphic(new FontIcon(IconUtils.extendIconName(icon)));
+    setGraphic(IconUtils.createIcon(icon));
     setOnAction(event -> action.run());
     addCssClasses("action-button");
   }

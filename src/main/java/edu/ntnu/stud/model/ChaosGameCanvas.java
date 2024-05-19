@@ -3,16 +3,13 @@ package edu.ntnu.stud.model;
 import edu.ntnu.stud.model.math.PixelCoordinateTranslator;
 import edu.ntnu.stud.model.math.PixelCoordinateTranslator.IndexPair;
 import edu.ntnu.stud.model.math.Vector;
-import edu.ntnu.stud.utils.DebouncingSubscriptionHandler;
-import edu.ntnu.stud.utils.SubscriptionHandler;
-import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * A canvas for drawing and getting the output of a chaos game.
  *
  * @author Leif Mørstad
- * @version 1.1
+ * @version 2.0
  */
 public class ChaosGameCanvas {
 
@@ -23,7 +20,7 @@ public class ChaosGameCanvas {
    * through any the {@link #touchPixel(int, int)} method, so don't access directly unless you know
    * what you are doing.
    */
-  private final int[][] canvas;
+  private final int @NotNull [] @NotNull [] canvas;
 
   /**
    * The width canvas in pixels.
@@ -38,37 +35,7 @@ public class ChaosGameCanvas {
   /**
    * The transformation used to convert coordinates to indices in the canvas.
    */
-  private final @NotNull PixelCoordinateTranslator coordinateTranslator;
-
-  private final SubscriptionHandler<int[][]> subscriptionHandler;
-
-  /**
-   * Creates a new instance with the given width, height, and the coordinate bounds of the fractal.
-   *
-   * @param width        the width of the canvas, cannot be less than 1
-   * @param height       the height of the canvas, cannot be less than 1
-   * @param minCoords    the top left bounds of the fractal to show
-   * @param maxCoords    the bottom right bounds of the fractal to show
-   * @param isDebouncing whether to debounce subscription notifications
-   * @throws IllegalArgumentException if the width or height is less than 1, or if given null
-   */
-  public ChaosGameCanvas(
-      int width,
-      int height,
-      @NotNull Vector minCoords,
-      @NotNull Vector maxCoords,
-      boolean isDebouncing
-  ) throws IllegalArgumentException {
-    this(
-        width,
-        height,
-        minCoords,
-        maxCoords,
-        isDebouncing
-            ? new DebouncingSubscriptionHandler<>(new int[height][width], Duration.millis(100))
-            : new SubscriptionHandler<>(new int[height][width])
-    );
-  }
+  private @NotNull PixelCoordinateTranslator coordinateTranslator;
 
   /**
    * Creates a new instance with the given width, height, and the coordinate bounds of the fractal.
@@ -80,24 +47,26 @@ public class ChaosGameCanvas {
    * @throws IllegalArgumentException if the width or height is less than 1, or if given null
    *                                  vectors as coordinates
    */
-  private ChaosGameCanvas(
+  public ChaosGameCanvas(
       int width,
       int height,
       @NotNull Vector minCoords,
-      @NotNull Vector maxCoords,
-      SubscriptionHandler<int[][]> subscriptionHandler
+      @NotNull Vector maxCoords
   ) throws IllegalArgumentException {
     if (width < 1 || height < 1) {
       throw new IllegalArgumentException("Width and height must be at least 1 each");
     }
     this.width = width;
     this.height = height;
-    this.subscriptionHandler = subscriptionHandler;
-    this.canvas = subscriptionHandler.get();
+    this.canvas = new int[height][width];
 
     // Fills the array with 0s
     clear();
 
+    coordinateTranslator = new PixelCoordinateTranslator(width, height, minCoords, maxCoords);
+  }
+
+  public void setView(@NotNull Vector minCoords, @NotNull Vector maxCoords) {
     coordinateTranslator = new PixelCoordinateTranslator(width, height, minCoords, maxCoords);
   }
 
@@ -110,7 +79,6 @@ public class ChaosGameCanvas {
         canvas[y][x] = 0;
       }
     }
-    subscriptionHandler.notifySubscribers();
   }
 
   /**
@@ -152,7 +120,6 @@ public class ChaosGameCanvas {
       return;
     }
     canvas[height - y - 1][x] = value;
-    subscriptionHandler.notifySubscribers();
   }
 
   /**
@@ -188,7 +155,6 @@ public class ChaosGameCanvas {
       return;
     }
     canvas[height - y - 1][x]++;
-    subscriptionHandler.notifySubscribers();
   }
 
   /**
@@ -209,10 +175,6 @@ public class ChaosGameCanvas {
    */
   public int[][] getCanvas() {
     return canvas;
-  }
-
-  public @NotNull SubscriptionHandler<int[][]> getSubscriptionHandler() {
-    return subscriptionHandler;
   }
 
   public @NotNull PixelCoordinateTranslator getCoordinateTranslator() {
