@@ -51,10 +51,15 @@ public class ChaosGameFileHandler {
     if (tree == null) {
       throw new FileNotFoundException("File not found: " + filename);
     }
+    return readChaosGame(tree);
+  }
 
-    var minCoords = readVector(tree.get("minCoords"));
-    var maxCoords = readVector(tree.get("maxCoords"));
-    var transformations = readTransformations(tree.get("transformations"));
+  public static @NotNull ChaosGameDescription readChaosGame(
+      @NotNull JsonNode node
+  ) throws InvalidObjectException {
+    var minCoords = readVector(node.get("minCoords"));
+    var maxCoords = readVector(node.get("maxCoords"));
+    var transformations = readTransformations(node.get("transformations"));
 
     return new ChaosGameDescription(
         minCoords,

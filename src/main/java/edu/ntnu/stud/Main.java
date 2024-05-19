@@ -3,6 +3,7 @@ package edu.ntnu.stud;
 import edu.ntnu.stud.controller.AppController;
 import edu.ntnu.stud.utils.FileHandler;
 import edu.ntnu.stud.utils.GlobalData;
+import edu.ntnu.stud.utils.StateManager;
 import edu.ntnu.stud.view.App;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -13,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  * The main class for the application. Must be run with JavaFX.
  *
  * @author Leif Mørstad
- * @version 1.0
+ * @version 1.1
  */
 public class Main extends Application {
 
@@ -26,7 +27,7 @@ public class Main extends Application {
     GlobalData.setIsRunningJavaFx();
 
     App application = new App();
-    new AppController(application);
+    var controller = new AppController(application);
 
     Scene scene = new Scene(application, 500, 400);
     scene.getStylesheets().add(FileHandler.getStylesheet("root"));
@@ -34,5 +35,6 @@ public class Main extends Application {
     stage.setTitle("Chaos Game");
     stage.setScene(scene);
     stage.show();
+    stage.setOnHiding(event -> StateManager.exportState(controller.getState()));
   }
 }

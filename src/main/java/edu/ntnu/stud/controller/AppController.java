@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class AppController extends Controller {
 
-  private static final @NotNull StateManager state = new StateManager();
+  private static final @NotNull StateManager state = StateManager.importState();
   private final @NotNull App application;
   private final @NotNull FlagSetter setIsRendering;
   private final @NotNull Debouncer notifyResize = new Debouncer(
