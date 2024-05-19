@@ -1,10 +1,11 @@
 package edu.ntnu.stud.utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import edu.ntnu.stud.model.ChaosGame;
 import edu.ntnu.stud.model.ChaosGameDescription;
-import edu.ntnu.stud.utils.UsageFlagger;
+import edu.ntnu.stud.model.ChaosGameFileHandler;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.jetbrains.annotations.NotNull;
@@ -30,7 +31,6 @@ public class StateManager {
    * Creates a new instance of the state manager with default values.
    */
   public StateManager() {
-    super();
   }
 
   /**
@@ -42,13 +42,25 @@ public class StateManager {
     StateManager state = new StateManager();
     JsonNode json = FileHandler.readFile("state.json");
 
-    // add important properties here
+    try {
+      if (json == null) {
+        throw new Exception();
+      }
+      ChaosGameDescription description = ChaosGameFileHandler.readChaosGame(
+          json.get("currentFractalDescription")
+      );
+      state.currentFractalDescription.set(description);
+      System.out.println("Successfully read fractal description from file.");
+    } catch (Exception e) {
+      System.out.println("Could not read fractal description from file.");
+    }
 
     return state;
   }
 
   public static void exportState(@NotNull StateManager state) {
     FileHandler.writeToFile("state.json", state);
+    System.out.println("Successfully saved state to file.");
   }
 
   /**
@@ -97,5 +109,10 @@ public class StateManager {
    */
   public @NotNull SimpleObjectProperty<@Nullable ChaosGameDescription> currentFractalDescription() {
     return currentFractalDescription;
+  }
+
+  @JsonProperty
+  public ChaosGameDescription getCurrentFractalDescription() {
+    return currentFractalDescription.get();
   }
 }
