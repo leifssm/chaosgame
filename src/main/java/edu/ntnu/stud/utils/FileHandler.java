@@ -84,6 +84,14 @@ public class FileHandler {
     return file.getAbsolutePath();
   }
 
+  /**
+   * Gets a resource from resources/*, used when the caller does not have permission to use the
+   * {@link File} class to use files.
+   *
+   * @param path         the path to the resource from resources/*
+   * @param errorMessage the error message to print if the resource could not be found
+   * @return the path of the resource or null if the resource could not be found
+   */
   public static @Nullable String getResource(
       @NotNull String path,
       @NotNull String errorMessage
@@ -154,6 +162,14 @@ public class FileHandler {
     );
   }
 
+  /**
+   * Reads a JSON file and passes it through a callback function before returning it.
+   *
+   * @param path     the path to the JSON file
+   * @param callback the callback function to pass the JSON through
+   * @param <T>      the type of the result
+   * @return the result of the callback function
+   */
   public static <T> @Nullable T readFile(@NotNull String path, Callback<JsonNode, T> callback) {
     ObjectMapper mapper = new ObjectMapper();
     try {
@@ -165,10 +181,23 @@ public class FileHandler {
     }
   }
 
+  /**
+   * Reads a JSON file and returns the JSON node.
+   *
+   * @param path the path to the JSON file
+   * @return the JSON node
+   */
   public static @Nullable JsonNode readFile(@NotNull String path) {
     return readFile(path, json -> json);
   }
 
+  /**
+   * Writes an object to a file.
+   *
+   * @param path   the path to the file
+   * @param object the object to write
+   * @return true if the object was successfully written to the file, false otherwise
+   */
   public static boolean writeToFile(@NotNull String path, @NotNull Object object) {
     ObjectMapper mapper = new ObjectMapper();
     try {

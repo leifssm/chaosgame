@@ -74,27 +74,6 @@ public interface ComponentUtils {
   }
 
   /**
-   * Shorthand for adding the given classes to the 'this' element.
-   *
-   * @param classNames the classes to add to the element
-   * @see #addCssClasses(Parent, String...)
-   */
-  default void addCssClasses(@NotNull String @NotNull ... classNames) {
-    checkThis();
-    addCssClasses((Parent) this, classNames);
-  }
-
-  /**
-   * Adds the given classes to the element.
-   *
-   * @param element    the element to add the classes to
-   * @param classNames the classes to add
-   */
-  default void addCssClasses(@NotNull Parent element, @NotNull String @NotNull ... classNames) {
-    element.getStyleClass().addAll(classNames);
-  }
-
-  /**
    * Shorthand for adding a stylesheet to the 'this' element.
    *
    * @param stylesheet the name of the stylesheet to add
@@ -123,6 +102,27 @@ public interface ComponentUtils {
     } else {
       useStylesheet(element, stylesheet);
     }
+  }
+
+  /**
+   * Shorthand for adding the given classes to the 'this' element.
+   *
+   * @param classNames the classes to add to the element
+   * @see #addCssClasses(Parent, String...)
+   */
+  default void addCssClasses(@NotNull String @NotNull ... classNames) {
+    checkThis();
+    addCssClasses((Parent) this, classNames);
+  }
+
+  /**
+   * Adds the given classes to the element.
+   *
+   * @param element    the element to add the classes to
+   * @param classNames the classes to add
+   */
+  default void addCssClasses(@NotNull Parent element, @NotNull String @NotNull ... classNames) {
+    element.getStyleClass().addAll(classNames);
   }
 
   /**

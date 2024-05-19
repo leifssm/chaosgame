@@ -135,6 +135,12 @@ public class ChaosGameFileHandler {
     transformations.add(new JuliaTransformation(complexNumber, false));
   }
 
+  /**
+   * Writes a chaos game description to a file under resources/fractals/*.
+   *
+   * @param filename    the name of the file to write to
+   * @param description the chaos game description to write to the file
+   */
   public static void writeToFile(String filename, ChaosGameDescription description) {
     FileHandler.writeToFile(
         "fractals/" + filename,
