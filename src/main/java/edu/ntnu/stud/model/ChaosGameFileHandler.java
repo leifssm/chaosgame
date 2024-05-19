@@ -136,6 +136,9 @@ public class ChaosGameFileHandler {
   }
 
   public static void writeToFile(String filename, ChaosGameDescription description) {
-    throw new UnsupportedOperationException("Not implemented yet");
+    FileHandler.writeToFile(
+        "fractals/" + filename,
+        description
+    );
   }
 }

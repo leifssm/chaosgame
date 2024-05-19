@@ -2,10 +2,10 @@ package edu.ntnu.stud.controller;
 
 import edu.ntnu.stud.controller.controllers.Controller;
 import edu.ntnu.stud.utils.Debouncer;
+import edu.ntnu.stud.utils.StateManager;
 import edu.ntnu.stud.utils.UsageFlagger.FlagSetter;
 import edu.ntnu.stud.view.App;
 import edu.ntnu.stud.view.components.FractalPane;
-import edu.ntnu.stud.view.utils.StateManager;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

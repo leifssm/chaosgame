@@ -1,6 +1,7 @@
-package edu.ntnu.stud.view.utils;
+package edu.ntnu.stud.utils;
 
-import edu.ntnu.stud.utils.UsageFlagger;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.JsonNode;
 import javafx.beans.property.SimpleIntegerProperty;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,12 +24,27 @@ public class StateManager {
     super();
   }
 
-  public static void importState() {
+  /**
+   * Imports the state from the state.json file. If an error occurs it returns a defaulted state.
+   *
+   * @return the state manager with the imported state
+   */
+  public static @NotNull StateManager importState() {
+    StateManager state = new StateManager();
+    JsonNode json = FileHandler.readFile("state.json");
 
+    // add important properties here
+
+    return state;
   }
 
-  public static void exportState() {
+  public static void exportState(@NotNull StateManager state) {
+    FileHandler.writeToFile("state.json", state);
+  }
 
+  public static void main(String[] args) {
+    StateManager stateManager = new StateManager();
+    exportState(stateManager);
   }
 
   /**
@@ -36,6 +52,7 @@ public class StateManager {
    *
    * @return the width of the screen
    */
+  @JsonIgnore
   public @NotNull SimpleIntegerProperty widthProperty() {
     return screenWidth;
   }
@@ -45,6 +62,7 @@ public class StateManager {
    *
    * @return the height of the screen
    */
+  @JsonIgnore
   public @NotNull SimpleIntegerProperty heightProperty() {
     return screenHeight;
   }
@@ -54,6 +72,7 @@ public class StateManager {
    *
    * @return the flagger for the loading state
    */
+  @JsonIgnore
   public @NotNull UsageFlagger getIsLoading() {
     return isLoading;
   }
