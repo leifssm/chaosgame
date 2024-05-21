@@ -1,12 +1,9 @@
 package edu.ntnu.stud.cli.menu;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import edu.ntnu.stud.TestHelper;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class MenuTest {
 
@@ -99,7 +96,7 @@ class MenuTest {
     void printShouldSucceed() {
       // Arrange
       TestHelper.expectOutput(
-          "══ Test Menu ══",
+          "== Test Menu ==",
           "1: Test Option 1",
           "2: Test Option 2"
       );
@@ -120,13 +117,13 @@ class MenuTest {
       // Arrange
       TestHelper.setupMockInput("0", "2", "1");
       TestHelper.expectOutput(
-          "══ Test Menu ══",
+          "== Test Menu ==",
           "1: Test Option 1",
           "",
           "Option: The number must be 1",
           "Option: The number must be 1",
           "Option: ",
-          " ══ Picked option \"Test Option 1\" ══"
+          " == Picked option \"Test Option 1\" =="
       );
       menu.addOption("Test Option 1", () -> {
       });
@@ -145,7 +142,7 @@ class MenuTest {
       TestHelper.setupMockInput("9", "-10", "-1", "0", "6", "2");
       TestHelper.expectOutput(
           "Running Before",
-          "══ Test Menu ══",
+          "== Test Menu ==",
           "1: Test Option 1",
           "2: Test Option 2",
           "3: Test Option 3",
@@ -158,7 +155,7 @@ class MenuTest {
           "Option: The number must be between 1 and 5",
           "Option: The number must be between 1 and 5",
           "Option: ",
-          " ══ Picked option \"Test Option 2\" ══",
+          " == Picked option \"Test Option 2\" ==",
           "Running After"
       );
       menu

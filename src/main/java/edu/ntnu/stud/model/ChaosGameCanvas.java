@@ -4,6 +4,7 @@ import edu.ntnu.stud.model.math.PixelCoordinateTranslator;
 import edu.ntnu.stud.model.math.PixelCoordinateTranslator.IndexPair;
 import edu.ntnu.stud.model.math.Vector;
 import edu.ntnu.stud.utils.DebouncingSubscriptionHandler;
+import edu.ntnu.stud.utils.GlobalData;
 import edu.ntnu.stud.utils.SubscriptionHandler;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
@@ -69,7 +70,9 @@ public class ChaosGameCanvas {
     this.canvas = new int[height][width];
 
     coordinateTranslator = new PixelCoordinateTranslator(width, height, minCoords, maxCoords);
-    subscriptionHandler = new DebouncingSubscriptionHandler<>(this.canvas, Duration.millis(150));
+    subscriptionHandler = GlobalData.isGUI()
+        ? new DebouncingSubscriptionHandler<>(this.canvas, Duration.millis(150))
+        : new SubscriptionHandler<>(this.canvas);
 
     // Fills the array with 0s
     clear();

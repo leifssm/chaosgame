@@ -2,7 +2,6 @@ package edu.ntnu.stud.model;
 
 import edu.ntnu.stud.model.math.TransformationGroup;
 import edu.ntnu.stud.model.math.Vector;
-import javafx.application.Platform;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -76,11 +75,9 @@ public class ChaosGame {
    * @param steps the number of iterations to perform
    */
   public void iterate(int steps) {
-    Platform.runLater(() -> {
-      for (int i = 0; i < steps; i++) {
-        iterate();
-      }
-    });
+    for (int i = 0; i < steps; i++) {
+      iterate();
+    }
   }
 
   /**
