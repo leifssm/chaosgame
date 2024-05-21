@@ -38,7 +38,7 @@ public class SidebarOverlay extends StackPane {
     StackPane.setAlignment(sidebar, Pos.TOP_RIGHT);
     StackPane.setAlignment(buttonGroup, Pos.TOP_RIGHT);
 
-    getChildren().addAll(sidebar, buttonGroup);
+    getChildren().addAll(buttonGroup, sidebar);
   }
 
   public void setState(boolean open) {

@@ -26,7 +26,7 @@ public class ActionButton extends StandardButton {
    * Material Design Icons</a>
    */
   public ActionButton(@NotNull String icon, @NotNull String description, @NotNull Runnable action) {
-    super("", action);
+    super(description, action);
     setTooltip(new Tooltip(description));
     setGraphic(IconUtils.createIcon(icon));
     addCssClasses("action-button");

@@ -2,10 +2,11 @@ package edu.ntnu.stud.cli.menu;
 
 import edu.ntnu.stud.cli.InputParser;
 import edu.ntnu.stud.utils.ToStringBuilder;
-import java.util.ArrayList;
-import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <h1>Menu.</h1>
@@ -164,7 +165,7 @@ public class Menu {
 
     // Runs the selected option.
     final MenuItem item = entries.get(choice);
-    System.out.printf("\n ══ Picked option \"%s\" ══\n", item.getName());
+    System.out.printf("\n == Picked option \"%s\" ==\n", item.getName());
     item.run();
 
     // Runs the after action if it is set.
@@ -178,7 +179,7 @@ public class Menu {
    */
   public void print() {
     // Prints the title and entries to the console.
-    System.out.println("══ " + name + " ══");
+    System.out.println("== " + name + " ==");
     for (int i = 0; i < entries.size(); i++) {
       final MenuItem item = entries.get(i);
       System.out.printf("%d: %s\n", i + 1, item.getName());

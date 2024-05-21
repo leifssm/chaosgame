@@ -1,6 +1,8 @@
 package edu.ntnu.stud.model;
 
 import edu.ntnu.stud.model.math.TransformationGroup;
+import edu.ntnu.stud.model.math.Vector;
+import javafx.application.Platform;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -10,22 +12,28 @@ import org.jetbrains.annotations.NotNull;
  * @author Leif Mørstad
  * @version 1.2
  */
-public abstract class ChaosGame {
+public class ChaosGame {
 
+  /**
+   * The scalar for the number of iterations to perform.
+   */
+  private static final int ITERATION_SCALAR = 1;
   /**
    * The canvas on which the fractal is drawn.
    */
   private final @NotNull ChaosGameCanvas canvas;
-
   /**
    * The original description of the chaos game.
    */
   private final @NotNull ChaosGameDescription description;
-
   /**
    * The transformations used to generate the fractal.
    */
   private final @NotNull TransformationGroup transformations;
+  /**
+   * The current point where the fractal is drawn from. Starts at (0, 0)
+   */
+  private @NotNull Vector currentPoint = new Vector(0, 0);
 
   /**
    * Creates a new instance with the given width, height and description.
@@ -62,5 +70,46 @@ public abstract class ChaosGame {
     return description;
   }
 
-  public abstract void render();
+  /**
+   * Iterates the transformations randomly a given number of times, and updates the canvas.
+   *
+   * @param steps the number of iterations to perform
+   */
+  public void iterate(int steps) {
+    Platform.runLater(() -> {
+      for (int i = 0; i < steps; i++) {
+        iterate();
+      }
+    });
+  }
+
+  /**
+   * Returns the number of iterations the chaos game should perform.
+   *
+   * @return the number of iterations
+   */
+  private int getIterations() {
+    return Math.min(
+        1000000,
+        getCanvas().getWidth() * getCanvas().getHeight() * ITERATION_SCALAR
+    );
+  }
+
+  /**
+   * Iterates the point once, by randomly transforming the point, and draws it on the canvas.
+   */
+  public void iterate() {
+    currentPoint = getTransformations().transform(currentPoint);
+    getCanvas().drawAtCoords(currentPoint);
+  }
+
+  /**
+   * Renders the fractal on the canvas by iterating the amount of times given by
+   * {@link #getIterations()}.
+   */
+  public void render() {
+    getCanvas().clear();
+    currentPoint = new Vector(0, 0);
+    iterate(getIterations());
+  }
 }

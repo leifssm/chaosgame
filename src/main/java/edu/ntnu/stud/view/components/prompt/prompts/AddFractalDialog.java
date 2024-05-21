@@ -4,9 +4,8 @@ import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
 import edu.ntnu.stud.model.math.*;
 import edu.ntnu.stud.view.components.prompt.PromptValidationError;
-import edu.ntnu.stud.view.components.prompt.components.FieldFactory;
 import edu.ntnu.stud.view.components.prompt.components.PromptField;
-import javafx.scene.Node;
+import edu.ntnu.stud.view.components.prompt.components.PromptFieldFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
@@ -19,7 +18,7 @@ public class AddFractalDialog extends PromptDialog {
   private final PromptField<?, Vector> maxCoordsField;
   private final ArrayList<PromptField<?, AffineTransformation>> affineTransformationFields
       = new ArrayList<>();
-  private final ArrayList<PromptField<Node, ComplexNumber>> juliaTransformationFields
+  private final ArrayList<PromptField<?, ComplexNumber>> juliaTransformationFields
       = new ArrayList<>();
 
   public AddFractalDialog() {
@@ -34,8 +33,8 @@ public class AddFractalDialog extends PromptDialog {
         new TextField(),
         (field, error) -> field.getText()
     );
-    minCoordsField = FieldFactory.createVectorField("Min coordinates (top left)");
-    maxCoordsField = FieldFactory.createVectorField("Max coordinates (bottom right)");
+    minCoordsField = PromptFieldFactory.createVectorField("Min coordinates (top left)");
+    maxCoordsField = PromptFieldFactory.createVectorField("Max coordinates (bottom right)");
     content.getChildren().addAll(nameField, minCoordsField, maxCoordsField, transformationFields);
 
     setContent(content);
@@ -53,7 +52,7 @@ public class AddFractalDialog extends PromptDialog {
 
     for (int i = 0; i < affineTransformationFields; i++) {
       this.affineTransformationFields.add(
-          FieldFactory.createAffineTransformationField(
+          PromptFieldFactory.createAffineTransformationField(
               "Affine Transformation " + (i + 1)
           )
       );
@@ -61,7 +60,7 @@ public class AddFractalDialog extends PromptDialog {
 
     for (int i = 0; i < juliaTransformationFields; i++) {
       this.juliaTransformationFields.add(
-          FieldFactory.createComplexNumberField(
+          PromptFieldFactory.createComplexNumberField(
               "Julia Transformation " + (i + 1)
           )
       );

@@ -3,6 +3,9 @@ package edu.ntnu.stud.model;
 import edu.ntnu.stud.model.math.PixelCoordinateTranslator;
 import edu.ntnu.stud.model.math.PixelCoordinateTranslator.IndexPair;
 import edu.ntnu.stud.model.math.Vector;
+import edu.ntnu.stud.utils.DebouncingSubscriptionHandler;
+import edu.ntnu.stud.utils.SubscriptionHandler;
+import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -35,7 +38,12 @@ public class ChaosGameCanvas {
   /**
    * The transformation used to convert coordinates to indices in the canvas.
    */
-  private @NotNull PixelCoordinateTranslator coordinateTranslator;
+  private final @NotNull PixelCoordinateTranslator coordinateTranslator;
+
+  /**
+   * The subscription handler for the canvas.
+   */
+  private final @NotNull SubscriptionHandler<int[][]> subscriptionHandler;
 
   /**
    * Creates a new instance with the given width, height, and the coordinate bounds of the fractal.
@@ -60,14 +68,11 @@ public class ChaosGameCanvas {
     this.height = height;
     this.canvas = new int[height][width];
 
+    coordinateTranslator = new PixelCoordinateTranslator(width, height, minCoords, maxCoords);
+    subscriptionHandler = new DebouncingSubscriptionHandler<>(this.canvas, Duration.millis(150));
+
     // Fills the array with 0s
     clear();
-
-    coordinateTranslator = new PixelCoordinateTranslator(width, height, minCoords, maxCoords);
-  }
-
-  public void setView(@NotNull Vector minCoords, @NotNull Vector maxCoords) {
-    coordinateTranslator = new PixelCoordinateTranslator(width, height, minCoords, maxCoords);
   }
 
   /**
@@ -79,6 +84,7 @@ public class ChaosGameCanvas {
         canvas[y][x] = 0;
       }
     }
+    subscriptionHandler.notifySubscribers();
   }
 
   /**
@@ -120,6 +126,7 @@ public class ChaosGameCanvas {
       return;
     }
     canvas[height - y - 1][x] = value;
+    subscriptionHandler.notifySubscribers();
   }
 
   /**
@@ -155,6 +162,7 @@ public class ChaosGameCanvas {
       return;
     }
     canvas[height - y - 1][x]++;
+    subscriptionHandler.notifySubscribers();
   }
 
   /**
@@ -179,6 +187,10 @@ public class ChaosGameCanvas {
 
   public @NotNull PixelCoordinateTranslator getCoordinateTranslator() {
     return coordinateTranslator;
+  }
+
+  public @NotNull SubscriptionHandler<int[][]> getSubscriptionHandler() {
+    return subscriptionHandler;
   }
 
   public int getWidth() {
