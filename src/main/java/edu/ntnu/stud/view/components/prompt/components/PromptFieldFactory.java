@@ -47,16 +47,16 @@ public class PromptFieldFactory {
   public static @NotNull PromptField<?, @NotNull Vector> createVectorField(
       @NotNull String prompt
   ) {
-    var x = createDoubleField("x");
-    x.getErrorStack().add(prompt);
-    var y = createDoubleField("y");
-    y.getErrorStack().add(prompt);
+    var x0 = createDoubleField("x");
+    x0.getErrorStack().add(prompt);
+    var x1 = createDoubleField("y");
+    x1.getErrorStack().add(prompt);
 
-    var content = new HBox(x, y);
+    var content = new HBox(x0, x1);
 
     return new PromptField<>(prompt, content, (field, errorStack) -> {
       try {
-        return new Vector(x.getValue(), y.getValue());
+        return new Vector(x0.getValue(), x1.getValue());
       } catch (IllegalArgumentException e) {
         throw new PromptValidationError(errorStack + e.getMessage());
       }
@@ -66,16 +66,16 @@ public class PromptFieldFactory {
   public static @NotNull PromptField<?, @NotNull ComplexNumber> createComplexNumberField(
       @NotNull String prompt
   ) {
-    var x = createDoubleField("Real");
-    x.getErrorStack().add(prompt);
-    var y = createDoubleField("Complex");
-    y.getErrorStack().add(prompt);
+    var x0 = createDoubleField("Real");
+    x0.getErrorStack().add(prompt);
+    var x1 = createDoubleField("Complex");
+    x1.getErrorStack().add(prompt);
 
-    var content = new HBox(x, y);
+    var content = new HBox(x0, x1);
 
     return new PromptField<>(prompt, content, (field, errorStack) -> {
       try {
-        return new ComplexNumber(x.getValue(), y.getValue());
+        return new ComplexNumber(x0.getValue(), x1.getValue());
       } catch (IllegalArgumentException e) {
         throw new PromptValidationError(errorStack + e.getMessage());
       }
@@ -93,14 +93,14 @@ public class PromptFieldFactory {
     a10.getErrorStack().add(prompt);
     var a11 = createDoubleField("a11");
     a11.getErrorStack().add(prompt);
-    var x = createDoubleField("x");
-    x.getErrorStack().add(prompt);
-    var y = createDoubleField("y");
-    y.getErrorStack().add(prompt);
+    var x0 = createDoubleField("x");
+    x0.getErrorStack().add(prompt);
+    var x1 = createDoubleField("y");
+    x1.getErrorStack().add(prompt);
 
     var content = new GridPane();
-    content.addRow(0, a00, a01, x);
-    content.addRow(1, a10, a11, y);
+    content.addRow(0, a00, a01, x0);
+    content.addRow(1, a10, a11, x1);
 
     return new PromptField<>(prompt, content, (field, errorStack) -> {
       try {
@@ -109,8 +109,8 @@ public class PromptFieldFactory {
             a01.getValue(),
             a10.getValue(),
             a11.getValue(),
-            x.getValue(),
-            y.getValue()
+            x0.getValue(),
+            x1.getValue()
         );
       } catch (IllegalArgumentException e) {
         throw new PromptValidationError(errorStack + e.getMessage());

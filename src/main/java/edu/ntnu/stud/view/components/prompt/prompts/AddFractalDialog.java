@@ -33,8 +33,8 @@ public class AddFractalDialog extends PromptDialog {
         new TextField(),
         (field, error) -> field.getText()
     );
-    minCoordsField = PromptFieldFactory.createVectorField("Min coordinates (top left)");
-    maxCoordsField = PromptFieldFactory.createVectorField("Max coordinates (bottom right)");
+    minCoordsField = PromptFieldFactory.createVectorField("Min coordinates (bottom left)");
+    maxCoordsField = PromptFieldFactory.createVectorField("Max coordinates (top right)");
     content.getChildren().addAll(nameField, minCoordsField, maxCoordsField, transformationFields);
 
     setContent(content);
