@@ -57,10 +57,6 @@ public class FractalPane extends ImageView {
     render();
   }
 
-  public void changeZoom() {
-    //chaosGame.getCanvas().setView();
-  }
-
   public void render() {
     Platform.runLater(() -> {
       // https://stackoverflow.com/questions/8935367/convert-a-2d-array-into-a-1d-array

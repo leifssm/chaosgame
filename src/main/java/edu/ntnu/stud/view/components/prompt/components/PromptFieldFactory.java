@@ -2,7 +2,6 @@ package edu.ntnu.stud.view.components.prompt.components;
 
 import edu.ntnu.stud.model.math.AffineTransformation;
 import edu.ntnu.stud.model.math.ComplexNumber;
-import edu.ntnu.stud.model.math.SimpleMatrix;
 import edu.ntnu.stud.model.math.Vector;
 import edu.ntnu.stud.view.components.prompt.PromptValidationError;
 import javafx.scene.control.TextField;
@@ -77,31 +76,6 @@ public class PromptFieldFactory {
     return new PromptField<>(prompt, content, (field, errorStack) -> {
       try {
         return new ComplexNumber(x.getValue(), y.getValue());
-      } catch (IllegalArgumentException e) {
-        throw new PromptValidationError(errorStack + e.getMessage());
-      }
-    });
-  }
-
-  public static @NotNull PromptField<?, @NotNull SimpleMatrix> createMatrixField(
-      @NotNull String prompt
-  ) {
-    var a00 = createDoubleField("a00");
-    a00.getErrorStack().add(prompt);
-    var a01 = createDoubleField("a01");
-    a01.getErrorStack().add(prompt);
-    var a10 = createDoubleField("a10");
-    a10.getErrorStack().add(prompt);
-    var a11 = createDoubleField("a11");
-    a11.getErrorStack().add(prompt);
-
-    var content = new GridPane();
-    content.addRow(0, a00, a01);
-    content.addRow(1, a10, a11);
-
-    return new PromptField<>(prompt, content, (field, errorStack) -> {
-      try {
-        return new SimpleMatrix(a00.getValue(), a01.getValue(), a10.getValue(), a11.getValue());
       } catch (IllegalArgumentException e) {
         throw new PromptValidationError(errorStack + e.getMessage());
       }
