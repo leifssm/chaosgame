@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * A simple button with an icon and a description that shows when hovered.
  *
  * @author Leif Mørstad
- * @version 0.2
+ * @version 1.0
  * @see <a href="https://kordamp.org/ikonli/cheat-sheet-materialdesign.html">
  * Material Design Icons
  * </a>
