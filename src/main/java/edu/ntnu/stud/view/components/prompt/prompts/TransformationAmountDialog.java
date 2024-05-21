@@ -1,8 +1,8 @@
 package edu.ntnu.stud.view.components.prompt.prompts;
 
 import edu.ntnu.stud.view.components.prompt.PromptValidationError;
-import edu.ntnu.stud.view.components.prompt.components.FieldFactory;
 import edu.ntnu.stud.view.components.prompt.components.PromptField;
+import edu.ntnu.stud.view.components.prompt.components.PromptFieldFactory;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,10 +15,10 @@ public class TransformationAmountDialog extends PromptDialog {
     setTitle("Add fractal");
     VBox content = new VBox();
 
-    affineTransformationAmountField = FieldFactory.createIntegerField(
+    affineTransformationAmountField = PromptFieldFactory.createIntegerField(
         "Amount of affine transformations"
     );
-    juliaTransformationAmountField = FieldFactory.createIntegerField(
+    juliaTransformationAmountField = PromptFieldFactory.createIntegerField(
         "Amount of julia transformations"
     );
 

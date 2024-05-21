@@ -2,17 +2,15 @@ package edu.ntnu.stud.view.components.prompt.components;
 
 import edu.ntnu.stud.model.math.AffineTransformation;
 import edu.ntnu.stud.model.math.ComplexNumber;
-import edu.ntnu.stud.model.math.SimpleMatrix;
 import edu.ntnu.stud.model.math.Vector;
 import edu.ntnu.stud.view.components.prompt.PromptValidationError;
-import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import org.jetbrains.annotations.NotNull;
 
-public class FieldFactory {
-  public static @NotNull PromptField<TextField, @NotNull Integer> createIntegerField(
+public class PromptFieldFactory {
+  public static @NotNull PromptField<?, @NotNull Integer> createIntegerField(
       @NotNull String prompt
   ) {
     return new PromptField<>(prompt, new TextField(), (field, errorStack) -> {
@@ -29,7 +27,7 @@ public class FieldFactory {
     });
   }
 
-  public static @NotNull PromptField<TextField, @NotNull Double> createDoubleField(
+  public static @NotNull PromptField<?, @NotNull Double> createDoubleField(
       @NotNull String prompt
   ) {
     return new PromptField<>(prompt, new TextField(), (field, errorStack) -> {
@@ -46,7 +44,7 @@ public class FieldFactory {
     });
   }
 
-  public static @NotNull PromptField<Node, @NotNull Vector> createVectorField(
+  public static @NotNull PromptField<?, @NotNull Vector> createVectorField(
       @NotNull String prompt
   ) {
     var x = createDoubleField("x");
@@ -65,7 +63,7 @@ public class FieldFactory {
     });
   }
 
-  public static @NotNull PromptField<Node, @NotNull ComplexNumber> createComplexNumberField(
+  public static @NotNull PromptField<?, @NotNull ComplexNumber> createComplexNumberField(
       @NotNull String prompt
   ) {
     var x = createDoubleField("Real");
@@ -84,32 +82,7 @@ public class FieldFactory {
     });
   }
 
-  public static @NotNull PromptField<Node, @NotNull SimpleMatrix> createMatrixField(
-      @NotNull String prompt
-  ) {
-    var a00 = createDoubleField("a00");
-    a00.getErrorStack().add(prompt);
-    var a01 = createDoubleField("a01");
-    a01.getErrorStack().add(prompt);
-    var a10 = createDoubleField("a10");
-    a10.getErrorStack().add(prompt);
-    var a11 = createDoubleField("a11");
-    a11.getErrorStack().add(prompt);
-
-    var content = new GridPane();
-    content.addRow(0, a00, a01);
-    content.addRow(1, a10, a11);
-
-    return new PromptField<>(prompt, content, (field, errorStack) -> {
-      try {
-        return new SimpleMatrix(a00.getValue(), a01.getValue(), a10.getValue(), a11.getValue());
-      } catch (IllegalArgumentException e) {
-        throw new PromptValidationError(errorStack + e.getMessage());
-      }
-    });
-  }
-
-  public static @NotNull PromptField<Node, @NotNull AffineTransformation> createAffineTransformationField(
+  public static @NotNull PromptField<?, @NotNull AffineTransformation> createAffineTransformationField(
       @NotNull String prompt
   ) {
     var a00 = createDoubleField("a00");

@@ -1,10 +1,11 @@
 package edu.ntnu.stud.model.math;
 
-import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AffineTransformationTest {
 
@@ -30,10 +31,12 @@ public class AffineTransformationTest {
     @DisplayName("Constructor with no arguments creates an identity transformation")
     void constructorWithNoArgs() {
       Vector vector = new Vector(1, 2);
+
       Vector transformedVector = new AffineTransformation().transform(vector);
+
       assertVectorEquals(
-          1,
-          2,
+          vector.getX0(), // 1
+          vector.getX1(), // 2
           transformedVector,
           "An identity transformation should not change the vector"
       );

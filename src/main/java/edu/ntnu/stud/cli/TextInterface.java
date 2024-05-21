@@ -1,9 +1,9 @@
 package edu.ntnu.stud.cli;
 
 import edu.ntnu.stud.cli.menu.Menu;
+import edu.ntnu.stud.model.ChaosGame;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
-import edu.ntnu.stud.model.IterativeChaosGame;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -70,7 +70,7 @@ public class TextInterface {
       return;
     }
 
-    IterativeChaosGame chaosGame = new IterativeChaosGame(60, 20, description);
+    ChaosGame chaosGame = new ChaosGame(60, 20, description);
     chaosGame.iterate(iterations);
 
     System.out.println(chaosGame.getCanvas().asSimpleString());

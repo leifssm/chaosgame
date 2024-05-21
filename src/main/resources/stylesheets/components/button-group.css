@@ -4,12 +4,19 @@
 }
 
 .button-group VBox {
-  -fx-padding: 5px;
+  -fx-padding: 0 0 5px 0;
   -fx-spacing: 5px;
-  -fx-alignment: bottom-center;
+  -fx-alignment: bottom-right;
 }
 
 .button-group .action-button {
   -fx-background-color: #1e1f22;
-  -fx-background-radius: 100px;
+  -fx-background-radius: 100px 0 0 100px;
+  -fx-max-width: infinity;
+  -fx-alignment: center-left;
+  -fx-translate-x: 129px;
+}
+
+.button-group .action-button:hover {
+  -fx-translate-x: 0px;
 }

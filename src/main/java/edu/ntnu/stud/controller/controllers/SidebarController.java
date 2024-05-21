@@ -15,7 +15,7 @@ import java.io.File;
  * @author Leif Mørstad
  * @version 1.0
  */
-public class SidebarController extends Controller {
+public class SidebarController {
   private final @NotNull Sidebar sidebar;
   private final @NotNull StateManager state;
 
@@ -23,10 +23,10 @@ public class SidebarController extends Controller {
     this.sidebar = sidebar;
     this.state = state;
 
-    update();
+    updateFractalList();
   }
 
-  public void update() {
+  public void updateFractalList() {
     sidebar.clear();
     sidebar.addFractalDisplay("Add Fractal +", this::startAddFractalFlow);
     for (File fractal : ChaosGameFileHandler.getAllFractals()) {
@@ -46,7 +46,7 @@ public class SidebarController extends Controller {
   public void startAddFractalFlow() {
     boolean success = new TransformationAmountDialog().waitForResult();
     if (success) {
-      update();
+      updateFractalList();
     }
   }
 }

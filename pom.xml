@@ -3,6 +3,13 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>chaos-game</artifactId>
+  <name>Chaos Game</name>
+  <properties>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <version>0.6.0</version>
 
   <build>
     <plugins>
@@ -20,11 +27,23 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <groupId>org.openjfx</groupId>
         <version>0.0.8</version>
+        <configuration>
+          <mainClass>edu.ntnu.stud.ChaosGameApp</mainClass>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <groupId>org.apache.maven.plugins</groupId>
         <version>3.4.1</version>
+      </plugin>
+      <!--   Allows the user to use mvn exec:java to run the cli   -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <mainClass>edu.ntnu.stud.cli.TextInterface</mainClass>
+        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -76,12 +95,4 @@
   </dependencies>
   <groupId>edu.ntnu.stud</groupId>
   <modelVersion>4.0.0</modelVersion>
-
-  <name>Chaos Game</name>
-  <properties>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  <version>0.2.0</version>
 </project>

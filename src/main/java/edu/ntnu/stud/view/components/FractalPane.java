@@ -57,11 +57,7 @@ public class FractalPane extends ImageView {
     render();
   }
 
-  public void changeZoom() {
-    //chaosGame.getCanvas().setView();
-  }
-
-  private void render() {
+  public void render() {
     Platform.runLater(() -> {
       // https://stackoverflow.com/questions/8935367/convert-a-2d-array-into-a-1d-array
       int[] flattened = Stream.of(chaosGame.getCanvas().getCanvas())
