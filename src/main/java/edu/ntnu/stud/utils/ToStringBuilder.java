@@ -1,8 +1,9 @@
 package edu.ntnu.stud.utils;
 
-import java.util.ArrayList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
 
 /**
  * A builder class for creating a string representation of an object.
@@ -12,10 +13,10 @@ import org.jetbrains.annotations.Nullable;
  * <pre>
  *     Vector v = new Vector(1, 2);
  *     return new ToStringBuilder(v)
- *       .field("x", v.getX0())
- *       .field("y", v.getX1())
+ *       .field("x0", v.getX0())
+ *       .field("x1", v.getX1())
  *       .build();
- *     // returns "Vector[x=1.0, y=2.0]"
+ *     // returns "Vector[x0=1.0, x1=2.0]"
  *   </pre>
  * </p>
  *
