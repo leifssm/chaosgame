@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Leif Mørstad
- * @version 0.1
+ * @version 1.0
  */
 public class SidebarOverlayController {
   private final @NotNull SidebarOverlay sidebarOverlay;
