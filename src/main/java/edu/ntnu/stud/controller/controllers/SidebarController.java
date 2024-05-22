@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.InvalidObjectException;
+import java.util.logging.Logger;
 
 /**
  * Controller for the sidebar content. Handles logic connected to the {@link Sidebar} component.
@@ -22,6 +23,7 @@ import java.io.InvalidObjectException;
  * @version 1.0
  */
 public class SidebarController {
+  private static final Logger LOGGER = Logger.getLogger(SidebarController.class.getName());
   private final @NotNull Sidebar sidebar;
   private final @NotNull StateManager state;
 
@@ -75,7 +77,7 @@ public class SidebarController {
       ChaosGameDescription game = ChaosGameFileHandler.readFromFile(fileName);
       runGame(game);
     } catch (Exception e) {
-      System.out.println("Could not read file: " + fileName);
+      LOGGER.severe("Could not read file: " + fileName);
       ErrorDialogFactory.show("Could not read file: " + fileName);
     }
   }
@@ -99,13 +101,13 @@ public class SidebarController {
     );
     File selectedFile = fileChooser.showOpenDialog(sidebar.getScene().getWindow());
     if (selectedFile == null) {
-      ErrorDialogFactory.create("Could not open file.").waitForResult();
+      LOGGER.severe("Could not open file.");
       ErrorDialogFactory.show("Could not open file.");
       return;
     }
     JsonNode node = FileHandler.readFile(selectedFile);
     if (node == null) {
-      ErrorDialogFactory.create("Invalid JSON format.").waitForResult();
+      LOGGER.severe("Invalid JSON format.");
       ErrorDialogFactory.show("Invalid JSON format.");
       return;
     }
@@ -113,7 +115,7 @@ public class SidebarController {
       ChaosGameDescription game = ChaosGameFileHandler.readChaosGame(node);
       runGame(game);
     } catch (InvalidObjectException e) {
-      ErrorDialogFactory.create("Invalid fractal file: " + e.getMessage()).waitForResult();
+      LOGGER.severe("Invalid fractal file: " + e.getMessage());
       ErrorDialogFactory.show("Invalid fractal file: " + e.getMessage());
     }
   }

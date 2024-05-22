@@ -5,7 +5,6 @@ import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * A class that debounces a function call. Waits far a given delay before calling the function. If
@@ -16,11 +15,10 @@ import org.jetbrains.annotations.Nullable;
  * @version 1.2
  */
 public class Debouncer {
-
   /**
    * The function to debounce, null if no initial function was set.
    */
-  private final @Nullable Runnable function;
+  private final @NotNull Runnable function;
 
   /**
    * A transition class used to sync the debouncing with javafx.
@@ -45,12 +43,8 @@ public class Debouncer {
    * delay is reset.
    */
   public void run() {
-    if (function == null) {
-      throw new IllegalStateException("No initial or temporary function was set");
-    }
     isWaiting.set(true);
     delay.setOnFinished(event -> {
-      System.out.println("Running debounced function");
       function.run();
       isWaiting.set(false);
     });
