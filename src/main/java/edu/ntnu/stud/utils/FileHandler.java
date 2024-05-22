@@ -181,6 +181,25 @@ public class FileHandler {
     }
   }
 
+  /**
+   * Reads a JSON file and passes it through a callback function before returning it.
+   *
+   * @param file     the JSON file
+   * @param callback the callback function to pass the JSON through
+   * @param <T>      the type of the result
+   * @return the result of the callback function
+   */
+  public static <T> @Nullable T readFile(@NotNull File file, Callback<JsonNode, T> callback) {
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+      JsonNode tree = mapper.readTree(file);
+      return callback.call(tree);
+    } catch (Exception e) {
+      System.out.println("Could not read " + file.getAbsolutePath());
+      return null;
+    }
+  }
+
   public static @NotNull String removeFileExtension(@NotNull String fileName) {
     // https://stackoverflow.com/questions/924394/how-to-get-the-filename-without-the-extension-in-java
     return fileName.replaceFirst("\\.[^/\\\\]+$", "");
@@ -193,6 +212,16 @@ public class FileHandler {
    * @return the JSON node
    */
   public static @Nullable JsonNode readFile(@NotNull String path) {
+    return readFile(path, json -> json);
+  }
+
+  /**
+   * Reads a file and returns the JSON node.
+   *
+   * @param path the JSON file
+   * @return the JSON node
+   */
+  public static @Nullable JsonNode readFile(@NotNull File path) {
     return readFile(path, json -> json);
   }
 

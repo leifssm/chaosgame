@@ -1,13 +1,18 @@
 package edu.ntnu.stud.controller.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
+import edu.ntnu.stud.utils.FileHandler;
 import edu.ntnu.stud.utils.StateManager;
+import edu.ntnu.stud.view.components.prompt.prompts.ErrorDialogFactory;
 import edu.ntnu.stud.view.components.prompt.prompts.TransformationAmountDialog;
 import edu.ntnu.stud.view.components.sidebaroverlay.Sidebar;
+import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.InvalidObjectException;
 
 /**
  * Controller for the sidebar content. Handles logic connected to the {@link Sidebar} component.
@@ -38,6 +43,7 @@ public class SidebarController {
   private void updateFractalList() {
     sidebar.clear();
     sidebar.addFractalDisplay("Add Fractal +", this::startAddFractalFlow);
+    sidebar.addFractalDisplay("Import Fractal", this::startImportFractalFlow);
     for (File fractal : ChaosGameFileHandler.getAllFractals()) {
       sidebar.addFractalDisplay(fractal.getName(), () -> runFile(fractal.getName()));
     }
@@ -65,6 +71,30 @@ public class SidebarController {
     boolean success = new TransformationAmountDialog().waitForResult();
     if (success) {
       updateFractalList();
+    }
+  }
+
+  private void startImportFractalFlow() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Fractal File");
+    fileChooser.getExtensionFilters().add(
+        new FileChooser.ExtensionFilter("Fractal Files", "*.json")
+    );
+    File selectedFile = fileChooser.showOpenDialog(sidebar.getScene().getWindow());
+    if (selectedFile == null) {
+      ErrorDialogFactory.create("Could not open file.").waitForResult();
+      return;
+    }
+    JsonNode node = FileHandler.readFile(selectedFile);
+    if (node == null) {
+      ErrorDialogFactory.create("Invalid JSON format.").waitForResult();
+      return;
+    }
+    try {
+      ChaosGameDescription game = ChaosGameFileHandler.readChaosGame(node);
+      state.currentFractalDescription().set(game);
+    } catch (InvalidObjectException e) {
+      ErrorDialogFactory.create("Invalid fractal file: " + e.getMessage()).waitForResult();
     }
   }
 }
