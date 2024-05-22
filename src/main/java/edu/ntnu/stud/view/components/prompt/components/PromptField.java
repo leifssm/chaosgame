@@ -3,6 +3,7 @@ package edu.ntnu.stud.view.components.prompt.components;
 import edu.ntnu.stud.view.components.prompt.PromptValidationError;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -37,6 +38,19 @@ public class PromptField<Component extends Node, ReturnValue> extends BorderPane
     this.resultConverter = resultConverter;
     input = component;
     errorStack = new PromptErrorStack(fieldName);
+  }
+
+  // has to be textfiels
+  public PromptField(
+      @NotNull String fieldName,
+      @NotNull Component component,
+      @Nullable String initialValue,
+      @NotNull ResultConverter<Component, ReturnValue> resultConverter
+  ) {
+    this(fieldName, component, resultConverter);
+    if (initialValue != null) {
+      ((TextField) component).setText(initialValue);
+    }
   }
 
   /**

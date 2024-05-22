@@ -176,7 +176,10 @@ public class ChaosGameFileHandler {
    * @param filename    the name of the file to write to
    * @param description the chaos game description to write to the file
    */
-  public static void writeToFile(String filename, ChaosGameDescription description) {
+  public static void writeToFile(
+      @NotNull String filename,
+      @NotNull ChaosGameDescription description
+  ) {
     FileHandler.writeToFile(
         "fractals/" + filename,
         description

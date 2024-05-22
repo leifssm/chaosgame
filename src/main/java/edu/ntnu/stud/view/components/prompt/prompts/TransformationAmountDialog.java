@@ -1,5 +1,6 @@
 package edu.ntnu.stud.view.components.prompt.prompts;
 
+import edu.ntnu.stud.model.ChaosGameFileHandler;
 import edu.ntnu.stud.view.components.prompt.PromptValidationError;
 import edu.ntnu.stud.view.components.prompt.components.PromptField;
 import edu.ntnu.stud.view.components.prompt.components.PromptFieldFactory;
@@ -27,10 +28,12 @@ public class TransformationAmountDialog extends PromptDialog {
     VBox content = new VBox();
 
     affineTransformationAmountField = PromptFieldFactory.createIntegerField(
-        "Amount of affine transformations"
+        "Amount of affine transformations",
+        null
     );
     juliaTransformationAmountField = PromptFieldFactory.createIntegerField(
-        "Amount of julia transformations"
+        "Amount of julia transformations",
+        null
     );
 
     setExtraValidator(() -> {
@@ -51,12 +54,12 @@ public class TransformationAmountDialog extends PromptDialog {
   public boolean waitForResult() {
     boolean success = super.waitForResult();
     if (success) {
-      var dialog = new AddFractalDialog();
-      dialog.setTransformationFields(
+      var dialog = new TransformationInputDialog("Add fractal");
+      dialog.addTransformationFields(
           affineTransformationAmountField.getCachedValue(),
           juliaTransformationAmountField.getCachedValue()
       );
-      return dialog.waitForResult();
+      return dialog.waitForResult(ChaosGameFileHandler::writeToFile);
     }
     return false;
   }

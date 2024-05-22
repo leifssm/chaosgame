@@ -1,10 +1,14 @@
 package edu.ntnu.stud.controller.controllers;
 
 import edu.ntnu.stud.model.ChaosGame;
+import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.utils.StateManager;
 import edu.ntnu.stud.utils.UsageFlagger;
 import edu.ntnu.stud.view.components.StandardButton;
+import edu.ntnu.stud.view.components.prompt.prompts.ErrorDialogFactory;
 import edu.ntnu.stud.view.components.prompt.prompts.GetIterationAmountDialog;
+import edu.ntnu.stud.view.components.prompt.prompts.ModifyFractalDialogFactory;
+import edu.ntnu.stud.view.components.prompt.prompts.TransformationInputDialog;
 import edu.ntnu.stud.view.components.sidebaroverlay.ActionButton;
 import edu.ntnu.stud.view.components.sidebaroverlay.SidebarOverlay;
 import org.jetbrains.annotations.NotNull;
@@ -42,6 +46,13 @@ public class SidebarOverlayController {
             "Toggle sidebar",
             this::toggleSidebar
         ).setType(StandardButton.Type.PRIMARY)
+    );
+    sidebarOverlay.getButtonGroup().addButton(
+        new ActionButton(
+            "pencil",
+            "Edit fractal",
+            this::editFractalFlow
+        )
     );
     sidebarOverlay.getButtonGroup().addButton(
         new ActionButton(
@@ -129,5 +140,15 @@ public class SidebarOverlayController {
    */
   private void startInputFlow() {
     new GetIterationAmountDialog(this::iterate).waitForResult();
+  }
+
+  private void editFractalFlow() {
+    ChaosGameDescription game = state.currentFractalDescription().get();
+    if (game == null) {
+      ErrorDialogFactory.create("No fractal selected.").waitForResult();
+      return;
+    }
+    TransformationInputDialog dialog = ModifyFractalDialogFactory.create(true, game);
+    dialog.waitForResult((n, newGame) -> state.currentFractalDescription().set(newGame));
   }
 }
