@@ -4,6 +4,7 @@ stages:
   - build
   - test
   - package
+  - deploy
 
 build:
   stage: build
@@ -26,7 +27,9 @@ package:
     - mvn package
     - echo "Package finished"
 
-# Koden under er kopiert fra mal gitt i faget IDATT1005
+#########################################################
+# Koden under er kopiert fra mal gitt i faget IDATT1005 #
+#########################################################
 
 generatepdf:
   image: ubuntu:20.04 #20.04  # vi kjører dette i en docker container, som kjører Ubuntu Linux
@@ -75,4 +78,3 @@ pages:
   artifacts:
     paths:
       - public
-
