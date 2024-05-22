@@ -2,6 +2,7 @@ package edu.ntnu.stud.controller.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import edu.ntnu.stud.model.ChaosGameDescription;
+import edu.ntnu.stud.model.ChaosGameDescriptionFactory;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
 import edu.ntnu.stud.utils.FileHandler;
 import edu.ntnu.stud.utils.StateManager;
@@ -44,9 +45,24 @@ public class SidebarController {
     sidebar.clear();
     sidebar.addFractalDisplay("Add Fractal +", this::startAddFractalFlow);
     sidebar.addFractalDisplay("Import Fractal", this::startImportFractalFlow);
+
+    sidebar.addFractalDisplay("Factory Sierpinski", () -> {
+      ChaosGameDescription game = ChaosGameDescriptionFactory.createSierpinski();
+      runGame(game);
+    });
+
     for (File fractal : ChaosGameFileHandler.getAllFractals()) {
       sidebar.addFractalDisplay(fractal.getName(), () -> runFile(fractal.getName()));
     }
+  }
+
+  /**
+   * Sets the current fractal to the given game.
+   *
+   * @param game the game to set
+   */
+  private void runGame(@NotNull ChaosGameDescription game) {
+    state.currentFractalDescription().set(game);
   }
 
   /**
@@ -57,7 +73,7 @@ public class SidebarController {
   private void runFile(@NotNull String fileName) {
     try {
       ChaosGameDescription game = ChaosGameFileHandler.readFromFile(fileName);
-      state.currentFractalDescription().set(game);
+      runGame(game);
     } catch (Exception e) {
       System.out.println("Could not read file: " + fileName);
     }
@@ -92,7 +108,7 @@ public class SidebarController {
     }
     try {
       ChaosGameDescription game = ChaosGameFileHandler.readChaosGame(node);
-      state.currentFractalDescription().set(game);
+      runGame(game);
     } catch (InvalidObjectException e) {
       ErrorDialogFactory.create("Invalid fractal file: " + e.getMessage()).waitForResult();
     }
