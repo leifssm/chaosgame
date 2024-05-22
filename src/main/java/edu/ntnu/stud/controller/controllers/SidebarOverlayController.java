@@ -142,10 +142,13 @@ public class SidebarOverlayController {
     new GetIterationAmountDialog(this::iterate).waitForResult();
   }
 
+  /**
+   * Starts the flow for editing the current fractal, and updates the current fractal to match.
+   */
   private void editFractalFlow() {
     ChaosGameDescription game = state.currentFractalDescription().get();
     if (game == null) {
-      ErrorDialogFactory.create("No fractal selected.").waitForResult();
+      ErrorDialogFactory.show("No fractal selected.");
       return;
     }
     TransformationInputDialog dialog = ModifyFractalDialogFactory.create(true, game);

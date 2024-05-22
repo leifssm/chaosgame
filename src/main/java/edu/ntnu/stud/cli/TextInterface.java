@@ -60,6 +60,7 @@ public class TextInterface {
         "Please enter a number greater than or equal to 1"
     );
     System.out.println("Running file: " + fileName);
+    
 
     ChaosGameDescription description;
 

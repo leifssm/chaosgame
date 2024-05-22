@@ -22,4 +22,13 @@ public class ErrorDialogFactory {
         .setContent(new Label(message))
         .build();
   }
+
+  /**
+   * Creates and shows a simple error dialog with the given message.
+   *
+   * @param message the message to display
+   */
+  public static void show(@NotNull String message) {
+    create(message).showAndWait();
+  }
 }

@@ -25,7 +25,7 @@ public class PromptField<Component extends Node, ReturnValue> extends BorderPane
    *
    * @param fieldName       the name of the field
    * @param component       the base component
-   * @param resultConverter a function taking the comonent and returns the wanted value
+   * @param resultConverter a function taking the component and returns the wanted value
    */
   public PromptField(
       @NotNull String fieldName,
@@ -40,7 +40,14 @@ public class PromptField<Component extends Node, ReturnValue> extends BorderPane
     errorStack = new PromptErrorStack(fieldName);
   }
 
-  // has to be textfiels
+  /**
+   * Creates a field, based on a name, a component, a converter, and a nullable initial value.
+   *
+   * @param fieldName       the name of the field
+   * @param component       the base component
+   * @param initialValue    the initial value of the field
+   * @param resultConverter a function taking the component and returns the wanted value
+   */
   public PromptField(
       @NotNull String fieldName,
       @NotNull Component component,

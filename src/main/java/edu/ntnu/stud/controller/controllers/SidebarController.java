@@ -76,6 +76,7 @@ public class SidebarController {
       runGame(game);
     } catch (Exception e) {
       System.out.println("Could not read file: " + fileName);
+      ErrorDialogFactory.show("Could not read file: " + fileName);
     }
   }
 
@@ -99,11 +100,13 @@ public class SidebarController {
     File selectedFile = fileChooser.showOpenDialog(sidebar.getScene().getWindow());
     if (selectedFile == null) {
       ErrorDialogFactory.create("Could not open file.").waitForResult();
+      ErrorDialogFactory.show("Could not open file.");
       return;
     }
     JsonNode node = FileHandler.readFile(selectedFile);
     if (node == null) {
       ErrorDialogFactory.create("Invalid JSON format.").waitForResult();
+      ErrorDialogFactory.show("Invalid JSON format.");
       return;
     }
     try {
@@ -111,6 +114,7 @@ public class SidebarController {
       runGame(game);
     } catch (InvalidObjectException e) {
       ErrorDialogFactory.create("Invalid fractal file: " + e.getMessage()).waitForResult();
+      ErrorDialogFactory.show("Invalid fractal file: " + e.getMessage());
     }
   }
 }

@@ -20,7 +20,8 @@ public class PromptFieldFactory {
   /**
    * Creates a prompt field for an integer.
    *
-   * @param prompt the prompt text
+   * @param prompt       the prompt text
+   * @param defaultValue the default integer, or null if no default value
    * @return the created prompt field
    */
   public static @NotNull PromptField<?, @NotNull Integer> createIntegerField(
@@ -49,7 +50,8 @@ public class PromptFieldFactory {
   /**
    * Creates a prompt field for a double.
    *
-   * @param prompt the prompt text
+   * @param prompt       the prompt text
+   * @param defaultValue the default double, or null if no default value
    * @return the created prompt field
    */
   public static @NotNull PromptField<?, @NotNull Double> createDoubleField(
@@ -78,7 +80,8 @@ public class PromptFieldFactory {
   /**
    * Creates a prompt field for a vector.
    *
-   * @param prompt the prompt text
+   * @param prompt       the prompt text
+   * @param defaultValue the default vector, or null if no default value
    * @return the created prompt field
    */
   public static @NotNull PromptField<?, @NotNull Vector> createVectorField(
@@ -104,7 +107,8 @@ public class PromptFieldFactory {
   /**
    * Creates a prompt field for a complex number.
    *
-   * @param prompt the prompt text
+   * @param prompt       the prompt text
+   * @param defaultValue the default complex number, or null if no default value
    * @return the created prompt field
    */
   public static @NotNull PromptField<?, @NotNull ComplexNumber> createComplexNumberField(
@@ -133,7 +137,8 @@ public class PromptFieldFactory {
   /**
    * Creates a prompt field for an affine transformation.
    *
-   * @param prompt the prompt text
+   * @param prompt       the prompt text
+   * @param defaultValue the default transformation, or null if no default value
    * @return the created prompt field
    */
   public static @NotNull PromptField<?, @NotNull AffineTransformation> createAffineTransformationField(
