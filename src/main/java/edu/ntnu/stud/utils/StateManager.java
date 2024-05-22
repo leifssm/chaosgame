@@ -12,7 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * A class representing the state of the application.
+ * A class representing the state of the application. Used to store the current state of the
+ * application and to import and export the state to and from the resources/state.json file.
  *
  * @author Leif Mørstad
  * @version 1.2
@@ -111,8 +112,14 @@ public class StateManager {
     return currentFractalDescription;
   }
 
+
+  /**
+   * Returns the current fractal description. Used for serialization.
+   *
+   * @return the current fractal description
+   */
   @JsonProperty
-  public ChaosGameDescription getCurrentFractalDescription() {
+  public @Nullable ChaosGameDescription getCurrentFractalDescription() {
     return currentFractalDescription.get();
   }
 }

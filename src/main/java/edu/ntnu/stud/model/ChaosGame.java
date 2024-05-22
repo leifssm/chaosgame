@@ -5,11 +5,11 @@ import edu.ntnu.stud.model.math.Vector;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * A class containing all needed information concerning the running and displaying of a fractal
- * display.
+ * A class with the function as a hub for containing all needed information concerning the running
+ * and displaying of a fractal.
  *
  * @author Leif Mørstad
- * @version 1.2
+ * @version 2.0
  */
 public class ChaosGame {
 
@@ -57,14 +57,29 @@ public class ChaosGame {
     );
   }
 
+  /**
+   * Returns the transformations used to generate the fractal.
+   *
+   * @return the transformations
+   */
   public @NotNull TransformationGroup getTransformations() {
     return transformations;
   }
 
+  /**
+   * Returns the canvas on which the fractal is drawn.
+   *
+   * @return the canvas
+   */
   public @NotNull ChaosGameCanvas getCanvas() {
     return canvas;
   }
 
+  /**
+   * Returns the original description of the chaos game.
+   *
+   * @return the description
+   */
   public @NotNull ChaosGameDescription getDescription() {
     return description;
   }

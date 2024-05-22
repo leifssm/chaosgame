@@ -7,7 +7,7 @@ package edu.ntnu.stud.utils;
  * @author Leif Mørstad
  * @version 1.0
  */
-public class GlobalData {
+public class RuntimeInfo {
 
   private static boolean runningJavaFx = false;
 
@@ -26,7 +26,8 @@ public class GlobalData {
   }
 
   /**
-   * Flags that the application is running in a JavaFX environment.
+   * Flags that the application is running in a JavaFX environment. Should only be called at the
+   * start of the application.
    */
   public static void setIsRunningJavaFx() {
     runningJavaFx = true;

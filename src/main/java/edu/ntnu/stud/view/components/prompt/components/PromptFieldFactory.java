@@ -9,7 +9,19 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * A factory class for creating different prompt fields.
+ *
+ * @author Leif Mørstad
+ * @version 1.0
+ */
 public class PromptFieldFactory {
+  /**
+   * Creates a prompt field for an integer.
+   *
+   * @param prompt the prompt text
+   * @return the created prompt field
+   */
   public static @NotNull PromptField<?, @NotNull Integer> createIntegerField(
       @NotNull String prompt
   ) {
@@ -27,6 +39,12 @@ public class PromptFieldFactory {
     });
   }
 
+  /**
+   * Creates a prompt field for a double.
+   *
+   * @param prompt the prompt text
+   * @return the created prompt field
+   */
   public static @NotNull PromptField<?, @NotNull Double> createDoubleField(
       @NotNull String prompt
   ) {
@@ -44,6 +62,12 @@ public class PromptFieldFactory {
     });
   }
 
+  /**
+   * Creates a prompt field for a vector.
+   *
+   * @param prompt the prompt text
+   * @return the created prompt field
+   */
   public static @NotNull PromptField<?, @NotNull Vector> createVectorField(
       @NotNull String prompt
   ) {
@@ -63,6 +87,12 @@ public class PromptFieldFactory {
     });
   }
 
+  /**
+   * Creates a prompt field for a complex number.
+   *
+   * @param prompt the prompt text
+   * @return the created prompt field
+   */
   public static @NotNull PromptField<?, @NotNull ComplexNumber> createComplexNumberField(
       @NotNull String prompt
   ) {
@@ -82,6 +112,12 @@ public class PromptFieldFactory {
     });
   }
 
+  /**
+   * Creates a prompt field for an affine transformation.
+   *
+   * @param prompt the prompt text
+   * @return the created prompt field
+   */
   public static @NotNull PromptField<?, @NotNull AffineTransformation> createAffineTransformationField(
       @NotNull String prompt
   ) {

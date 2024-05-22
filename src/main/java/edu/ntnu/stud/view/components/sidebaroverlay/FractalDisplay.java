@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Represents a card displaying a fractal the user can render
+ * A card representing a fractal the user can render
  *
  * @author Leif Mørstad
  * @version 1.0
@@ -30,7 +30,7 @@ public class FractalDisplay extends VBox implements ComponentUtils {
     //Node fractalDisplay;
     //String fractalImageUrl = FileHandler.getImage(fractalName);
     //if (fractalImageUrl == null) {
-    //  fractalDisplay = IconUtils.createIcon("layers-off");
+    //  fractalDisplay = IconFactory.createIcon("layers-off");
     //} else {
     //  Image image = new Image(fractalImageUrl);
     //  fractalDisplay = new ImageView(image);

@@ -1,10 +1,11 @@
 package edu.ntnu.stud.model.math;
 
-import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import static edu.ntnu.stud.model.math.VectorTestUtils.assertVectorEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SimpleMatrixTest {
 
@@ -39,10 +40,10 @@ public class SimpleMatrixTest {
     public void testGet() {
       SimpleMatrix matrix = new SimpleMatrix(1, 2, 3, 4);
 
-      assertEquals(1, matrix.getA00());
-      assertEquals(2, matrix.getA01());
-      assertEquals(3, matrix.getA10());
-      assertEquals(4, matrix.getA11());
+      assertEquals(1, matrix.a00());
+      assertEquals(2, matrix.a01());
+      assertEquals(3, matrix.a10());
+      assertEquals(4, matrix.a11());
     }
   }
 }

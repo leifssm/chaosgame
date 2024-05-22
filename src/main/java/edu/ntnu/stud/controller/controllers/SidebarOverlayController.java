@@ -10,6 +10,9 @@ import edu.ntnu.stud.view.components.sidebaroverlay.SidebarOverlay;
 import org.jetbrains.annotations.NotNull;
 
 /**
+ * Controller for the sidebar overlay. Handles logic connected to the {@link SidebarOverlay}
+ * component.
+ *
  * @author Leif Mørstad
  * @version 1.0
  */
@@ -19,6 +22,12 @@ public class SidebarOverlayController {
   private final UsageFlagger.FlagSetter isRendering;
   private boolean sidebarOpen = false;
 
+  /**
+   * Creates a new controller for the given SidebarOverlay instance.
+   *
+   * @param sidebarOverlay the sidebar overlay to manage
+   * @param state          the state manager to use
+   */
   public SidebarOverlayController(
       @NotNull SidebarOverlay sidebarOverlay,
       @NotNull StateManager state
@@ -78,11 +87,17 @@ public class SidebarOverlayController {
     );
   }
 
+  /**
+   * Toggles the state of the sidebar overlay.
+   */
   private void toggleSidebar() {
     sidebarOpen = !sidebarOpen;
     sidebarOverlay.setState(sidebarOpen);
   }
 
+  /**
+   * Clears the canvas of the current fractal.
+   */
   private void clearCanvas() {
     ChaosGame currentFractal = state.currentFractal().get();
     if (currentFractal == null) {
@@ -91,6 +106,11 @@ public class SidebarOverlayController {
     currentFractal.getCanvas().clear();
   }
 
+  /**
+   * Iterates the current fractal the given amount of times.
+   *
+   * @param amount the amount of iterations to perform
+   */
   private void iterate(int amount) {
     ChaosGame currentFractal = state.currentFractal().get();
     if (currentFractal == null) {
@@ -103,6 +123,10 @@ public class SidebarOverlayController {
     isRendering.setFlag(false);
   }
 
+  /**
+   * Starts the flow for inputting a custom amount of iterations, and then iterates the amount of
+   * times.
+   */
   private void startInputFlow() {
     new GetIterationAmountDialog(this::iterate).waitForResult();
   }

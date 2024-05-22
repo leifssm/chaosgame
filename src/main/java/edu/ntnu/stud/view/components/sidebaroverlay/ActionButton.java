@@ -1,7 +1,7 @@
 package edu.ntnu.stud.view.components.sidebaroverlay;
 
+import edu.ntnu.stud.view.components.IconFactory;
 import edu.ntnu.stud.view.components.StandardButton;
-import edu.ntnu.stud.view.utils.IconUtils;
 import javafx.scene.control.Tooltip;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,7 +28,7 @@ public class ActionButton extends StandardButton {
   public ActionButton(@NotNull String icon, @NotNull String description, @NotNull Runnable action) {
     super(description, action);
     setTooltip(new Tooltip(description));
-    setGraphic(IconUtils.createIcon(icon));
+    setGraphic(IconFactory.create(icon));
     addCssClasses("action-button");
   }
 }

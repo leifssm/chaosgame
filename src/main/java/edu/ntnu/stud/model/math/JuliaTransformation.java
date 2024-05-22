@@ -1,11 +1,11 @@
 package edu.ntnu.stud.model.math;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Represents a julia transformation.
+ * Represents a julia transformation. The transformation is a subtraction followed by a square root
+ * and a multiplication. Identical to <pre>u = sqrt(z - c) * sign</pre>
  *
  * @author Leif Mørstad
  * @version 1.1
@@ -84,10 +84,5 @@ public class JuliaTransformation implements Transform2D {
   @JsonProperty
   public @NotNull ComplexNumber getComplexNumber() {
     return complexNumber;
-  }
-
-  @JsonIgnore
-  public int getSign() {
-    return sign;
   }
 }

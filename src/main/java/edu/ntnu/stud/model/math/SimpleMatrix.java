@@ -1,34 +1,20 @@
 package edu.ntnu.stud.model.math;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import edu.ntnu.stud.utils.StringUtils;
+import edu.ntnu.stud.utils.ToStringBuilder;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * A simple two-by-two matrix.
+ * A class representing a simple two-by-two matrix.
  *
+ * @param a00 The top left corner of the matrix. Cannot be {@link Double#NaN}
+ * @param a01 The top right corner of the matrix. Cannot be {@link Double#NaN}
+ * @param a10 The bottom left corner of the matrix. Cannot be {@link Double#NaN}
+ * @param a11 The bottom right corner of the matrix. Cannot be {@link Double#NaN}
  * @author Leif Mørstad
  * @version 2.1
  */
-public class SimpleMatrix implements Transform2D {
-
-  /**
-   * The top left corner of the matrix. Cannot be {@link Double#NaN}
-   */
-  private final double a00;
-  /**
-   * The top right corner of the matrix. Cannot be {@link Double#NaN}
-   */
-  private final double a01;
-  /**
-   * The bottom left corner of the matrix. Cannot be {@link Double#NaN}
-   */
-  private final double a10;
-  /**
-   * The bottom right corner of the matrix. Cannot be {@link Double#NaN}
-   */
-  private final double a11;
+public record SimpleMatrix(double a00, double a01, double a10, double a11) implements Transform2D {
 
   /**
    * Creates a new two-by-two matrix with the given values.
@@ -39,59 +25,10 @@ public class SimpleMatrix implements Transform2D {
    * @param a11 the value at position (1, 1)
    * @throws IllegalArgumentException if any of the values are {@link Double#NaN}
    */
-  public SimpleMatrix(
-      double a00,
-      double a01,
-      double a10,
-      double a11
-  ) throws IllegalArgumentException {
+  public SimpleMatrix {
     if (Double.isNaN(a00) || Double.isNaN(a01) || Double.isNaN(a10) || Double.isNaN(a11)) {
       throw new IllegalArgumentException("Matrix values cannot be NaN");
     }
-    this.a00 = a00;
-    this.a01 = a01;
-    this.a10 = a10;
-    this.a11 = a11;
-  }
-
-  /**
-   * Returns the top left corner of the matrix. Is not {@link Double#NaN}
-   *
-   * @return the top left corner of the matrix
-   */
-  @JsonProperty
-  public double getA00() {
-    return a00;
-  }
-
-  /**
-   * Returns the top right corner of the matrix. Is not {@link Double#NaN}
-   *
-   * @return the top right corner of the matrix
-   */
-  @JsonProperty
-  public double getA01() {
-    return a01;
-  }
-
-  /**
-   * Returns the bottom left corner of the matrix. Is not {@link Double#NaN}
-   *
-   * @return the bottom left corner of the matrix
-   */
-  @JsonProperty
-  public double getA10() {
-    return a10;
-  }
-
-  /**
-   * Returns the bottom right corner of the matrix. Is not {@link Double#NaN}
-   *
-   * @return the bottom right corner of the matrix
-   */
-  @JsonProperty
-  public double getA11() {
-    return a11;
   }
 
   /**
@@ -108,43 +45,19 @@ public class SimpleMatrix implements Transform2D {
     );
   }
 
-  /**
-   * Returns A^-1 if possible, throws if the matrix is not invertible.
-   *
-   * @return A^-1
-   */
-  public @NotNull SimpleMatrix invert() {
-    double determinant = a00 * a11 - a01 * a10;
-    if (determinant == 0) {
-      throw new IllegalArgumentException("Matrix is not invertible");
-    }
-    return new SimpleMatrix(
-        a11 / determinant,
-        -a01 / determinant,
-        -a10 / determinant,
-        a00 / determinant
-    );
-  }
-
   @Override
   @JsonIgnore
   public @NotNull String getType() {
     return "Matrix";
   }
 
-  /**
-   * Returns the matrix of this transformation as an easily loggable string.
-   *
-   * @return the matrix as a string
-   */
-  public @NotNull String asSimpleString() {
-    int firstSegmentLength = Math.max(String.valueOf(a00).length(), String.valueOf(a01).length());
-    int secondSegmentLength = Math.max(String.valueOf(a10).length(), String.valueOf(a11).length());
-    return "|%s, %s|\n|%s, %s|".formatted(
-        StringUtils.padLeft(a00 + "", firstSegmentLength),
-        StringUtils.padLeft(a01 + "", secondSegmentLength),
-        StringUtils.padLeft(a10 + "", firstSegmentLength),
-        StringUtils.padLeft(a11 + "", secondSegmentLength)
-    );
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this)
+        .field("a00", a00)
+        .field("a01", a01)
+        .field("a10", a10)
+        .field("a11", a11)
+        .build();
   }
 }

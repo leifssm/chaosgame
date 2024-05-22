@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class DebouncingSubscriptionHandler<ObservedT> extends SubscriptionHandler<ObservedT> {
 
-  private final Debouncer notifierDebouncer;
+  private final @NotNull Debouncer notifierDebouncer;
 
   /**
    * Creates a new instance with the given observed value and debounce duration.

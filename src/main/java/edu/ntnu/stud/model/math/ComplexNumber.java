@@ -73,6 +73,8 @@ public class ComplexNumber extends Vector {
   // +-------------------------------------------------------------------------------------+
 
   /**
+   * Adds the given complex number to this complex number.
+   *
    * @throws IllegalArgumentException if the given vector is null
    * @see Vector#add(Vector)
    */
@@ -84,6 +86,8 @@ public class ComplexNumber extends Vector {
   }
 
   /**
+   * Subtracts the given complex number from this complex number.
+   *
    * @throws IllegalArgumentException if the given vector is null
    * @see Vector#subtract(Vector)
    */
@@ -95,6 +99,8 @@ public class ComplexNumber extends Vector {
   }
 
   /**
+   * Multiplies the given complex number with a scalar.
+   *
    * @throws IllegalArgumentException if the scalar is {@link Double#NaN}
    * @see Vector#multiply(double)
    */
@@ -106,6 +112,8 @@ public class ComplexNumber extends Vector {
   }
 
   /**
+   * Divides the given complex number with a scalar.
+   *
    * @throws IllegalArgumentException if the scalar is 0 or {@link Double#NaN}
    * @see Vector#divide(double)
    */
