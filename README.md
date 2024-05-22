@@ -22,7 +22,7 @@ mvn clean javafx:run
 or if you want to run the CLI version, run
 
 ```bash
-mvn exec:java
+mvn clean exec:java
 ```
 
 ## Visuals

@@ -192,27 +192,6 @@ public class Vector {
     return new Vector(x0 / scalar, x1 / scalar);
   }
 
-  /**
-   * Returns the dot product of this vector and the given vector.
-   *
-   * @param vector the vector to calculate the dot product with
-   * @return the dot product of this vector and the given vector
-   * @throws IllegalArgumentException if the given vector is null
-   */
-  public double dot(@NotNull Vector vector) throws IllegalArgumentException {
-    return Vector.dot(this, vector);
-  }
-
-  /**
-   * Returns the angle between this vector and the given vector.
-   *
-   * @param vector the vector to calculate the angle with
-   * @return the angle between this vector and the given vector
-   * @throws IllegalArgumentException if the given vector is null
-   */
-  public double angle(@NotNull Vector vector) throws IllegalArgumentException {
-    return Vector.angle(this, vector);
-  }
 
   /**
    * Returns the length of the vector.
