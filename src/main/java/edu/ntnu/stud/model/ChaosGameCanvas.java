@@ -4,7 +4,7 @@ import edu.ntnu.stud.model.math.PixelCoordinateTranslator;
 import edu.ntnu.stud.model.math.PixelCoordinateTranslator.IndexPair;
 import edu.ntnu.stud.model.math.Vector;
 import edu.ntnu.stud.utils.DebouncingSubscriptionHandler;
-import edu.ntnu.stud.utils.GlobalData;
+import edu.ntnu.stud.utils.RuntimeInfo;
 import edu.ntnu.stud.utils.SubscriptionHandler;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
@@ -69,8 +69,10 @@ public class ChaosGameCanvas {
     this.height = height;
     this.canvas = new int[height][width];
 
+    // If the program is run without javafx, no javafx functions should be used, and the debouncer
+    // uses the javafx api
     coordinateTranslator = new PixelCoordinateTranslator(width, height, minCoords, maxCoords);
-    subscriptionHandler = GlobalData.isGUI()
+    subscriptionHandler = RuntimeInfo.isGUI()
         ? new DebouncingSubscriptionHandler<>(this.canvas, Duration.millis(150))
         : new SubscriptionHandler<>(this.canvas);
 
@@ -188,46 +190,51 @@ public class ChaosGameCanvas {
     return canvas;
   }
 
+  /**
+   * Returns the coordinate translator used to convert coordinates to indices in the canvas.
+   *
+   * @return the coordinate translator
+   */
   public @NotNull PixelCoordinateTranslator getCoordinateTranslator() {
     return coordinateTranslator;
   }
 
+  /**
+   * Returns the subscription handler for the canvas.
+   *
+   * @return the subscription handler
+   */
   public @NotNull SubscriptionHandler<int[][]> getSubscriptionHandler() {
     return subscriptionHandler;
   }
 
+  /**
+   * Returns the width of the canvas.
+   *
+   * @return the width of the canvas in pixels
+   */
   public int getWidth() {
     return width;
   }
 
+  /**
+   * Returns the height of the canvas.
+   *
+   * @return the height of the canvas in pixels
+   */
   public int getHeight() {
     return height;
   }
 
   /**
-   * Runs {@link #asSimpleString(int)} with a skip value of 0.
+   * Returns a simple ascii art representation of the canvas.
    *
-   * @see #asSimpleString(int)
+   * @return a string representing the fractal
    */
   public @NotNull String asSimpleString() {
-    return asSimpleString(0);
-  }
-
-  /**
-   * Returns a simple ascii art representation of the canvas, and skips a number of lines defined by
-   * the skip param.
-   *
-   * @param skip the number of lines to skip
-   * @return a simple ascii art representation of the canvas
-   */
-  public @NotNull String asSimpleString(int skip) {
-    if (skip < 0) {
-      throw new IllegalArgumentException("Skip cannot be less than 0");
-    }
-    skip++;
     StringBuilder sb = new StringBuilder();
-    for (int y = 0; y < height; y += skip) {
-      for (int x = 0; x < width; x += skip) {
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
         sb.append(canvas[y][x] == 0 ? " " : "x");
       }
       sb.append("\n");

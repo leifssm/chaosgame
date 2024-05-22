@@ -13,7 +13,7 @@ import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * The controller for the {@link App} view.
+ * The controller for the {@link App} view. Handles logic connected to the application.
  *
  * @author Leif Mørstad
  * @version 1.1
@@ -41,8 +41,8 @@ public class AppController {
     state.heightProperty().bind(application.heightProperty().map(AppController::clampSize));
 
     // It's necessary to not use subscribe(Runnable) as this does not subscribe to the value
-    state.widthProperty().subscribe(n -> update());
-    state.heightProperty().subscribe(n -> update());
+    state.widthProperty().subscribe(n -> updateFractalDebouncer.run());
+    state.heightProperty().subscribe(n -> updateFractalDebouncer.run());
     state.currentFractalDescription().subscribe(d -> updateFractalDebouncer.run());
 
     FlagSetter isWaitingForResize = state.getIsLoading().createFlagSetter();
@@ -53,20 +53,27 @@ public class AppController {
     new SidebarController(application.getSidebarOverlay().getSidebar(), state);
   }
 
+  /**
+   * Makes sure the value isn't below 2
+   *
+   * @param size the size to clamp
+   * @return the clamped size, being a minimum of 2
+   */
   private static int clampSize(@NotNull Number size) {
     return Math.max(2, size.intValue());
   }
 
-  public void update() {
-    updateFractalDebouncer.run();
-  }
-
+  /**
+   * Gets the state manager.
+   *
+   * @return the state manager
+   */
   public @NotNull StateManager getState() {
     return state;
   }
 
   /**
-   * Only run through debouncer.
+   * Rerenders the current fractal. Only run through the debouncer.
    */
   private void updateFractalPane() {
     setIsRendering.setFlag(true);
@@ -91,7 +98,9 @@ public class AppController {
 
     FractalPane chaosPane = new FractalPane(chaosGame);
     chaosGame.getCanvas().getSubscriptionHandler().subscribe(c -> chaosPane.render());
+
     application.replaceChaosPanel(chaosPane);
+
     state.currentFractal().set(chaosGame);
     setIsRendering.setFlag(false);
   }

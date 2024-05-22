@@ -9,7 +9,8 @@ import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * A sidebar handler that handles showing/hiding the sidebar.
+ * The element that the buttons and the sidebar lay on top of, so that both can be moved together
+ * when showing/hiding the sidebar.
  *
  * @author Leif Mørstad
  * @version 1.1
@@ -41,6 +42,11 @@ public class SidebarOverlay extends StackPane {
     getChildren().addAll(buttonGroup, sidebar);
   }
 
+  /**
+   * Animates the opening and closing of the sidebar.
+   *
+   * @param open the state to animate to
+   */
   public void setState(boolean open) {
     final int fps = 40;
 
@@ -59,10 +65,20 @@ public class SidebarOverlay extends StackPane {
     );
   }
 
+  /**
+   * Returns the sidebar node.
+   *
+   * @return the sidebar
+   */
   public @NotNull Sidebar getSidebar() {
     return sidebar;
   }
 
+  /**
+   * Returns the button group node.
+   *
+   * @return the button group
+   */
   public @NotNull ButtonGroup getButtonGroup() {
     return buttonGroup;
   }

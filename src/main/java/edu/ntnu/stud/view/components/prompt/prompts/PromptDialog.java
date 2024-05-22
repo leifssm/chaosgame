@@ -70,6 +70,12 @@ public class PromptDialog extends Dialog<@NotNull Boolean> {
     return button;
   }
 
+  /**
+   * Shows the dialog and returns a boolean after the dialog is closed, representing a success or an
+   * abort.
+   *
+   * @return true if the dialog closed with valid input, false if the dialog was aborted
+   */
   public boolean waitForResult() {
     return showAndWait().orElse(false);
   }

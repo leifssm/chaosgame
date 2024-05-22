@@ -5,8 +5,20 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
+/**
+ * A standard button class with a default style.
+ *
+ * @author Leif Mørstad
+ * @version 1.0
+ */
 public class StandardButton extends Button implements ComponentUtils {
-  public StandardButton(String text, Runnable action) {
+  /**
+   * Creates a new instance with the given text and action.
+   *
+   * @param text   the text to display on the button
+   * @param action the action to run when the button is clicked
+   */
+  public StandardButton(@NotNull String text, @NotNull Runnable action) {
     super(text);
     setOnAction(event -> action.run());
     useStylesheet("components/standard-button");
@@ -14,7 +26,7 @@ public class StandardButton extends Button implements ComponentUtils {
   }
 
   /**
-   * Sets the type of the button.
+   * Sets the type of the button and removes the old ones.
    *
    * @param type the new type of the button
    */
@@ -28,6 +40,9 @@ public class StandardButton extends Button implements ComponentUtils {
     return this;
   }
 
+  /**
+   * The type of the button.
+   */
   public enum Type {
     DEFAULT("default"),
     PRIMARY("primary");

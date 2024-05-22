@@ -73,6 +73,11 @@ public class TransformationGroup implements Transform2D {
     return "TransformationGroup";
   }
 
+  /**
+   * Returns all the transformations in the group.
+   *
+   * @return the transformation group
+   */
   @JsonValue
   public @NotNull Transform2D[] getTransformations() {
     return Arrays.copyOf(transformations, transformations.length);

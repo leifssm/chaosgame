@@ -36,6 +36,12 @@ public class Sidebar extends StackPane implements ComponentUtils {
     clear();
   }
 
+  /**
+   * Adds a fractal to the sidebar.
+   *
+   * @param fractalName the name of the fractal
+   * @param onClick     the action to run when the fractal is clicked
+   */
   public void addFractalDisplay(String fractalName, Runnable onClick) {
     int x = gridIndex % 2;
     int y = gridIndex / 2;
@@ -44,12 +50,11 @@ public class Sidebar extends StackPane implements ComponentUtils {
     gridIndex++;
   }
 
+  /**
+   * Clears the sidebar of all fractals.
+   */
   public void clear() {
     gridPane.getChildren().clear();
     gridIndex = 0;
-  }
-
-  public @NotNull ScrollPane getScrollPane() {
-    return scrollPane;
   }
 }

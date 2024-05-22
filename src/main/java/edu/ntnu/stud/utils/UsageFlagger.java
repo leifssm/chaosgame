@@ -1,13 +1,16 @@
 package edu.ntnu.stud.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashSet;
 import java.util.function.Consumer;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * A class for flagging usages. Makes it possible for multiple classes to flag with a unique flag.
  * Allows grouping and handling of multiple related states. Can be used to for example show if any
  * calculations are running to display a loading spinner.
+ * <br><br>
+ * In short, this class represents a group of OR statements, where each flag is a statement.
  *
  * @author Leif Mørstad
  * @version 1.0

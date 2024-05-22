@@ -2,7 +2,7 @@ package edu.ntnu.stud;
 
 import edu.ntnu.stud.controller.AppController;
 import edu.ntnu.stud.utils.FileHandler;
-import edu.ntnu.stud.utils.GlobalData;
+import edu.ntnu.stud.utils.RuntimeInfo;
 import edu.ntnu.stud.utils.StateManager;
 import edu.ntnu.stud.view.App;
 import javafx.application.Application;
@@ -24,7 +24,7 @@ public class Main extends Application {
    * @param stage The stage to start the application in.
    */
   public void start(@NotNull Stage stage) {
-    GlobalData.setIsRunningJavaFx();
+    RuntimeInfo.setIsRunningJavaFx();
 
     App application = new App();
     var controller = new AppController(application);

@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 
 /**
- * Controller for the sidebar content.
+ * Controller for the sidebar content. Handles logic connected to the {@link Sidebar} component.
  *
  * @author Leif Mørstad
  * @version 1.0
@@ -19,6 +19,12 @@ public class SidebarController {
   private final @NotNull Sidebar sidebar;
   private final @NotNull StateManager state;
 
+  /**
+   * Creates a new SidebarController for the given Sidebar instance.
+   *
+   * @param sidebar the sidebar to manage
+   * @param state   the state manager to use
+   */
   public SidebarController(@NotNull Sidebar sidebar, @NotNull StateManager state) {
     this.sidebar = sidebar;
     this.state = state;
@@ -26,7 +32,10 @@ public class SidebarController {
     updateFractalList();
   }
 
-  public void updateFractalList() {
+  /**
+   * Updates the fractal list in the sidebar.
+   */
+  private void updateFractalList() {
     sidebar.clear();
     sidebar.addFractalDisplay("Add Fractal +", this::startAddFractalFlow);
     for (File fractal : ChaosGameFileHandler.getAllFractals()) {
@@ -34,6 +43,11 @@ public class SidebarController {
     }
   }
 
+  /**
+   * Runs a chaos game from a file.
+   *
+   * @param fileName the name of the file to run, logs an error if the file could not be read
+   */
   private void runFile(@NotNull String fileName) {
     try {
       ChaosGameDescription game = ChaosGameFileHandler.readFromFile(fileName);
@@ -43,6 +57,10 @@ public class SidebarController {
     }
   }
 
+  /**
+   * Starts the flow for adding a new fractal and updates the fractal list if the creation was
+   * successful.
+   */
   public void startAddFractalFlow() {
     boolean success = new TransformationAmountDialog().waitForResult();
     if (success) {

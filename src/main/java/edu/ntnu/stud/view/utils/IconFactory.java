@@ -10,7 +10,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
  * @author Leif Mørstad
  * @version 1.1
  */
-public class IconUtils {
+public class IconFactory {
 
   /**
    * Converts the icon to the correct format.
@@ -20,12 +20,18 @@ public class IconUtils {
    * @see <a href="https://kordamp.org/ikonli/cheat-sheet-materialdesign.html">
    * Material Design Icons</a>
    */
-  public static @NotNull String extendIconName(@NotNull String iconName) {
+  private static @NotNull String extendIconName(@NotNull String iconName) {
     return "mdi-" + iconName;
   }
 
-  public static @NotNull FontIcon createIcon(@NotNull String iconName) {
-    FontIcon icon = new FontIcon(extendIconName(iconName));
+  /**
+   * Creates a new icon with the given icon id.
+   *
+   * @param iconId the name of the icon to create
+   * @return the created icon
+   */
+  public static @NotNull FontIcon create(@NotNull String iconId) {
+    FontIcon icon = new FontIcon(extendIconName(iconId));
     icon.setIconColor(Paint.valueOf("#ffffff"));
     return icon;
   }

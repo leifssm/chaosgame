@@ -11,6 +11,13 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
+/**
+ * A predefined prompt dialog for adding a fractal to the system. The dialog contains fields for two
+ * vector coordinates, a name, and a set amount of affine transformations.
+ *
+ * @author Leif Mørstad
+ * @version 1.0
+ */
 public class AddFractalDialog extends PromptDialog {
   private final VBox transformationFields = new VBox();
   private final PromptField<?, String> nameField;
@@ -21,6 +28,9 @@ public class AddFractalDialog extends PromptDialog {
   private final ArrayList<PromptField<?, ComplexNumber>> juliaTransformationFields
       = new ArrayList<>();
 
+  /**
+   * Creates a new dialog for adding a fractal.
+   */
   public AddFractalDialog() {
     super(true, "Add fractal");
     setTitle("Add fractal");
@@ -41,6 +51,12 @@ public class AddFractalDialog extends PromptDialog {
 
   }
 
+  /**
+   * Sets the amount of transformation fields to display.
+   *
+   * @param affineTransformationFields the amount of affine transformation fields to show
+   * @param juliaTransformationFields  the amount of julia transformation fields to show
+   */
   public void setTransformationFields(
       int affineTransformationFields,
       int juliaTransformationFields
@@ -69,6 +85,11 @@ public class AddFractalDialog extends PromptDialog {
     transformationFields.getChildren().addAll(this.juliaTransformationFields);
   }
 
+  /**
+   * Validates the dialog fields.
+   *
+   * @throws PromptValidationError if the fields are invalid
+   */
   private void validate() throws PromptValidationError {
     if (nameField != null && nameField.getValue().isEmpty()) {
       throw new PromptValidationError("Name cannot be empty");
