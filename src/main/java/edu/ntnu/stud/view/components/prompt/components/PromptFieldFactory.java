@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A factory class for creating different prompt fields.
@@ -23,20 +24,26 @@ public class PromptFieldFactory {
    * @return the created prompt field
    */
   public static @NotNull PromptField<?, @NotNull Integer> createIntegerField(
-      @NotNull String prompt
+      @NotNull String prompt,
+      @Nullable Integer defaultValue
   ) {
-    return new PromptField<>(prompt, new TextField(), (field, errorStack) -> {
-      try {
-        return Integer.parseInt(field.getText());
-      } catch (NumberFormatException | NullPointerException e) {
-        throw new PromptValidationError(
-            errorStack
-                + "Could not interpret value '"
-                + (field.getText().isEmpty() ? "<empty>" : field.getText())
-                + "'."
-        );
-      }
-    });
+    return new PromptField<>(
+        prompt,
+        new TextField(),
+        defaultValue == null ? null : String.valueOf(defaultValue),
+        (field, errorStack) -> {
+          try {
+            return Integer.parseInt(field.getText());
+          } catch (NumberFormatException | NullPointerException e) {
+            throw new PromptValidationError(
+                errorStack
+                    + "Could not interpret value '"
+                    + (field.getText().isEmpty() ? "<empty>" : field.getText())
+                    + "'."
+            );
+          }
+        }
+    );
   }
 
   /**
@@ -46,20 +53,26 @@ public class PromptFieldFactory {
    * @return the created prompt field
    */
   public static @NotNull PromptField<?, @NotNull Double> createDoubleField(
-      @NotNull String prompt
+      @NotNull String prompt,
+      @Nullable Double defaultValue
   ) {
-    return new PromptField<>(prompt, new TextField(), (field, errorStack) -> {
-      try {
-        return Double.parseDouble(field.getText());
-      } catch (NumberFormatException | NullPointerException e) {
-        throw new PromptValidationError(
-            errorStack
-                + "Could not interpret value '"
-                + (field.getText().isEmpty() ? "<empty>" : field.getText())
-                + "'."
-        );
-      }
-    });
+    return new PromptField<>(
+        prompt,
+        new TextField(),
+        defaultValue == null ? null : String.valueOf(defaultValue),
+        (field, errorStack) -> {
+          try {
+            return Double.parseDouble(field.getText());
+          } catch (NumberFormatException | NullPointerException e) {
+            throw new PromptValidationError(
+                errorStack
+                    + "Could not interpret value '"
+                    + (field.getText().isEmpty() ? "<empty>" : field.getText())
+                    + "'."
+            );
+          }
+        }
+    );
   }
 
   /**
@@ -69,11 +82,12 @@ public class PromptFieldFactory {
    * @return the created prompt field
    */
   public static @NotNull PromptField<?, @NotNull Vector> createVectorField(
-      @NotNull String prompt
+      @NotNull String prompt,
+      @Nullable Vector defaultValue
   ) {
-    var x0 = createDoubleField("x");
+    var x0 = createDoubleField("x", defaultValue == null ? null : defaultValue.getX0());
     x0.getErrorStack().add(prompt);
-    var x1 = createDoubleField("y");
+    var x1 = createDoubleField("y", defaultValue == null ? null : defaultValue.getX1());
     x1.getErrorStack().add(prompt);
 
     var content = new HBox(x0, x1);
@@ -94,11 +108,15 @@ public class PromptFieldFactory {
    * @return the created prompt field
    */
   public static @NotNull PromptField<?, @NotNull ComplexNumber> createComplexNumberField(
-      @NotNull String prompt
+      @NotNull String prompt,
+      @Nullable ComplexNumber defaultValue
   ) {
-    var x0 = createDoubleField("Real");
+    var x0 = createDoubleField("Real", defaultValue == null ? null : defaultValue.getX0());
     x0.getErrorStack().add(prompt);
-    var x1 = createDoubleField("Complex");
+    var x1 = createDoubleField(
+        "Complex",
+        defaultValue == null ? null : defaultValue.getX1()
+    );
     x1.getErrorStack().add(prompt);
 
     var content = new HBox(x0, x1);
@@ -119,19 +137,38 @@ public class PromptFieldFactory {
    * @return the created prompt field
    */
   public static @NotNull PromptField<?, @NotNull AffineTransformation> createAffineTransformationField(
-      @NotNull String prompt
+      @NotNull String prompt,
+      @Nullable AffineTransformation defaultValue
   ) {
-    var a00 = createDoubleField("a00");
+    var a00 = createDoubleField(
+        "a00",
+        defaultValue == null ? null : defaultValue.getMatrix().a00()
+    );
     a00.getErrorStack().add(prompt);
-    var a01 = createDoubleField("a01");
+    var a01 = createDoubleField(
+        "a01",
+        defaultValue == null ? null : defaultValue.getMatrix().a01()
+    );
     a01.getErrorStack().add(prompt);
-    var a10 = createDoubleField("a10");
+    var a10 = createDoubleField(
+        "a10",
+        defaultValue == null ? null : defaultValue.getMatrix().a10()
+    );
     a10.getErrorStack().add(prompt);
-    var a11 = createDoubleField("a11");
+    var a11 = createDoubleField(
+        "a11",
+        defaultValue == null ? null : defaultValue.getMatrix().a11()
+    );
     a11.getErrorStack().add(prompt);
-    var x0 = createDoubleField("x");
+    var x0 = createDoubleField(
+        "x",
+        defaultValue == null ? null : defaultValue.getTranslation().getX0()
+    );
     x0.getErrorStack().add(prompt);
-    var x1 = createDoubleField("y");
+    var x1 = createDoubleField(
+        "y",
+        defaultValue == null ? null : defaultValue.getTranslation().getX1()
+    );
     x1.getErrorStack().add(prompt);
 
     var content = new GridPane();

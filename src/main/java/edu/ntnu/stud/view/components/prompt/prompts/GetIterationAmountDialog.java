@@ -29,7 +29,8 @@ public class GetIterationAmountDialog extends PromptDialog {
     VBox content = new VBox();
 
     iterationAmountField = PromptFieldFactory.createIntegerField(
-        "Amount of iterations to perform"
+        "Amount of iterations to perform",
+        null
     );
 
     setExtraValidator(() -> {
