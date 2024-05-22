@@ -1,7 +1,7 @@
 package edu.ntnu.stud;
 
 import edu.ntnu.stud.controller.AppController;
-import edu.ntnu.stud.utils.FileHandler;
+import edu.ntnu.stud.utils.ResourceHandler;
 import edu.ntnu.stud.utils.RuntimeInfo;
 import edu.ntnu.stud.utils.StateManager;
 import edu.ntnu.stud.view.App;
@@ -33,11 +33,11 @@ public class Main extends Application {
     var controller = new AppController(application);
 
     Scene scene = new Scene(application, 600, 500);
-    scene.getStylesheets().add(FileHandler.getStylesheet("root"));
+    scene.getStylesheets().add(ResourceHandler.getStylesheet("root"));
 
     stage.setTitle("Chaos Game");
     stage.setScene(scene);
-    stage.getIcons().add(new Image(Objects.requireNonNull(FileHandler.getImage("icon.png"))));
+    stage.getIcons().add(new Image(Objects.requireNonNull(ResourceHandler.getImage("icon.png"))));
     stage.show();
     stage.setOnHiding(event -> StateManager.exportState(controller.getState()));
   }

@@ -12,14 +12,17 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Logger;
 
 /**
- * Utility class for handling files and filenames.
+ * Utility class for handling resources and resource file placement.
  *
  * @author Leif Mørstad
- * @version 2.0
+ * @version 3.0
  */
-public class FileHandler {
+public class ResourceHandler {
+  private static final Logger LOGGER = Logger.getLogger(ResourceHandler.class.getName());
+
   /**
    * Gets a file from resources/*.
    *
@@ -78,7 +81,7 @@ public class FileHandler {
   ) {
     File file = getFile(path);
     if (!file.exists()) {
-      System.out.println(errorMessage + ": " + file);
+      LOGGER.severe(errorMessage + ": " + file);
       return null;
     }
     return file.getAbsolutePath();
@@ -98,7 +101,7 @@ public class FileHandler {
   ) {
     URL url = FractalPane.class.getResource("../../../../../" + path);
     if (url == null) {
-      System.out.println(errorMessage + ": " + getAbsoluteFilePath(path));
+      LOGGER.severe(errorMessage + ": " + getAbsoluteFilePath(path));
       return null;
     }
     return url.toExternalForm();
@@ -117,7 +120,7 @@ public class FileHandler {
   ) {
     File file = getFile(path);
     if (!file.exists()) {
-      System.out.println(errorMessage + ": " + file);
+      LOGGER.severe(errorMessage + ": " + file);
       return null;
     }
     return convertFileToUrl(file);
@@ -176,7 +179,7 @@ public class FileHandler {
       JsonNode tree = mapper.readTree(getJson(path));
       return callback.call(tree);
     } catch (Exception e) {
-      System.out.println("Could not read " + path);
+      LOGGER.severe("Could not read " + path);
       return null;
     }
   }
@@ -195,7 +198,7 @@ public class FileHandler {
       JsonNode tree = mapper.readTree(file);
       return callback.call(tree);
     } catch (Exception e) {
-      System.out.println("Could not read " + file.getAbsolutePath());
+      LOGGER.severe("Could not read " + file.getAbsolutePath());
       return null;
     }
   }
@@ -238,11 +241,10 @@ public class FileHandler {
       ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
       File file = getFile(path);
       writer.writeValue(file, object);
-      System.out.println("Successfully wrote to " + path);
+      LOGGER.info("Successfully wrote to " + path);
       return true;
     } catch (Exception e) {
-      System.out.println("Could not write to " + path);
-      System.out.println(e.getMessage());
+      LOGGER.severe("Could not write to " + path);
       return false;
     }
   }

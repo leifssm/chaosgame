@@ -11,6 +11,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.logging.Logger;
+
 /**
  * A class representing the state of the application. Used to store the current state of the
  * application and to import and export the state to and from the resources/state.json file.
@@ -19,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
  * @version 1.2
  */
 public class StateManager {
-
+  private static final Logger LOGGER = Logger.getLogger(StateManager.class.getName());
   private final @NotNull SimpleIntegerProperty screenWidth = new SimpleIntegerProperty(1);
   private final @NotNull SimpleIntegerProperty screenHeight = new SimpleIntegerProperty(1);
   private final @NotNull UsageFlagger isLoading = new UsageFlagger();
@@ -41,7 +43,7 @@ public class StateManager {
    */
   public static @NotNull StateManager importState() {
     StateManager state = new StateManager();
-    JsonNode json = FileHandler.readFile("state.json");
+    JsonNode json = ResourceHandler.readFile("state.json");
 
     try {
       if (json == null) {
@@ -51,17 +53,17 @@ public class StateManager {
           json.get("currentFractalDescription")
       );
       state.currentFractalDescription.set(description);
-      System.out.println("Successfully read fractal description from file.");
+      LOGGER.info("Successfully read fractal description from file.");
     } catch (Exception e) {
-      System.out.println("Could not read fractal description from file.");
+      LOGGER.severe("Could not read fractal description from file.");
     }
 
     return state;
   }
 
   public static void exportState(@NotNull StateManager state) {
-    FileHandler.writeToFile("state.json", state);
-    System.out.println("Successfully saved state to file.");
+    ResourceHandler.writeToFile("state.json", state);
+    LOGGER.info("Successfully saved state to file.");
   }
 
   /**

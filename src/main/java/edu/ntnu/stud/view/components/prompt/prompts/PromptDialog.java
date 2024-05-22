@@ -33,7 +33,7 @@ public class PromptDialog extends Dialog<@NotNull Boolean> {
         }
       } catch (PromptValidationError e) {
         event.consume();
-        ErrorDialogFactory.create(e.getMessage()).showAndWait();
+        ErrorDialogFactory.show(e.getMessage());
       }
     });
   }

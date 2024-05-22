@@ -74,16 +74,19 @@ public class TransformationInputDialog extends PromptDialog {
 
   }
 
+  /**
+   * Adds the given julia transformation field to the dialog.
+   *
+   * @param field the field to add
+   */
   public void addJuliaTransformationField(PromptField<?, ComplexNumber> field) {
     juliaTransformationFields.add(field);
     transformationFields.getChildren().add(field);
   }
 
-  public void addAffineTransformationField(PromptField<?, AffineTransformation> field) {
-    affineTransformationFields.add(field);
-    transformationFields.getChildren().add(field);
-  }
-
+  /**
+   * Adds a julia transformation field to the dialog.
+   */
   public void addJuliaTransformationField() {
     addJuliaTransformationField(
         PromptFieldFactory.createComplexNumberField(
@@ -93,6 +96,19 @@ public class TransformationInputDialog extends PromptDialog {
     );
   }
 
+  /**
+   * Adds the given affine transformation field to the dialog.
+   *
+   * @param field the field to add
+   */
+  public void addAffineTransformationField(PromptField<?, AffineTransformation> field) {
+    affineTransformationFields.add(field);
+    transformationFields.getChildren().add(field);
+  }
+
+  /**
+   * Adds an affine transformation field to the dialog.
+   */
   public void addAffineTransformationField() {
     addAffineTransformationField(
         PromptFieldFactory.createAffineTransformationField(
@@ -165,7 +181,9 @@ public class TransformationInputDialog extends PromptDialog {
     return true;
   }
 
+  @Override
   public boolean waitForResult() {
+    // To make sure the developer uses the correct method
     throw new UnsupportedOperationException("Use the other waitForResult method");
   }
 

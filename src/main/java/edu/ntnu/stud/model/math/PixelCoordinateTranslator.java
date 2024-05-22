@@ -58,9 +58,9 @@ public class PixelCoordinateTranslator {
     this.indicesToCoordsScalar = sizeError
         ? new SimpleMatrix(0, 0, 0, 0)
         : new SimpleMatrix(
-            1 / x0Scalar, 0,
-            0, 1 / x1Scalar
-        );
+        1 / x0Scalar, 0,
+        0, 1 / x1Scalar
+    );
 
     this.indicesToCoordsTranslation = coordsTranslation;
   }
@@ -76,19 +76,6 @@ public class PixelCoordinateTranslator {
     return new IndexPair(
         (int) Math.floor(indices.getX0()),
         (int) Math.floor(indices.getX1())
-    );
-  }
-
-  /**
-   * Transforms the given indices to coordinates in the canvas.
-   *
-   * @param x0 the first index to transform
-   * @param x1 the second index to transform
-   * @return the coordinates in the canvas
-   */
-  public @NotNull Vector indicesToCoords(int x0, int x1) {
-    return indicesToCoordsScalar.transform(
-        new Vector(x0, x1).add(indicesToCoordsTranslation)
     );
   }
 

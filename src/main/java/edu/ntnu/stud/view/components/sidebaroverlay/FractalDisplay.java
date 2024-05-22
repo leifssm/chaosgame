@@ -1,6 +1,6 @@
 package edu.ntnu.stud.view.components.sidebaroverlay;
 
-import edu.ntnu.stud.utils.FileHandler;
+import edu.ntnu.stud.utils.ResourceHandler;
 import edu.ntnu.stud.view.components.ComponentUtils;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -28,7 +28,7 @@ public class FractalDisplay extends VBox implements ComponentUtils {
     // is beyond the current scope of the project.
 
     //Node fractalDisplay;
-    //String fractalImageUrl = FileHandler.getImage(fractalName);
+    //String fractalImageUrl = ResourceHandler.getImage(fractalName);
     //if (fractalImageUrl == null) {
     //  fractalDisplay = IconFactory.createIcon("layers-off");
     //} else {
@@ -36,7 +36,7 @@ public class FractalDisplay extends VBox implements ComponentUtils {
     //  fractalDisplay = new ImageView(image);
     //}
 
-    Label label = new Label(FileHandler.removeFileExtension(fractalName));
+    Label label = new Label(ResourceHandler.removeFileExtension(fractalName));
 
     getChildren().add(label);
     setOnMouseClicked(event -> onClick.run());

@@ -12,6 +12,8 @@ import edu.ntnu.stud.view.components.FractalPane;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.logging.Logger;
+
 /**
  * The controller for the {@link App} view. Handles logic connected to the application.
  *
@@ -19,8 +21,8 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.1
  */
 public class AppController {
-
   private static final @NotNull StateManager state = StateManager.importState();
+  private static final Logger LOGGER = Logger.getLogger(AppController.class.getName());
   private final @NotNull App application;
   private final @NotNull FlagSetter setIsRendering;
   private final @NotNull Debouncer updateFractalDebouncer = new Debouncer(
@@ -78,8 +80,11 @@ public class AppController {
   private void updateFractalPane() {
     setIsRendering.setFlag(true);
     ChaosGameDescription fractalDescription = state.currentFractalDescription().get();
-    System.out.println(
-        "Updating size to " + state.widthProperty().get() + "x" + state.heightProperty().get()
+    LOGGER.info(
+        "Updating fractal (w="
+            + state.widthProperty().get()
+            + ", h=" + state.heightProperty().get()
+            + ")"
     );
 
 
