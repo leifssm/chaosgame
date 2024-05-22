@@ -9,7 +9,8 @@ import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * A sidebar handler that handles showing/hiding the sidebar.
+ * The element that the buttons and the sidebar lay on top of, so that both can be moved together
+ * when showing/hiding the sidebar.
  *
  * @author Leif Mørstad
  * @version 1.1
@@ -19,18 +20,13 @@ public class SidebarOverlay extends StackPane {
   private final @NotNull AnimationHandler sidebarAnimation = new AnimationHandler();
   private final @NotNull Sidebar sidebar = new Sidebar();
   private final @NotNull DoubleProperty sidebarOffset = new SimpleDoubleProperty(0);
-  private boolean sidebarOpen = false;
+  private final @NotNull ButtonGroup buttonGroup = new ButtonGroup();
 
   /**
    * Creates a new instance with a sidebar and a button group.
    */
   public SidebarOverlay() {
     super();
-
-    ButtonGroup buttonGroup = new ButtonGroup(
-        new ActionButton("folder", "note-plus", this::toggleSidebar).setType("primary"),
-        new ActionButton("account", "account", () -> System.out.println("Button 2 clicked"))
-    );
 
     sidebar.translateXProperty().bind(
         sidebar.widthProperty().subtract(sidebarOffset)
@@ -43,11 +39,15 @@ public class SidebarOverlay extends StackPane {
     StackPane.setAlignment(sidebar, Pos.TOP_RIGHT);
     StackPane.setAlignment(buttonGroup, Pos.TOP_RIGHT);
 
-    getChildren().addAll(sidebar, buttonGroup);
+    getChildren().addAll(buttonGroup, sidebar);
   }
 
-  private void toggleSidebar() {
-    final boolean open = sidebarOpen = !sidebarOpen;
+  /**
+   * Animates the opening and closing of the sidebar.
+   *
+   * @param open the state to animate to
+   */
+  public void setState(boolean open) {
     final int fps = 40;
 
     sidebarAnimation.replaceAnimation(
@@ -65,7 +65,21 @@ public class SidebarOverlay extends StackPane {
     );
   }
 
+  /**
+   * Returns the sidebar node.
+   *
+   * @return the sidebar
+   */
   public @NotNull Sidebar getSidebar() {
     return sidebar;
+  }
+
+  /**
+   * Returns the button group node.
+   *
+   * @return the button group
+   */
+  public @NotNull ButtonGroup getButtonGroup() {
+    return buttonGroup;
   }
 }

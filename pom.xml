@@ -3,70 +3,105 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>chaos-game</artifactId>
+  <name>Chaos Game</name>
+  <properties>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <version>0.6.0</version>
+  <groupId>edu.ntnu.stud</groupId>
+  <modelVersion>4.0.0</modelVersion>
 
   <build>
     <plugins>
+      <!-- Used to compile the project using maven -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <groupId>org.apache.maven.plugins</groupId>
         <version>3.12.1</version>
       </plugin>
+      <!-- Generates test result files -->
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <groupId>org.apache.maven.plugins</groupId>
         <version>3.2.3</version>
       </plugin>
+      <!-- Maven plugin to run JavaFX -->
       <plugin>
         <artifactId>javafx-maven-plugin</artifactId>
         <groupId>org.openjfx</groupId>
         <version>0.0.8</version>
+        <configuration>
+          <!-- The target JavaFX class -->
+          <mainClass>edu.ntnu.stud.ChaosGameApp</mainClass>
+        </configuration>
       </plugin>
+      <!-- Maven plugin to generate a JavaDoc wiki -->
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <groupId>org.apache.maven.plugins</groupId>
         <version>3.4.1</version>
       </plugin>
+      <!--   Allows the user to use mvn exec:java to run the cli   -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <!-- The CLI class to run -->
+          <mainClass>edu.ntnu.stud.cli.TextInterface</mainClass>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <dependencies>
+    <!-- Implements classes and methods for reading and writing of JSON files. -->
     <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>2.17.1</version>
     </dependency>
+    <!-- Allows the developer to annotate variables with annotations such as @NotNull and @Nullable -->
     <dependency>
       <artifactId>annotations</artifactId>
       <groupId>org.jetbrains</groupId>
       <scope>compile</scope>
       <version>24.0.1</version>
     </dependency>
+    <!-- Implements the JUnit testing framework. -->
     <dependency>
       <artifactId>junit-jupiter</artifactId>
       <groupId>org.junit.jupiter</groupId>
       <scope>test</scope>
       <version>5.10.1</version>
     </dependency>
+    <!-- JUnit dependency -->
     <dependency>
       <artifactId>junit-platform-commons</artifactId>
       <groupId>org.junit.platform</groupId>
       <version>1.10.2</version>
     </dependency>
+    <!-- JavaFX dependency -->
     <dependency>
       <artifactId>javafx-controls</artifactId>
       <groupId>org.openjfx</groupId>
       <version>21.0.1</version>
     </dependency>
+    <!-- JavaFX Icon Components -->
     <dependency>
       <artifactId>ikonli-javafx</artifactId>
       <groupId>org.kordamp.ikonli</groupId>
       <version>11.3.5</version>
     </dependency>
+    <!-- JavaFX Material Design Icons -->
     <dependency>
       <artifactId>ikonli-materialdesign-pack</artifactId>
       <groupId>org.kordamp.ikonli</groupId>
       <version>11.3.5</version>
     </dependency>
+    <!-- JUnit dependency -->
     <dependency>
       <artifactId>opentest4j</artifactId>
       <groupId>org.opentest4j</groupId>
@@ -74,14 +109,4 @@
       <version>1.3.0</version>
     </dependency>
   </dependencies>
-  <groupId>edu.ntnu.stud</groupId>
-  <modelVersion>4.0.0</modelVersion>
-
-  <name>Chaos Game</name>
-  <properties>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  <version>0.2.0</version>
 </project>

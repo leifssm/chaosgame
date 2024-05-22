@@ -1,7 +1,7 @@
 package edu.ntnu.stud.model.math;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import edu.ntnu.stud.utils.StringUtils;
+import edu.ntnu.stud.utils.ToStringBuilder;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -71,46 +71,37 @@ public class AffineTransformation implements Transform2D {
         .add(translation);
   }
 
+  @JsonProperty
   @Override
   public @NotNull String getType() {
     return "AffineTransformation";
   }
 
+  /**
+   * Returns the matrix of this transformation.
+   *
+   * @return the matrix of this transformation
+   */
   @JsonProperty
   public @NotNull SimpleMatrix getMatrix() {
     return matrix;
   }
 
+  /**
+   * Returns the translation of this transformation.
+   *
+   * @return the translation of this transformation
+   */
   @JsonProperty
   public @NotNull Vector getTranslation() {
     return translation;
   }
 
-  /**
-   * Returns the affine transformation of this transformation as an easily loggable string.
-   *
-   * @return the affine transformation as a string
-   */
-  public @NotNull String asSimpleString() {
-    int firstSegmentLength = Math.max(
-        String.valueOf(matrix.getA00()).length(),
-        String.valueOf(matrix.getA01()).length()
-    );
-    int secondSegmentLength = Math.max(
-        String.valueOf(matrix.getA10()).length(),
-        String.valueOf(matrix.getA11()).length()
-    );
-    int vectorLength = Math.max(
-        String.valueOf(translation.getX0()).length(),
-        String.valueOf(translation.getX1()).length()
-    );
-    return "|%s, %s|%s|\n|%s, %s|%s|".formatted(
-        StringUtils.padLeft(matrix.getA00() + "", firstSegmentLength),
-        StringUtils.padLeft(matrix.getA01() + "", secondSegmentLength),
-        StringUtils.padLeft(translation.getX0() + "", vectorLength),
-        StringUtils.padLeft(matrix.getA10() + "", firstSegmentLength),
-        StringUtils.padLeft(matrix.getA11() + "", secondSegmentLength),
-        StringUtils.padLeft(translation.getX1() + "", vectorLength)
-    );
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this)
+        .field("matrix", matrix)
+        .field("translation", translation)
+        .build();
   }
 }

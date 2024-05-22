@@ -1,31 +1,38 @@
 package edu.ntnu.stud.model;
 
 import edu.ntnu.stud.model.math.TransformationGroup;
+import edu.ntnu.stud.model.math.Vector;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * A class containing all needed information concerning the running and displaying of a fractal
- * display.
+ * A class with the function as a hub for containing all needed information concerning the running
+ * and displaying of a fractal.
  *
  * @author Leif Mørstad
- * @version 1.2
+ * @version 2.0
  */
-public abstract class ChaosGame {
+public class ChaosGame {
 
+  /**
+   * The scalar for the number of iterations to perform.
+   */
+  private static final int ITERATION_SCALAR = 1;
   /**
    * The canvas on which the fractal is drawn.
    */
   private final @NotNull ChaosGameCanvas canvas;
-
   /**
    * The original description of the chaos game.
    */
   private final @NotNull ChaosGameDescription description;
-
   /**
    * The transformations used to generate the fractal.
    */
   private final @NotNull TransformationGroup transformations;
+  /**
+   * The current point where the fractal is drawn from. Starts at (0, 0)
+   */
+  private @NotNull Vector currentPoint = new Vector(0, 0);
 
   /**
    * Creates a new instance with the given width, height and description.
@@ -50,17 +57,71 @@ public abstract class ChaosGame {
     );
   }
 
+  /**
+   * Returns the transformations used to generate the fractal.
+   *
+   * @return the transformations
+   */
   public @NotNull TransformationGroup getTransformations() {
     return transformations;
   }
 
+  /**
+   * Returns the canvas on which the fractal is drawn.
+   *
+   * @return the canvas
+   */
   public @NotNull ChaosGameCanvas getCanvas() {
     return canvas;
   }
 
+  /**
+   * Returns the original description of the chaos game.
+   *
+   * @return the description
+   */
   public @NotNull ChaosGameDescription getDescription() {
     return description;
   }
 
-  public abstract void render();
+  /**
+   * Iterates the transformations randomly a given number of times, and updates the canvas.
+   *
+   * @param steps the number of iterations to perform
+   */
+  public void iterate(int steps) {
+    for (int i = 0; i < steps; i++) {
+      iterate();
+    }
+  }
+
+  /**
+   * Returns the number of iterations the chaos game should perform.
+   *
+   * @return the number of iterations
+   */
+  private int getIterations() {
+    return Math.min(
+        1000000,
+        getCanvas().getWidth() * getCanvas().getHeight() * ITERATION_SCALAR
+    );
+  }
+
+  /**
+   * Iterates the point once, by randomly transforming the point, and draws it on the canvas.
+   */
+  public void iterate() {
+    currentPoint = getTransformations().transform(currentPoint);
+    getCanvas().drawAtCoords(currentPoint);
+  }
+
+  /**
+   * Renders the fractal on the canvas by iterating the amount of times given by
+   * {@link #getIterations()}.
+   */
+  public void render() {
+    getCanvas().clear();
+    currentPoint = new Vector(0, 0);
+    iterate(getIterations());
+  }
 }

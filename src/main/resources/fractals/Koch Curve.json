@@ -1,0 +1,64 @@
+{
+  "minCoords": {
+    "x0": -320.0,
+    "x1": -320.0
+  },
+  "maxCoords": {
+    "x0": 320.0,
+    "x1": 320.0
+  },
+  "transformations": [
+    {
+      "matrix": {
+        "a00": 0.3333,
+        "a01": 0.0,
+        "a10": 0.0,
+        "a11": 0.3333
+      },
+      "translation": {
+        "x0": -200.0,
+        "x1": 0.0
+      },
+      "type": "AffineTransformation"
+    },
+    {
+      "matrix": {
+        "a00": 0.3333,
+        "a01": 0.0,
+        "a10": 0.0,
+        "a11": 0.3333
+      },
+      "translation": {
+        "x0": 200.0,
+        "x1": 0.0
+      },
+      "type": "AffineTransformation"
+    },
+    {
+      "matrix": {
+        "a00": 0.16667,
+        "a01": -0.288675,
+        "a10": 0.288675,
+        "a11": 0.16667
+      },
+      "translation": {
+        "x0": -50.0,
+        "x1": 86.6024
+      },
+      "type": "AffineTransformation"
+    },
+    {
+      "matrix": {
+        "a00": 0.16667,
+        "a01": 0.288675,
+        "a10": -0.288675,
+        "a11": 0.16667
+      },
+      "translation": {
+        "x0": 50.0,
+        "x1": 86.6024
+      },
+      "type": "AffineTransformation"
+    }
+  ]
+}

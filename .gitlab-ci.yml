@@ -25,3 +25,4 @@ package:
     - echo "Packaging the application"
     - mvn package
     - echo "Package finished"
+

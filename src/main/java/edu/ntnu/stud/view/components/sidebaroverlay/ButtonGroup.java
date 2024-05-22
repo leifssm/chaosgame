@@ -1,6 +1,7 @@
 package edu.ntnu.stud.view.components.sidebaroverlay;
 
 import edu.ntnu.stud.view.components.ComponentUtils;
+import edu.ntnu.stud.view.components.StandardButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
@@ -20,12 +21,12 @@ public class ButtonGroup extends HBox implements ComponentUtils {
    *
    * @param buttons the buttons to add
    */
-  public ButtonGroup(@NotNull ActionButton @NotNull ... buttons) {
+  public ButtonGroup(@NotNull StandardButton @NotNull ... buttons) {
     super();
     useStylesheet("components/button-group");
     addCssClasses(buttonWrapper, "button-wrapper");
 
-    for (ActionButton button : buttons) {
+    for (StandardButton button : buttons) {
       addButton(button);
     }
     getChildren().add(buttonWrapper);
@@ -36,7 +37,8 @@ public class ButtonGroup extends HBox implements ComponentUtils {
    *
    * @param button the button to add
    */
-  public void addButton(@NotNull ActionButton button) {
+  public @NotNull ButtonGroup addButton(@NotNull StandardButton button) {
     buttonWrapper.getChildren().addFirst(button);
+    return this;
   }
 }

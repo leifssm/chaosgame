@@ -57,11 +57,10 @@ public class FractalPane extends ImageView {
     render();
   }
 
-  public void changeZoom() {
-    //chaosGame.getCanvas().setView();
-  }
-
-  private void render() {
+  /**
+   * Renders the chaos game to the pane.
+   */
+  public void render() {
     Platform.runLater(() -> {
       // https://stackoverflow.com/questions/8935367/convert-a-2d-array-into-a-1d-array
       int[] flattened = Stream.of(chaosGame.getCanvas().getCanvas())
@@ -83,6 +82,12 @@ public class FractalPane extends ImageView {
     });
   }
 
+  /**
+   * Maps the number of times a point has been accessed to a color.
+   *
+   * @param color the number of times a point has been accessed
+   * @return the color to map to as a hex
+   */
   private int mapColor(int color) {
     if (color < 0) {
       return colors[0];

@@ -22,12 +22,17 @@ public class LoaderOverlay extends ProgressIndicator {
    */
   public LoaderOverlay() {
     super();
-    setMaxSize(100, 100);
+    setMaxSize(50, 50);
     StackPane.setAlignment(this, Pos.BOTTOM_LEFT);
     setProgress(-1);
     setLoading(false);
   }
 
+  /**
+   * Shows/hides the loading spinner.
+   *
+   * @param loading whether to show the spinner
+   */
   private void setLoading(boolean loading) {
     setVisible(loading);
   }

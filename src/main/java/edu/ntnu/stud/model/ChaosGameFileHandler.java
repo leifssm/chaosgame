@@ -2,35 +2,38 @@ package edu.ntnu.stud.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import edu.ntnu.stud.model.math.*;
-import edu.ntnu.stud.utils.FileHandler;
+import edu.ntnu.stud.utils.ResourceHandler;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InvalidObjectException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
- * This class is responsible for reading and writing chaos game descriptions to and from files.
+ * This class is responsible for handling files related to JSON parsing.
  *
  * @author Leif Mørstad
  * @version 1.2
  * @see ChaosGameDescription
  */
 public class ChaosGameFileHandler {
+  private static final Logger LOGGER = Logger.getLogger(ChaosGameFileHandler.class.getName());
 
   public static @NotNull File @NotNull [] getAllFractals() {
-    File fractalFolder = FileHandler.getFile("fractals/");
+    File fractalFolder = ResourceHandler.getFile("fractals/");
     try {
       var ignored = fractalFolder.createNewFile();
     } catch (Exception e) {
-      System.out.println("Could not create fractals folder");
+      LOGGER.severe("Could not create fractals folder");
       return new File[0];
     }
 
     File[] files = fractalFolder.listFiles((dir, name) -> name.endsWith(".json"));
     if (files == null || files.length == 0) {
-      System.out.println("No files found");
+      LOGGER.severe("No files found");
       return new File[0];
     }
     return files;
@@ -47,16 +50,21 @@ public class ChaosGameFileHandler {
   public static @NotNull ChaosGameDescription readFromFile(
       @NotNull String filename
   ) throws InvalidObjectException, FileNotFoundException {
-    JsonNode tree = FileHandler.readFile("fractals/" + filename);
+    JsonNode tree = ResourceHandler.readFile("fractals/" + filename);
     if (tree == null) {
+      LOGGER.severe("File not found: " + filename);
       throw new FileNotFoundException("File not found: " + filename);
     }
     return readChaosGame(tree);
   }
 
   public static @NotNull ChaosGameDescription readChaosGame(
-      @NotNull JsonNode node
+      @Nullable JsonNode node
   ) throws InvalidObjectException {
+    if (node == null) {
+      LOGGER.severe("Invalid chaos game description");
+      throw new InvalidObjectException("Invalid chaos game description");
+    }
     var minCoords = readVector(node.get("minCoords"));
     var maxCoords = readVector(node.get("maxCoords"));
     var transformations = readTransformations(node.get("transformations"));
@@ -68,38 +76,39 @@ public class ChaosGameFileHandler {
     );
   }
 
-  private static void requireFields(
-      @NotNull JsonNode node,
-      @NotNull String @NotNull ... fields
-  ) throws InvalidObjectException {
-    for (String field : fields) {
-      if (!node.has(field)) {
-        throw new InvalidObjectException("Missing field: " + field);
-      }
-    }
-  }
-
   private static double getValidDouble(
       @NotNull String fieldName,
-      @NotNull JsonNode node
+      @Nullable JsonNode node
   ) throws InvalidObjectException {
-    requireFields(node, fieldName);
+    if (node == null) {
+      LOGGER.severe("Missing field: " + fieldName);
+      throw new InvalidObjectException("Missing field: " + fieldName);
+    }
     double value = node.get(fieldName).asDouble();
     if (Double.isNaN(value)) {
+      LOGGER.severe("Invalid value for field: " + fieldName);
       throw new InvalidObjectException("Invalid value for field: " + fieldName);
     }
     return value;
   }
 
-  private static @NotNull Vector readVector(@NotNull JsonNode node) throws InvalidObjectException {
+  private static @NotNull Vector readVector(@Nullable JsonNode node) throws InvalidObjectException {
+    if (node == null) {
+      LOGGER.severe("Missing vector field");
+      throw new InvalidObjectException("Missing vector field");
+    }
     double x0 = getValidDouble("x0", node);
     double x1 = getValidDouble("x1", node);
     return new Vector(x0, x1);
   }
 
   private static @NotNull SimpleMatrix readMatrix(
-      @NotNull JsonNode node
+      @Nullable JsonNode node
   ) throws InvalidObjectException {
+    if (node == null) {
+      LOGGER.severe("Missing matrix field");
+      throw new InvalidObjectException("Missing matrix field");
+    }
     double a00 = getValidDouble("a00", node);
     double a01 = getValidDouble("a01", node);
     double a10 = getValidDouble("a10", node);
@@ -108,15 +117,23 @@ public class ChaosGameFileHandler {
   }
 
   private static @NotNull TransformationGroup readTransformations(
-      @NotNull JsonNode node
+      @Nullable JsonNode node
   ) throws InvalidObjectException {
+    if (node == null) {
+      LOGGER.severe("Missing transformations field");
+      throw new InvalidObjectException("Missing transformations field");
+    }
     if (!node.isArray()) {
+      LOGGER.severe("Transformations must be an array");
       throw new InvalidObjectException("Transformations must be an array");
     }
     ArrayList<Transform2D> transformations = new ArrayList<>();
 
     for (JsonNode transformation : node) {
-      requireFields(transformation, "type");
+      if (!transformation.has("type")) {
+        LOGGER.severe("All transformations must have a 'type' field");
+        throw new InvalidObjectException("All transformations must have a 'type' field");
+      }
       String type = transformation.get("type").asText();
       switch (type) {
         case "AffineTransformation" -> handleAffineTransformation(transformation, transformations);
@@ -128,18 +145,26 @@ public class ChaosGameFileHandler {
   }
 
   private static void handleAffineTransformation(
-      @NotNull JsonNode transformation,
+      @Nullable JsonNode transformation,
       @NotNull ArrayList<Transform2D> transformations
   ) throws InvalidObjectException {
+    if (transformation == null) {
+      LOGGER.severe("Missing affine transformation");
+      throw new InvalidObjectException("Missing affine transformation");
+    }
     SimpleMatrix matrix = readMatrix(transformation.get("matrix"));
     Vector translation = readVector(transformation.get("translation"));
     transformations.add(new AffineTransformation(matrix, translation));
   }
 
   private static void handleJuliaTransformation(
-      @NotNull JsonNode transformation,
+      @Nullable JsonNode transformation,
       @NotNull ArrayList<Transform2D> transformations
   ) throws InvalidObjectException {
+    if (transformation == null) {
+      LOGGER.severe("Missing julia transformation");
+      throw new InvalidObjectException("Missing julia transformation");
+    }
     ComplexNumber complexNumber = ComplexNumber.fromVector(
         readVector(transformation.get("complexNumber"))
     );
@@ -164,8 +189,11 @@ public class ChaosGameFileHandler {
    * @param filename    the name of the file to write to
    * @param description the chaos game description to write to the file
    */
-  public static void writeToFile(String filename, ChaosGameDescription description) {
-    FileHandler.writeToFile(
+  public static void writeToFile(
+      @NotNull String filename,
+      @NotNull ChaosGameDescription description
+  ) {
+    ResourceHandler.writeToFile(
         "fractals/" + filename,
         description
     );

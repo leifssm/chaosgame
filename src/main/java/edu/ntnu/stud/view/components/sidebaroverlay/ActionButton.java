@@ -1,8 +1,7 @@
 package edu.ntnu.stud.view.components.sidebaroverlay;
 
-import edu.ntnu.stud.view.components.ComponentUtils;
-import edu.ntnu.stud.view.utils.IconUtils;
-import javafx.scene.control.Button;
+import edu.ntnu.stud.view.components.IconFactory;
+import edu.ntnu.stud.view.components.StandardButton;
 import javafx.scene.control.Tooltip;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,12 +9,12 @@ import org.jetbrains.annotations.NotNull;
  * A simple button with an icon and a description that shows when hovered.
  *
  * @author Leif Mørstad
- * @version 0.2
+ * @version 1.0
  * @see <a href="https://kordamp.org/ikonli/cheat-sheet-materialdesign.html">
  * Material Design Icons
  * </a>
  */
-public class ActionButton extends Button implements ComponentUtils {
+public class ActionButton extends StandardButton {
 
   /**
    * Creates a new instance with the given icon, description and action.
@@ -27,22 +26,9 @@ public class ActionButton extends Button implements ComponentUtils {
    * Material Design Icons</a>
    */
   public ActionButton(@NotNull String icon, @NotNull String description, @NotNull Runnable action) {
-    super();
+    super(description, action);
     setTooltip(new Tooltip(description));
-    setGraphic(IconUtils.createIcon(icon));
-    setOnAction(event -> action.run());
+    setGraphic(IconFactory.create(icon));
     addCssClasses("action-button");
-  }
-
-  /**
-   * Sets the type of the button.
-   *
-   * @param type the new type of the button
-   * @return this instance
-   */
-  public ActionButton setType(@NotNull String type) {
-    addCssClasses(type);
-    removeCssClasses("primary"); // TODO add all types (or use enum)
-    return this;
   }
 }

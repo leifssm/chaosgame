@@ -1,0 +1,116 @@
+{
+  "minCoords": {
+    "x0": -250.0,
+    "x1": -250.0
+  },
+  "maxCoords": {
+    "x0": 250.0,
+    "x1": 250.0
+  },
+  "transformations": [
+    {
+      "matrix": {
+        "a00": 0.3333,
+        "a01": 0.0,
+        "a10": 0.0,
+        "a11": 0.3333
+      },
+      "translation": {
+        "x0": 0.0,
+        "x1": 150.0
+      },
+      "type": "AffineTransformation"
+    },
+    {
+      "matrix": {
+        "a00": 0.3333,
+        "a01": 0.0,
+        "a10": 0.0,
+        "a11": 0.3333
+      },
+      "translation": {
+        "x0": 0.0,
+        "x1": -150.0
+      },
+      "type": "AffineTransformation"
+    },
+    {
+      "matrix": {
+        "a00": 0.3333,
+        "a01": 0.0,
+        "a10": 0.0,
+        "a11": 0.3333
+      },
+      "translation": {
+        "x0": 150.0,
+        "x1": 0.0
+      },
+      "type": "AffineTransformation"
+    },
+    {
+      "matrix": {
+        "a00": 0.3333,
+        "a01": 0.0,
+        "a10": 0.0,
+        "a11": 0.3333
+      },
+      "translation": {
+        "x0": -150.0,
+        "x1": 0.0
+      },
+      "type": "AffineTransformation"
+    },
+    {
+      "matrix": {
+        "a00": 0.3333,
+        "a01": 0.0,
+        "a10": 0.0,
+        "a11": 0.3333
+      },
+      "translation": {
+        "x0": 150.0,
+        "x1": -150.0
+      },
+      "type": "AffineTransformation"
+    },
+    {
+      "matrix": {
+        "a00": 0.3333,
+        "a01": 0.0,
+        "a10": 0.0,
+        "a11": 0.3333
+      },
+      "translation": {
+        "x0": -150.0,
+        "x1": 150.0
+      },
+      "type": "AffineTransformation"
+    },
+    {
+      "matrix": {
+        "a00": 0.3333,
+        "a01": 0.0,
+        "a10": 0.0,
+        "a11": 0.3333
+      },
+      "translation": {
+        "x0": 150.0,
+        "x1": 150.0
+      },
+      "type": "AffineTransformation"
+    },
+    {
+      "matrix": {
+        "a00": 0.3333,
+        "a01": 0.0,
+        "a10": 0.0,
+        "a11": 0.3333
+      },
+      "translation": {
+        "x0": -150.0,
+        "x1": -150.0
+      },
+      "type": "AffineTransformation"
+    }
+  ]
+}
