@@ -43,16 +43,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <version>3.4.1</version>
       </plugin>
-      <!--   Allows the user to use mvn exec:java to run the cli   -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>3.2.0</version>
-        <configuration>
-          <!-- The CLI class to run -->
-          <mainClass>edu.ntnu.stud.cli.TextInterface</mainClass>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
   <dependencies>
