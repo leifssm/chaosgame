@@ -43,7 +43,7 @@ public class StateManager {
    */
   public static @NotNull StateManager importState() {
     StateManager state = new StateManager();
-    JsonNode json = FileHandler.readFile("state.json");
+    JsonNode json = ResourceHandler.readFile("state.json");
 
     try {
       if (json == null) {
@@ -62,7 +62,7 @@ public class StateManager {
   }
 
   public static void exportState(@NotNull StateManager state) {
-    FileHandler.writeToFile("state.json", state);
+    ResourceHandler.writeToFile("state.json", state);
     LOGGER.info("Successfully saved state to file.");
   }
 

@@ -2,7 +2,7 @@ package edu.ntnu.stud.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import edu.ntnu.stud.model.math.*;
-import edu.ntnu.stud.utils.FileHandler;
+import edu.ntnu.stud.utils.ResourceHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
- * This class is responsible for reading and writing chaos game descriptions to and from files.
+ * This class is responsible for handling files related to JSON parsing.
  *
  * @author Leif Mørstad
  * @version 1.2
@@ -23,7 +23,7 @@ public class ChaosGameFileHandler {
   private static final Logger LOGGER = Logger.getLogger(ChaosGameFileHandler.class.getName());
 
   public static @NotNull File @NotNull [] getAllFractals() {
-    File fractalFolder = FileHandler.getFile("fractals/");
+    File fractalFolder = ResourceHandler.getFile("fractals/");
     try {
       var ignored = fractalFolder.createNewFile();
     } catch (Exception e) {
@@ -50,7 +50,7 @@ public class ChaosGameFileHandler {
   public static @NotNull ChaosGameDescription readFromFile(
       @NotNull String filename
   ) throws InvalidObjectException, FileNotFoundException {
-    JsonNode tree = FileHandler.readFile("fractals/" + filename);
+    JsonNode tree = ResourceHandler.readFile("fractals/" + filename);
     if (tree == null) {
       LOGGER.severe("File not found: " + filename);
       throw new FileNotFoundException("File not found: " + filename);
@@ -193,7 +193,7 @@ public class ChaosGameFileHandler {
       @NotNull String filename,
       @NotNull ChaosGameDescription description
   ) {
-    FileHandler.writeToFile(
+    ResourceHandler.writeToFile(
         "fractals/" + filename,
         description
     );

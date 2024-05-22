@@ -15,13 +15,13 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 /**
- * Utility class for handling files and filenames.
+ * Utility class for handling resources and resource file placement.
  *
  * @author Leif Mørstad
- * @version 2.0
+ * @version 3.0
  */
-public class FileHandler {
-  private static final Logger LOGGER = Logger.getLogger(FileHandler.class.getName());
+public class ResourceHandler {
+  private static final Logger LOGGER = Logger.getLogger(ResourceHandler.class.getName());
 
   /**
    * Gets a file from resources/*.

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import edu.ntnu.stud.model.ChaosGameDescription;
 import edu.ntnu.stud.model.ChaosGameDescriptionFactory;
 import edu.ntnu.stud.model.ChaosGameFileHandler;
-import edu.ntnu.stud.utils.FileHandler;
+import edu.ntnu.stud.utils.ResourceHandler;
 import edu.ntnu.stud.utils.StateManager;
 import edu.ntnu.stud.view.components.prompt.prompts.ErrorDialogFactory;
 import edu.ntnu.stud.view.components.prompt.prompts.TransformationAmountDialog;
@@ -105,7 +105,7 @@ public class SidebarController {
       ErrorDialogFactory.show("Could not open file.");
       return;
     }
-    JsonNode node = FileHandler.readFile(selectedFile);
+    JsonNode node = ResourceHandler.readFile(selectedFile);
     if (node == null) {
       LOGGER.severe("Invalid JSON format.");
       ErrorDialogFactory.show("Invalid JSON format.");

@@ -1,6 +1,6 @@
 package edu.ntnu.stud.view.components;
 
-import edu.ntnu.stud.utils.FileHandler;
+import edu.ntnu.stud.utils.ResourceHandler;
 import javafx.scene.Parent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -53,7 +53,7 @@ public interface ComponentUtils {
       String @Nullable ... classes
   ) {
     checkThis();
-    String filePath = FileHandler.getStylesheet(stylesheet);
+    String filePath = ResourceHandler.getStylesheet(stylesheet);
     if (filePath == null) {
       return;
     }
