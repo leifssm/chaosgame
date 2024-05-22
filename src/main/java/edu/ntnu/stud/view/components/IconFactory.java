@@ -1,4 +1,4 @@
-package edu.ntnu.stud.view.utils;
+package edu.ntnu.stud.view.components;
 
 import javafx.scene.paint.Paint;
 import org.jetbrains.annotations.NotNull;

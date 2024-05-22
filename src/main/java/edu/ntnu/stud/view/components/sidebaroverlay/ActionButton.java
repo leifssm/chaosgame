@@ -1,7 +1,7 @@
 package edu.ntnu.stud.view.components.sidebaroverlay;
 
+import edu.ntnu.stud.view.components.IconFactory;
 import edu.ntnu.stud.view.components.StandardButton;
-import edu.ntnu.stud.view.utils.IconFactory;
 import javafx.scene.control.Tooltip;
 import org.jetbrains.annotations.NotNull;
 
